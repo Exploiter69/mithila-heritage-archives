@@ -1,11 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { EntryCard, Section, SectionTitle, SourceNote } from "@/components/archive-ui";
-import { art, authors, literature, music, proverbs } from "@/data/archive";
+import { wordOfTheDay } from "@/data/dictionary";
+import { heritage } from "@/data/heritage";
+import { literaryWorks } from "@/data/literature";
 
-const TITLE = "Mithila Digital Archive — Maithili Language, Letters & Heritage";
+const TITLE = "Mithila Digital Archive — मिथिला डिजिटल आर्काइव";
 const DESC =
-  "A sourced reference archive of Maithili literature, authors, lexicon, proverbs, art and music from the Mithila region.";
+  "A sourced archive of Mithila and the Maithili language: literature, music, Madhubani art, heritage sites and festivals, and a living Maithili dictionary.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -18,201 +20,189 @@ export const Route = createFileRoute("/")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: Home,
+  component: HomePage,
 });
 
-const AREAS = [
+const QUICK_CARDS = [
   {
     to: "/literature" as const,
     label: "Literature",
-    mai: "साहित्य",
-    note: "From the Varṇa Ratnākara to the modern novel.",
-    count: literature.length,
-  },
-  {
-    to: "/authors" as const,
-    label: "Authors",
-    mai: "रचनाकार",
-    note: "Poets, editors and prose writers, with dates and sources.",
-    count: authors.length,
-  },
-  {
-    to: "/language" as const,
-    label: "Language",
-    mai: "भाषा",
-    note: "Script history, grammar sketch, honorific system.",
-    count: 4,
-  },
-  {
-    to: "/dictionary" as const,
-    label: "Dictionary",
-    mai: "शब्दकोश",
-    note: "Headwords with transliteration, gloss and attested usage.",
-    count: 12,
-  },
-  {
-    to: "/proverbs" as const,
-    label: "Proverbs",
-    mai: "लोकोक्ति",
-    note: "Lokokti with literal and idiomatic readings.",
-    count: proverbs.length,
-  },
-  {
-    to: "/art-heritage" as const,
-    label: "Art & Heritage",
-    mai: "कला",
-    note: "Mithila painting, aripan, sikkī and painted architecture.",
-    count: art.length,
+    deva: "साहित्य",
+    blurb: "Vidyāpati, the Varṇa Ratnākara and modern prose, with translation.",
   },
   {
     to: "/music" as const,
     label: "Music",
-    mai: "संगीत",
-    note: "Life-cycle, devotional and seasonal song forms.",
-    count: music.length,
+    deva: "संगीत",
+    blurb: "Sohar, baṭgamanī, Chhaṭhī Maiyā songs and lokgīt, by occasion.",
   },
   {
-    to: "/about" as const,
-    label: "About & Sources",
-    mai: "स्रोत",
-    note: "Editorial method, attribution policy, references.",
-    count: 5,
+    to: "/art" as const,
+    label: "Art",
+    deva: "कला",
+    blurb: "Bharnī, Kachnī, Tāntrik and Godnā — technique, dyes and motifs.",
+  },
+  {
+    to: "/heritage" as const,
+    label: "Heritage",
+    deva: "धरोहर",
+    blurb: "Rajnagar, Simraungadh, Kapileshwar Nath, Chhath, Sāmā Chakevā.",
+  },
+  {
+    to: "/language" as const,
+    label: "Dictionary",
+    deva: "शब्दकोश",
+    blurb: "Search Maithili in Devanagari or Latin, with Hindi and English.",
   },
 ];
 
-function Home() {
-  const featured = literature[0]!;
+function HomePage() {
+  const word = wordOfTheDay();
+  const featured = literaryWorks.find((w) => w.slug === "bada-sukh-sar") ?? literaryWorks[0]!;
+  const tradition = heritage.find((h) => h.slug === "sama-chakeva") ?? heritage[0]!;
 
   return (
     <>
-      <section className="relative overflow-hidden border-b border-border">
-        <div className="aripan-field pointer-events-none absolute inset-0 opacity-40" aria-hidden />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/40 via-background/85 to-background" aria-hidden />
-        <div className="relative mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-32">
-          <p className="label-eyebrow text-terracotta">मिथिला · Maithili · est. v0.1</p>
-          <h1 className="mt-6 max-w-4xl text-[2.6rem] leading-[1.05] font-normal tracking-tight text-foreground md:text-6xl">
-            A reference archive for the language, letters and material culture
-            of Mithila.
+      <section className="aripan-field border-b border-border bg-secondary/40">
+        <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
+          <p className="label-eyebrow text-terracotta">Mithila Digital Archive · v0.1</p>
+          <h1 className="deva mt-5 max-w-4xl text-4xl leading-[1.35] text-foreground md:text-6xl md:leading-[1.3]">
+            मिथिलाक माटी, भाषा आ संस्कृति
           </h1>
-          <p className="deva mt-6 text-2xl text-terracotta md:text-3xl">
-            मिथिला डिजिटल अभिलेखागार
+          <p className="mt-7 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
+            A calm, sourced reference for the Mithila region and the Maithili
+            language — its literature and song, its painting and its places.
+            Every entry here names the edition, recording or attestation it
+            rests on, and says plainly where the record is oral.
           </p>
-          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            Maithili has a written record running back seven centuries and a
-            living oral tradition older than that. This archive collects both,
-            entry by entry, and shows you where each one came from — including
-            when the answer is only a household informant.
-          </p>
-          <div className="mt-10 flex flex-wrap gap-3">
+
+          <div className="mt-9 flex flex-wrap gap-3">
             <Link
               to="/literature"
-              className="rounded-sm bg-terracotta px-5 py-2.5 font-sans text-sm text-primary-foreground transition-opacity hover:opacity-90"
+              className="inline-flex items-center rounded-sm bg-terracotta px-5 py-3 font-sans text-sm tracking-wide text-primary-foreground uppercase transition-opacity hover:opacity-90"
             >
-              Enter the archive
+              Explore Literature
             </Link>
             <Link
-              to="/about"
-              className="rounded-sm border border-border px-5 py-2.5 font-sans text-sm text-foreground transition-colors hover:border-gold"
+              to="/music"
+              className="inline-flex items-center rounded-sm border border-terracotta px-5 py-3 font-sans text-sm tracking-wide text-terracotta uppercase transition-colors hover:bg-terracotta hover:text-primary-foreground"
             >
-              How entries are sourced
+              Listen to Music
             </Link>
           </div>
         </div>
       </section>
 
       <Section>
-        <SectionTitle eyebrow="Collections" title="Nine areas, one method" />
-        <div className="grid gap-px overflow-hidden rounded-sm border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
-          {AREAS.map((a) => (
-            <Link
-              key={a.to}
-              to={a.to}
-              className="group flex flex-col justify-between bg-card p-6 transition-colors hover:bg-accent/40"
-            >
-              <div>
-                <span className="deva block text-lg text-terracotta">{a.mai}</span>
-                <span className="mt-1 block text-xl tracking-tight text-foreground">
-                  {a.label}
-                </span>
-                <span className="mt-3 block font-sans text-sm leading-relaxed text-muted-foreground">
-                  {a.note}
-                </span>
+        <div className="grid gap-6 lg:grid-cols-[1fr_1.1fr]">
+          <EntryCard>
+            <p className="label-eyebrow text-terracotta">Word of the day · आजुक शब्द</p>
+            <p className="deva mt-4 text-4xl leading-snug text-foreground">{word.headword}</p>
+            <p className="mt-2 font-sans text-sm tracking-wide text-muted-foreground">
+              {word.transliteration} · {word.phonetic}
+            </p>
+            <dl className="mt-6 grid grid-cols-[auto_1fr] gap-x-4 gap-y-2">
+              <dt className="label-eyebrow pt-1 text-muted-foreground">हिन्दी</dt>
+              <dd className="deva text-lg text-foreground/90">{word.hindi}</dd>
+              <dt className="label-eyebrow pt-1 text-muted-foreground">English</dt>
+              <dd className="leading-relaxed text-foreground/90">{word.english}</dd>
+            </dl>
+            {word.examples[0] && (
+              <div className="mt-5 border-l-2 border-gold pl-4">
+                <p className="deva text-lg text-foreground">{word.examples[0].deva}</p>
+                <p className="mt-1 text-sm text-muted-foreground italic">
+                  {word.examples[0].english}
+                </p>
               </div>
-              <span className="label-eyebrow mt-6 text-muted-foreground/70">
-                {a.count} entries
-              </span>
-            </Link>
-          ))}
-        </div>
-      </Section>
-
-      <Section className="pt-0">
-        <SectionTitle
-          eyebrow="From the collection"
-          title="Featured text"
-          action={
+            )}
             <Link
-              to="/literature"
-              className="font-sans text-sm text-terracotta hover:underline"
+              to="/language"
+              hash={word.slug}
+              className="mt-6 inline-block font-sans text-xs tracking-wide text-terracotta uppercase hover:underline"
             >
-              All literature →
+              Open in the dictionary
             </Link>
-          }
-        />
-        <div className="grid gap-8 md:grid-cols-[1.1fr_1fr]">
-          <EntryCard className="bg-secondary/50">
-            <p className="label-eyebrow text-terracotta">{featured.period}</p>
-            <h3 className="mt-3 text-3xl tracking-tight text-foreground">
-              {featured.title}
-            </h3>
-            <p className="deva mt-1 text-xl text-muted-foreground">
-              {featured.titleMai}
-            </p>
-            <p className="mt-5 leading-relaxed text-muted-foreground">
-              {featured.summary}
-            </p>
-            <SourceNote source={featured.source} />
           </EntryCard>
 
-          {featured.excerpt && (
-            <figure className="flex flex-col justify-center rounded-sm border border-gold/50 bg-gold-soft/40 p-8">
-              <blockquote className="deva text-2xl leading-relaxed text-foreground">
-                {featured.excerpt.text}
-              </blockquote>
-              <figcaption className="mt-6 border-t border-gold/40 pt-4">
-                <p className="text-base leading-relaxed text-muted-foreground italic">
-                  {featured.excerpt.translation}
-                </p>
-                <p className="label-eyebrow mt-3 text-muted-foreground">
-                  Vidyāpati Ṭhākur · Padāvalī
-                </p>
-              </figcaption>
-            </figure>
-          )}
+          <EntryCard>
+            <p className="label-eyebrow text-terracotta">Featured work · विद्यापति</p>
+            <h2 className="deva mt-4 text-2xl leading-snug text-foreground">
+              {featured.titleDeva}
+            </h2>
+            <p className="mt-1 font-sans text-sm text-muted-foreground italic">
+              {featured.transliteration} · {featured.author}, {featured.era}
+            </p>
+            <p className="deva mt-6 text-xl leading-loose whitespace-pre-line text-foreground/90">
+              {featured.body[0]?.deva}
+            </p>
+            <p className="mt-4 border-l-2 border-gold pl-4 leading-relaxed text-muted-foreground">
+              {featured.body[0]?.translation}
+            </p>
+            <Link
+              to="/literature"
+              hash={featured.slug}
+              className="mt-6 inline-block font-sans text-xs tracking-wide text-terracotta uppercase hover:underline"
+            >
+              Read the full text
+            </Link>
+            <SourceNote source={featured.source} />
+          </EntryCard>
         </div>
       </Section>
 
       <Section className="pt-0">
-        <SectionTitle eyebrow="Everyday speech" title="A proverb, and what it carries" />
-        <ul className="grid gap-6 md:grid-cols-3">
-          {proverbs.slice(0, 3).map((p) => (
-            <li key={p.transliteration}>
-              <EntryCard className="h-full">
-                <p className="deva text-xl text-foreground">{p.text}</p>
-                <p className="mt-2 font-sans text-xs tracking-wide text-muted-foreground">
-                  {p.transliteration}
-                </p>
-                <p className="mt-4 text-sm leading-relaxed text-muted-foreground italic">
-                  {p.literal}
-                </p>
-                <p className="mt-3 text-sm leading-relaxed text-foreground/85">
-                  {p.meaning}
-                </p>
-                <SourceNote source={p.source} />
-              </EntryCard>
+        <SectionTitle eyebrow="Featured tradition" title={`${tradition.name} · ${tradition.nameDeva}`} />
+        <div className="grid gap-6 md:grid-cols-[1.2fr_1fr]">
+          <div>
+            <p className="text-lg leading-relaxed text-foreground/90">{tradition.summary}</p>
+            <ul className="mt-5 space-y-3">
+              {tradition.context.slice(0, 2).map((c) => (
+                <li key={c} className="border-l-2 border-gold pl-4 leading-relaxed text-muted-foreground">
+                  {c}
+                </li>
+              ))}
+            </ul>
+            <Link
+              to="/heritage"
+              hash={tradition.slug}
+              className="mt-6 inline-block font-sans text-xs tracking-wide text-terracotta uppercase hover:underline"
+            >
+              More on heritage
+            </Link>
+          </div>
+          <div className="rounded-sm border border-border bg-secondary/60 p-6">
+            <p className="label-eyebrow text-muted-foreground">When & where</p>
+            <p className="mt-2 leading-relaxed text-foreground/90">{tradition.period}</p>
+            <p className="mt-2 leading-relaxed text-muted-foreground">{tradition.place}</p>
+            <SourceNote source={tradition.source} />
+          </div>
+        </div>
+      </Section>
+
+      <Section className="pt-0">
+        <SectionTitle eyebrow="Collections" title="Enter the archive" />
+        <ul className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {QUICK_CARDS.map((c) => (
+            <li key={c.to}>
+              <Link to={c.to} className="block h-full">
+                <EntryCard className="h-full">
+                  <div className="flex items-baseline justify-between gap-3">
+                    <h3 className="text-xl tracking-tight text-foreground">{c.label}</h3>
+                    <span className="deva text-lg text-terracotta">{c.deva}</span>
+                  </div>
+                  <p className="mt-3 leading-relaxed text-muted-foreground">{c.blurb}</p>
+                </EntryCard>
+              </Link>
             </li>
           ))}
         </ul>
+
+        <p className="mt-10 font-sans text-sm text-muted-foreground">
+          Also in the archive:{" "}
+          <Link to="/authors" className="text-terracotta hover:underline">Authors</Link>,{" "}
+          <Link to="/proverbs" className="text-terracotta hover:underline">Proverbs</Link>, and{" "}
+          <Link to="/about" className="text-terracotta hover:underline">About & Sources</Link>.
+        </p>
       </Section>
     </>
   );
