@@ -10,33 +10,141 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as ArtHeritageRouteImport } from './routes/art-heritage'
+import { Route as AuthorsRouteImport } from './routes/authors'
+import { Route as DictionaryRouteImport } from './routes/dictionary'
+import { Route as LanguageRouteImport } from './routes/language'
+import { Route as LiteratureRouteImport } from './routes/literature'
+import { Route as MusicRouteImport } from './routes/music'
+import { Route as ProverbsRouteImport } from './routes/proverbs'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArtHeritageRoute = ArtHeritageRouteImport.update({
+  id: '/art-heritage',
+  path: '/art-heritage',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthorsRoute = AuthorsRouteImport.update({
+  id: '/authors',
+  path: '/authors',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DictionaryRoute = DictionaryRouteImport.update({
+  id: '/dictionary',
+  path: '/dictionary',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LanguageRoute = LanguageRouteImport.update({
+  id: '/language',
+  path: '/language',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LiteratureRoute = LiteratureRouteImport.update({
+  id: '/literature',
+  path: '/literature',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MusicRoute = MusicRouteImport.update({
+  id: '/music',
+  path: '/music',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProverbsRoute = ProverbsRouteImport.update({
+  id: '/proverbs',
+  path: '/proverbs',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/art-heritage': typeof ArtHeritageRoute
+  '/authors': typeof AuthorsRoute
+  '/dictionary': typeof DictionaryRoute
+  '/language': typeof LanguageRoute
+  '/literature': typeof LiteratureRoute
+  '/music': typeof MusicRoute
+  '/proverbs': typeof ProverbsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/art-heritage': typeof ArtHeritageRoute
+  '/authors': typeof AuthorsRoute
+  '/dictionary': typeof DictionaryRoute
+  '/language': typeof LanguageRoute
+  '/literature': typeof LiteratureRoute
+  '/music': typeof MusicRoute
+  '/proverbs': typeof ProverbsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/art-heritage': typeof ArtHeritageRoute
+  '/authors': typeof AuthorsRoute
+  '/dictionary': typeof DictionaryRoute
+  '/language': typeof LanguageRoute
+  '/literature': typeof LiteratureRoute
+  '/music': typeof MusicRoute
+  '/proverbs': typeof ProverbsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/art-heritage'
+    | '/authors'
+    | '/dictionary'
+    | '/language'
+    | '/literature'
+    | '/music'
+    | '/proverbs'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/art-heritage'
+    | '/authors'
+    | '/dictionary'
+    | '/language'
+    | '/literature'
+    | '/music'
+    | '/proverbs'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/art-heritage'
+    | '/authors'
+    | '/dictionary'
+    | '/language'
+    | '/literature'
+    | '/music'
+    | '/proverbs'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  ArtHeritageRoute: typeof ArtHeritageRoute
+  AuthorsRoute: typeof AuthorsRoute
+  DictionaryRoute: typeof DictionaryRoute
+  LanguageRoute: typeof LanguageRoute
+  LiteratureRoute: typeof LiteratureRoute
+  MusicRoute: typeof MusicRoute
+  ProverbsRoute: typeof ProverbsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +156,75 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/art-heritage': {
+      id: '/art-heritage'
+      path: '/art-heritage'
+      fullPath: '/art-heritage'
+      preLoaderRoute: typeof ArtHeritageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/authors': {
+      id: '/authors'
+      path: '/authors'
+      fullPath: '/authors'
+      preLoaderRoute: typeof AuthorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dictionary': {
+      id: '/dictionary'
+      path: '/dictionary'
+      fullPath: '/dictionary'
+      preLoaderRoute: typeof DictionaryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/language': {
+      id: '/language'
+      path: '/language'
+      fullPath: '/language'
+      preLoaderRoute: typeof LanguageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/literature': {
+      id: '/literature'
+      path: '/literature'
+      fullPath: '/literature'
+      preLoaderRoute: typeof LiteratureRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/music': {
+      id: '/music'
+      path: '/music'
+      fullPath: '/music'
+      preLoaderRoute: typeof MusicRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/proverbs': {
+      id: '/proverbs'
+      path: '/proverbs'
+      fullPath: '/proverbs'
+      preLoaderRoute: typeof ProverbsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  ArtHeritageRoute: ArtHeritageRoute,
+  AuthorsRoute: AuthorsRoute,
+  DictionaryRoute: DictionaryRoute,
+  LanguageRoute: LanguageRoute,
+  LiteratureRoute: LiteratureRoute,
+  MusicRoute: MusicRoute,
+  ProverbsRoute: ProverbsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
