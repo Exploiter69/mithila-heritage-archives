@@ -1,13 +1,13 @@
 import { Link } from "@tanstack/react-router";
 
-import { NAV } from "./site-header";
+import { NAV, SECONDARY_NAV } from "./site-header";
 
 export function SiteFooter() {
   return (
     <footer className="mt-24 border-t border-border bg-secondary/60">
       <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 md:grid-cols-[1.4fr_1fr_1fr] md:px-8">
         <div>
-          <p className="deva text-xl text-terracotta">मिथिला डिजिटल अभिलेखागार</p>
+          <p className="deva text-xl text-terracotta">मिथिला डिजिटल आर्काइव</p>
           <p className="mt-3 max-w-sm text-sm leading-relaxed text-muted-foreground">
             A reference archive of Maithili language, letters and material
             culture. Every entry carries its source; entries resting on oral
@@ -16,9 +16,9 @@ export function SiteFooter() {
         </div>
 
         <nav aria-label="Footer">
-          <p className="label-eyebrow text-muted-foreground">Sections</p>
+          <p className="label-eyebrow text-muted-foreground">Collections</p>
           <ul className="mt-4 space-y-2">
-            {NAV.slice(1, 6).map((item) => (
+            {NAV.map((item) => (
               <li key={item.to}>
                 <Link
                   to={item.to}
@@ -34,7 +34,7 @@ export function SiteFooter() {
         <nav aria-label="Footer secondary">
           <p className="label-eyebrow text-muted-foreground">More</p>
           <ul className="mt-4 space-y-2">
-            {NAV.slice(6).map((item) => (
+            {SECONDARY_NAV.map((item) => (
               <li key={item.to}>
                 <Link
                   to={item.to}
