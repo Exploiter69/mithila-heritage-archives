@@ -13,6 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "../components/site-header";
 import { SiteFooter } from "../components/site-footer";
+import { PlayerProvider } from "../components/player";
 
 
 function NotFoundComponent() {
@@ -130,6 +131,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <PlayerProvider>
       <div className="flex min-h-screen flex-col">
         <SiteHeader />
         <main className="flex-1">
@@ -138,6 +140,7 @@ function RootComponent() {
         </main>
         <SiteFooter />
       </div>
+      </PlayerProvider>
     </QueryClientProvider>
   );
 }

@@ -11,9 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
-import { Route as ArtHeritageRouteImport } from './routes/art-heritage'
+import { Route as ArtRouteImport } from './routes/art'
 import { Route as AuthorsRouteImport } from './routes/authors'
-import { Route as DictionaryRouteImport } from './routes/dictionary'
+import { Route as HeritageRouteImport } from './routes/heritage'
 import { Route as LanguageRouteImport } from './routes/language'
 import { Route as LiteratureRouteImport } from './routes/literature'
 import { Route as MusicRouteImport } from './routes/music'
@@ -29,9 +29,9 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ArtHeritageRoute = ArtHeritageRouteImport.update({
-  id: '/art-heritage',
-  path: '/art-heritage',
+const ArtRoute = ArtRouteImport.update({
+  id: '/art',
+  path: '/art',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthorsRoute = AuthorsRouteImport.update({
@@ -39,9 +39,9 @@ const AuthorsRoute = AuthorsRouteImport.update({
   path: '/authors',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DictionaryRoute = DictionaryRouteImport.update({
-  id: '/dictionary',
-  path: '/dictionary',
+const HeritageRoute = HeritageRouteImport.update({
+  id: '/heritage',
+  path: '/heritage',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LanguageRoute = LanguageRouteImport.update({
@@ -68,9 +68,9 @@ const ProverbsRoute = ProverbsRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/art-heritage': typeof ArtHeritageRoute
+  '/art': typeof ArtRoute
   '/authors': typeof AuthorsRoute
-  '/dictionary': typeof DictionaryRoute
+  '/heritage': typeof HeritageRoute
   '/language': typeof LanguageRoute
   '/literature': typeof LiteratureRoute
   '/music': typeof MusicRoute
@@ -79,9 +79,9 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/art-heritage': typeof ArtHeritageRoute
+  '/art': typeof ArtRoute
   '/authors': typeof AuthorsRoute
-  '/dictionary': typeof DictionaryRoute
+  '/heritage': typeof HeritageRoute
   '/language': typeof LanguageRoute
   '/literature': typeof LiteratureRoute
   '/music': typeof MusicRoute
@@ -91,9 +91,9 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/art-heritage': typeof ArtHeritageRoute
+  '/art': typeof ArtRoute
   '/authors': typeof AuthorsRoute
-  '/dictionary': typeof DictionaryRoute
+  '/heritage': typeof HeritageRoute
   '/language': typeof LanguageRoute
   '/literature': typeof LiteratureRoute
   '/music': typeof MusicRoute
@@ -104,9 +104,9 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
-    | '/art-heritage'
+    | '/art'
     | '/authors'
-    | '/dictionary'
+    | '/heritage'
     | '/language'
     | '/literature'
     | '/music'
@@ -115,9 +115,9 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
-    | '/art-heritage'
+    | '/art'
     | '/authors'
-    | '/dictionary'
+    | '/heritage'
     | '/language'
     | '/literature'
     | '/music'
@@ -126,9 +126,9 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
-    | '/art-heritage'
+    | '/art'
     | '/authors'
-    | '/dictionary'
+    | '/heritage'
     | '/language'
     | '/literature'
     | '/music'
@@ -138,9 +138,9 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  ArtHeritageRoute: typeof ArtHeritageRoute
+  ArtRoute: typeof ArtRoute
   AuthorsRoute: typeof AuthorsRoute
-  DictionaryRoute: typeof DictionaryRoute
+  HeritageRoute: typeof HeritageRoute
   LanguageRoute: typeof LanguageRoute
   LiteratureRoute: typeof LiteratureRoute
   MusicRoute: typeof MusicRoute
@@ -163,11 +163,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/art-heritage': {
-      id: '/art-heritage'
-      path: '/art-heritage'
-      fullPath: '/art-heritage'
-      preLoaderRoute: typeof ArtHeritageRouteImport
+    '/art': {
+      id: '/art'
+      path: '/art'
+      fullPath: '/art'
+      preLoaderRoute: typeof ArtRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/authors': {
@@ -177,11 +177,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthorsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/dictionary': {
-      id: '/dictionary'
-      path: '/dictionary'
-      fullPath: '/dictionary'
-      preLoaderRoute: typeof DictionaryRouteImport
+    '/heritage': {
+      id: '/heritage'
+      path: '/heritage'
+      fullPath: '/heritage'
+      preLoaderRoute: typeof HeritageRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/language': {
@@ -218,9 +218,9 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  ArtHeritageRoute: ArtHeritageRoute,
+  ArtRoute: ArtRoute,
   AuthorsRoute: AuthorsRoute,
-  DictionaryRoute: DictionaryRoute,
+  HeritageRoute: HeritageRoute,
   LanguageRoute: LanguageRoute,
   LiteratureRoute: LiteratureRoute,
   MusicRoute: MusicRoute,

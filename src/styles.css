@@ -58,24 +58,24 @@
 :root {
   --radius: 0.25rem;
 
-  --paper: oklch(0.968 0.012 88);
-  --paper-deep: oklch(0.935 0.018 84);
-  --ink: oklch(0.215 0.012 70);
-  --ink-soft: oklch(0.455 0.018 66);
-  --terracotta: oklch(0.508 0.132 39);
-  --terracotta-soft: oklch(0.905 0.033 45);
-  --gold: oklch(0.646 0.093 82);
-  --gold-soft: oklch(0.925 0.038 88);
-  --rule: oklch(0.865 0.017 82);
+  --paper: #FDFBF7;
+  --paper-deep: #F5F1E8;
+  --ink: #1E232A;
+  --ink-soft: #5C6470;
+  --terracotta: #A34828;
+  --terracotta-soft: #F6E6DE;
+  --gold: #D49B24;
+  --gold-soft: #FAF1DA;
+  --rule: #E8E3D9;
 
   --background: var(--paper);
   --foreground: var(--ink);
-  --card: oklch(0.988 0.007 90);
+  --card: #FFFFFF;
   --card-foreground: var(--ink);
-  --popover: oklch(0.988 0.007 90);
+  --popover: #FFFFFF;
   --popover-foreground: var(--ink);
   --primary: var(--terracotta);
-  --primary-foreground: oklch(0.985 0.008 90);
+  --primary-foreground: #FDFBF7;
   --secondary: var(--paper-deep);
   --secondary-foreground: var(--ink);
   --muted: var(--paper-deep);

@@ -1,20 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { Minus, Plus } from "lucide-react";
+import { useState } from "react";
 
-import {
-  EntryCard,
-  FilterBar,
-  MetaRow,
-  PageHeader,
-  Section,
-  SearchField,
-  SourceNote,
-} from "@/components/archive-ui";
-import { literature } from "@/data/archive";
+import { EntryCard, PageHeader, Section, SourceNote } from "@/components/archive-ui";
+import { FilterBar } from "@/components/archive-ui";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { literatureFilters, literaryWorks, type LiteraryWork } from "@/data/literature";
 
 const TITLE = "Maithili Literature — Mithila Digital Archive";
 const DESC =
-  "Seven centuries of Maithili writing: the Varṇa Ratnākara, Vidyāpati's Padāvalī, kīrtaniyā drama, and modern prose — each entry with its edition and source.";
+  "Vidyāpati's padāvalī, the Varṇa Ratnākara and modern Maithili prose — poetry, story and classical texts with translation, author notes and sources.";
 
 export const Route = createFileRoute("/literature")({
   head: () => ({
@@ -31,98 +26,145 @@ export const Route = createFileRoute("/literature")({
 });
 
 function LiteraturePage() {
-  const [q, setQ] = useState("");
-  const [form, setForm] = useState("All forms");
+  const [form, setForm] = useState<string>("All");
+  const [reading, setReading] = useState<LiteraryWork | null>(null);
+  const [size, setSize] = useState(1.25); // rem
 
-  const forms = useMemo(
-    () => ["All forms", ...Array.from(new Set(literature.map((w) => w.form)))],
-    [],
-  );
-
-  const results = useMemo(() => {
-    const needle = q.trim().toLowerCase();
-    return literature.filter((w) => {
-      const matchesForm = form === "All forms" || w.form === form;
-      const matchesQ =
-        !needle ||
-        [w.title, w.titleMai, w.author, w.summary, w.period]
-          .join(" ")
-          .toLowerCase()
-          .includes(needle);
-      return matchesForm && matchesQ;
-    });
-  }, [q, form]);
+  const results = literaryWorks.filter((w) => form === "All" || w.form === form);
 
   return (
     <>
       <PageHeader
-        eyebrow="Collection 01"
+        eyebrow="Collection — साहित्य"
         title="Literature"
         titleMai="मैथिली साहित्य"
-        intro="Maithili's written record begins with descriptive prose in the fourteenth century and has not stopped since. Listed here are foundational texts, with the editions consulted."
+        intro="Maithili's written record begins in the fourteenth century and has not stopped since. Open any entry to read it in a quiet, resizable page with its translation alongside."
       />
 
       <Section>
-        <div className="mb-10 flex flex-col gap-6 border-b border-border pb-8 md:flex-row md:items-end md:justify-between">
-          <SearchField
-            id="lit-search"
-            label="Search titles, authors, periods"
-            value={q}
-            onChange={setQ}
-            placeholder="Vidyāpati, prose, 14th century…"
+        <div className="mb-10 border-b border-border pb-8">
+          <FilterBar
+            label="Filter by form"
+            options={literatureFilters as unknown as string[]}
+            active={form}
+            onSelect={setForm}
           />
-          <FilterBar label="Filter by form" options={forms} active={form} onSelect={setForm} />
         </div>
-
-        <p className="label-eyebrow mb-6 text-muted-foreground">
-          {results.length} {results.length === 1 ? "work" : "works"}
-        </p>
 
         <ul className="grid gap-6 lg:grid-cols-2">
           {results.map((w) => (
-            <li key={w.slug} id={w.slug}>
+            <li key={w.slug} id={w.slug} className="scroll-mt-24">
               <EntryCard className="h-full">
                 <div className="flex flex-wrap items-baseline justify-between gap-3">
-                  <h2 className="text-2xl tracking-tight text-foreground">{w.title}</h2>
+                  <h2 className="deva text-2xl leading-snug text-foreground">{w.titleDeva}</h2>
                   <span className="label-eyebrow text-terracotta">{w.form}</span>
                 </div>
-                <p className="deva mt-1 text-lg text-muted-foreground">{w.titleMai}</p>
+                <p className="mt-1 font-sans text-sm tracking-wide text-muted-foreground italic">
+                  {w.transliteration}
+                </p>
 
-                <MetaRow
-                  items={[
-                    ["Author", w.author],
-                    ["Period", w.period],
-                    ["Language", w.language],
-                  ]}
-                />
+                <p className="mt-4 font-sans text-sm text-foreground/85">
+                  {w.author} · <span className="deva">{w.authorDeva}</span>
+                </p>
+                <p className="font-sans text-xs text-muted-foreground">{w.era}</p>
 
-                <p className="mt-5 leading-relaxed text-muted-foreground">{w.summary}</p>
-
-                {w.excerpt && (
-                  <figure className="mt-5 border-l-2 border-gold pl-4">
-                    <blockquote className="deva text-lg text-foreground">
-                      {w.excerpt.text}
-                    </blockquote>
-                    <figcaption className="mt-2 text-sm text-muted-foreground italic">
-                      {w.excerpt.translation}
-                    </figcaption>
-                  </figure>
-                )}
+                <p className="deva mt-5 line-clamp-2 text-lg whitespace-pre-line text-muted-foreground">
+                  {w.snippet}
+                </p>
 
                 <div className="mt-auto">
+                  <button
+                    type="button"
+                    onClick={() => setReading(w)}
+                    className="mt-6 inline-flex items-center rounded-sm border border-terracotta px-3 py-1.5 font-sans text-xs tracking-wide text-terracotta uppercase transition-colors hover:bg-terracotta hover:text-primary-foreground"
+                  >
+                    Read
+                  </button>
                   <SourceNote source={w.source} />
                 </div>
               </EntryCard>
             </li>
           ))}
         </ul>
-
-        {results.length === 0 && (
-          <p className="py-12 text-center text-muted-foreground">
-            No works match that query yet. The archive is at v0.1.
-          </p>
-        )}
       </Section>
+
+      <Dialog open={!!reading} onOpenChange={(o) => !o && setReading(null)}>
+        <DialogContent className="max-h-[90vh] w-[calc(100vw-1.5rem)] max-w-3xl overflow-y-auto bg-card p-0 sm:w-full">
+          {reading && (
+            <div>
+              <div className="sticky top-0 z-10 flex items-center justify-between gap-4 border-b border-border bg-card/95 px-5 py-3 backdrop-blur-sm md:px-8">
+                <DialogTitle className="deva truncate text-base font-normal text-foreground">
+                  {reading.titleDeva}
+                </DialogTitle>
+                <div className="flex shrink-0 items-center gap-1 pr-6">
+                  <button
+                    type="button"
+                    aria-label="Decrease text size"
+                    onClick={() => setSize((s) => Math.max(1, +(s - 0.125).toFixed(3)))}
+                    className="inline-flex size-8 items-center justify-center rounded-sm border border-border text-muted-foreground hover:border-gold hover:text-foreground"
+                  >
+                    <Minus className="size-3.5" />
+                  </button>
+                  <span className="label-eyebrow px-1 text-muted-foreground">A</span>
+                  <button
+                    type="button"
+                    aria-label="Increase text size"
+                    onClick={() => setSize((s) => Math.min(2.25, +(s + 0.125).toFixed(3)))}
+                    className="inline-flex size-8 items-center justify-center rounded-sm border border-border text-muted-foreground hover:border-gold hover:text-foreground"
+                  >
+                    <Plus className="size-3.5" />
+                  </button>
+                </div>
+              </div>
+
+              <article className="px-5 py-8 md:px-12 md:py-12">
+                <p className="label-eyebrow text-terracotta">{reading.form}</p>
+                <h2 className="deva mt-3 text-3xl leading-snug text-foreground">
+                  {reading.titleDeva}
+                </h2>
+                <p className="mt-2 font-sans text-sm text-muted-foreground italic">
+                  {reading.transliteration} · {reading.era}
+                </p>
+
+                <div className="mt-9 space-y-9">
+                  {reading.body.map((b, i) => (
+                    <div key={i}>
+                      <p
+                        className="deva whitespace-pre-line text-foreground"
+                        style={{ fontSize: `${size}rem`, lineHeight: 2.05 }}
+                      >
+                        {b.deva}
+                      </p>
+                      {b.translit && (
+                        <p className="mt-3 font-sans text-sm tracking-wide text-muted-foreground/90 italic">
+                          {b.translit}
+                        </p>
+                      )}
+                      <p className="mt-3 border-l-2 border-gold pl-4 leading-relaxed text-muted-foreground">
+                        {b.translation}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                <p className="mt-10 leading-relaxed text-muted-foreground">{reading.note}</p>
+
+                <div className="mt-8 rounded-sm border border-border bg-secondary/60 p-5">
+                  <p className="label-eyebrow text-terracotta">Author</p>
+                  <p className="mt-2 text-lg text-foreground">
+                    {reading.author} · <span className="deva">{reading.authorDeva}</span>
+                  </p>
+                  <p className="mt-2 font-sans text-sm leading-relaxed text-muted-foreground">
+                    {reading.authorBio}
+                  </p>
+                </div>
+
+                <SourceNote source={reading.source} />
+              </article>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </>
   );
 }
