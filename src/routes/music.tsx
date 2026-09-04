@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Pause, Play } from "lucide-react";
+import { ExternalLink, Pause, Play } from "lucide-react";
 import { useState } from "react";
 
 import {
@@ -11,7 +11,7 @@ import {
   SourceNote,
 } from "@/components/archive-ui";
 import { usePlayer } from "@/components/player";
-import { musicFilters, songs } from "@/data/music";
+import { musicFilters, songs, STREAM_ATTRIBUTION_TEXT } from "@/data/music";
 
 const TITLE = "Maithili Music — Sohar, Baṭgamanī & Chhath Songs — Mithila Digital Archive";
 const DESC =
@@ -90,7 +90,8 @@ function MusicPage() {
                           title: s.transliteration,
                           titleDeva: s.titleDeva,
                           artist: s.performer,
-                          duration: s.duration,
+                          youtubeId: s.stream.youtubeId,
+                          channel: s.stream.channel,
                         })
                       }
                       aria-label={current && playing ? `Pause ${s.title}` : `Play ${s.title}`}
@@ -112,7 +113,22 @@ function MusicPage() {
                     >
                       {showing ? "Hide lyrics" : "Lyrics"}
                     </button>
+
+                    <a
+                      href={`https://www.youtube.com/watch?v=${s.stream.youtubeId}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 rounded-sm border border-border px-3.5 py-2 font-sans text-xs tracking-wide text-muted-foreground uppercase transition-colors hover:border-gold hover:text-foreground"
+                    >
+                      YouTube
+                      <ExternalLink className="size-3.5" />
+                    </a>
                   </div>
+
+                  <p className="mt-3 font-sans text-xs leading-relaxed text-muted-foreground">
+                    <span className="text-foreground/80">{s.stream.channelKind}:</span>{" "}
+                    {s.stream.channel}. {s.stream.note}
+                  </p>
 
                   {showing && (
                     <div className="mt-6 space-y-5 border-t border-border pt-6">
@@ -137,11 +153,15 @@ function MusicPage() {
         </ul>
 
         <div className="mt-12 rounded-sm border border-border bg-secondary/60 p-6 md:p-8">
-          <p className="label-eyebrow text-terracotta">On the player</p>
-          <p className="mt-3 max-w-3xl leading-relaxed text-muted-foreground">
-            v0.1 carries no audio files. The player demonstrates how recordings
-            will behave; field recordings will be added only where the singer's
-            consent and the recordist's terms can be published with the file.
+          <p className="label-eyebrow text-terracotta">Rights & attribution</p>
+          <p className="mt-3 max-w-3xl leading-relaxed text-foreground/90">
+            {STREAM_ATTRIBUTION_TEXT}
+          </p>
+          <p className="mt-3 max-w-3xl font-sans text-sm leading-relaxed text-muted-foreground">
+            Nothing is hosted by this archive. Selecting Play opens the
+            publisher's own YouTube embed in the player bar, and each entry
+            names the channel it streams from and whether that channel is the
+            artist's, the label's or a regional music publisher's.
           </p>
         </div>
       </Section>

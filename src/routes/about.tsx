@@ -36,7 +36,7 @@ const PRINCIPLES = [
   },
   {
     title: "Nothing published without permission",
-    body: "Images of living artists' work and field audio are held back until reproduction terms can be recorded alongside the file.",
+    body: "Images are freely licensed Wikimedia Commons files shown with contributor credit and licence; audio is never hosted here — it streams from the publishers' own YouTube channels, and rights remain with the original creators.",
   },
 ];
 
@@ -46,8 +46,8 @@ const STATUS: [string, string][] = [
   ["Language", "4 topics · outline stage"],
   ["Dictionary", "12 headwords · early"],
   ["Proverbs", "6 entries · early"],
-  ["Art & Heritage", "4 practices · no images yet"],
-  ["Music", "5 forms · no audio yet"],
+  ["Art & Heritage", "5 styles + 6 sites · CC-licensed images"],
+  ["Music", "5 songs · streamed from YouTube"],
 ];
 
 function AboutPage() {

@@ -1,4 +1,4 @@
-import type { Source } from "./types";
+import type { CommonsImage, Source } from "./types";
 
 export interface ArtStyle {
   slug: string;
@@ -9,6 +9,7 @@ export interface ArtStyle {
   dyes: string[];
   motifs: string[];
   description: string;
+  image: CommonsImage;
   source: Source;
 }
 
@@ -36,6 +37,30 @@ export const artStyles: ArtStyle[] = [
     motifs: ["Lotus", "Sun", "Fish"],
     description:
       "The colour-saturated register of Madhubani painting. Bharnī is what most people picture as Mithila art: a deity filling the frame, ringed by a dense decorative border, with no empty ground left unpainted.",
+    image: {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Madhubani_painting.jpg/1280px-Madhubani_painting.jpg",
+      "filePage": "https://commons.wikimedia.org/wiki/File:Madhubani_painting.jpg",
+      "fileTitle": "Madhubani painting",
+      "credit": "Mohitkiran (Wikimedia Commons contributor)",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "caption": "Madhubani painting photographed at the Crafts Museum, New Delhi: solid colour fill inside a heavy black outline, in the manner described here as Bharnī.",
+      "motifs": [
+        {
+          "name": "Lotus / कमल",
+          "meaning": "Fertility and the female principle; the ringed lotus is the core image of the marriage chamber."
+        },
+        {
+          "name": "Sun / सूर्य",
+          "meaning": "The witness, placed high in the frame, as the sun witnesses the Chhath offering."
+        },
+        {
+          "name": "Dense border",
+          "meaning": "No ground is left unpainted; the border seals the image and keeps the deity inside it."
+        }
+      ],
+      "note": "The Commons file page records the object as a Madhubani painting and does not name a school. It is shown here as a representative example of the Bharnī register, an attribution made by this archive."
+    },
     source: {
       citation:
         "Jyotindra Jain, Ganga Devi: Tradition and Expression in Mithila Painting, Mapin, 1997.",
@@ -57,6 +82,30 @@ export const artStyles: ArtStyle[] = [
     motifs: ["Bamboo", "Fish", "Lotus"],
     description:
       "Kachnī reads as drawing rather than painting. Ganga Devi's mature work is the best-known example: narrative panels carried entirely by hatched line.",
+    image: {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Madhubani_painting_by_Bhuvana_Meenakshi.jpg/1280px-Madhubani_painting_by_Bhuvana_Meenakshi.jpg",
+      "filePage": "https://commons.wikimedia.org/wiki/File:Madhubani_painting_by_Bhuvana_Meenakshi.jpg",
+      "fileTitle": "Madhubani painting by Bhuvana Meenakshi",
+      "credit": "Bhuvana Meenakshi (artist and uploader, own work)",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "caption": "Madhubani painting in which figure and ground are built from repeated fine line rather than flat fill — the linear approach described here as Kachnī.",
+      "motifs": [
+        {
+          "name": "Hatched line",
+          "meaning": "Tone is made by the density of stroke; volume is drawn, never filled."
+        },
+        {
+          "name": "Fish / मछली",
+          "meaning": "Abundance and the rivers of Mithila; a pair of fish is the standard auspicious sign."
+        },
+        {
+          "name": "Bamboo / बाँस",
+          "meaning": "The male principle and unbroken descent of the family line."
+        }
+      ],
+      "note": "The file page names the artist but not a school; the Kachnī reading is this archive's, based on the linear technique visible in the work."
+    },
     source: {
       citation:
         "Jyotindra Jain, Ganga Devi: Tradition and Expression in Mithila Painting, Mapin, 1997.",
@@ -78,6 +127,29 @@ export const artStyles: ArtStyle[] = [
     motifs: ["Lotus", "Sun"],
     description:
       "Made for use, not for display. A tāntrik painting on a wall or on paper is an object of worship, and the proportions of its diagram are treated as fixed.",
+    image: {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/6/67/Madhubani_Mahavidyas.jpg",
+      "filePage": "https://commons.wikimedia.org/wiki/File:Madhubani_Mahavidyas.jpg",
+      "fileTitle": "Madhubani Mahavidyas",
+      "credit": "toyin adepoju (Wikimedia Commons contributor)",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "caption": "Mithila painting of the Ten Mahāvidyās with Śiva and Śakti and a serpent-coiled Śrī Yantra, painted in Nepal — a tāntrik subject as described on the file page.",
+      "motifs": [
+        {
+          "name": "Śrī Yantra",
+          "meaning": "A ritual diagram, not a decorative motif: its proportions are prescribed and treated as fixed."
+        },
+        {
+          "name": "Ten Mahāvidyās",
+          "meaning": "The ten wisdom goddesses of Śākta practice, ranked symmetrically around the central pair."
+        },
+        {
+          "name": "Serpent",
+          "meaning": "Coiled energy encircling the diagram; a boundary between the worshipper and the field of the yantra."
+        }
+      ]
+    },
     source: {
       citation:
         "Mithila Painting: The Evolution of an Art Form, ed. David Szanton, Ethnic Arts Foundation.",
@@ -99,6 +171,30 @@ export const artStyles: ArtStyle[] = [
     motifs: ["Bamboo", "Sun", "Fish"],
     description:
       "Godnā is the youngest of the four registers and the one with the clearest social history: Dalit women who had been excluded from the painting trade brought their own tattoo idiom onto paper and made a distinct style of it.",
+    image: {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/d/de/Madhubani_Fish_Motif_with_Stylized_Geometric_Scales_and_Red-Toned_Accents_from_Mithila_India.png",
+      "filePage": "https://commons.wikimedia.org/wiki/File:Madhubani_Fish_Motif_with_Stylized_Geometric_Scales_and_Red-Toned_Accents_from_Mithila_India.png",
+      "fileTitle": "Madhubani Fish Motif with Stylized Geometric Scales and Red-Toned Accents from Mithila India",
+      "credit": "Art Projects MKCL KF (own work, Wikimedia Commons)",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "caption": "Madhubani fish motif built from ranked geometric marks and repeated scale patterning — the ordered, tattoo-derived mark-making that Godnā work is composed from.",
+      "motifs": [
+        {
+          "name": "Ranked repeated mark",
+          "meaning": "The tattoo vocabulary of the Dusādh women transferred to paper: form is accumulated from small repeated units."
+        },
+        {
+          "name": "Fish / मछली",
+          "meaning": "Fecundity and good fortune, and the emblem of the region's rivers."
+        },
+        {
+          "name": "Concentric fill",
+          "meaning": "Pattern rows follow the contour of the body rather than a drawn interior."
+        }
+      ],
+      "note": "The file page describes the work as a Madhubani fish motif; it is used here to illustrate Godnā mark-making, an attribution made by this archive rather than stated on Commons."
+    },
     source: {
       citation:
         "David Szanton and Malini Bakshi, Mithila Painting: The Evolution of an Art Form, 2007.",
@@ -121,6 +217,33 @@ export const artStyles: ArtStyle[] = [
     motifs: ["Lotus", "Bamboo", "Fish", "Sun"],
     description:
       "The original site of Mithila painting, and the one from which the paper tradition was drawn in the 1960s. The kohbar is not decoration: it is the diagram the marriage is meant to enter.",
+    image: {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/3/31/34545016_kohbar_auspicious_marriage_diagram_dh93.jpg",
+      "filePage": "https://commons.wikimedia.org/wiki/File:34545016_kohbar_auspicious_marriage_diagram_dh93.jpg",
+      "fileTitle": "34545016 kohbar auspicious marriage diagram dh93",
+      "credit": "AxomiyaDangoriya (own work, Wikimedia Commons)",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "caption": "Lajjā Gaurī depicted within a kohbar Mithila painting — the auspicious marriage diagram, as identified on the file page.",
+      "motifs": [
+        {
+          "name": "Ringed lotus / कमल",
+          "meaning": "The female principle at the centre of the kohbar, joined by a stalk to the bamboo."
+        },
+        {
+          "name": "Bamboo / बाँस",
+          "meaning": "The male principle and the continuity of the line; bamboo grows in unbroken succession."
+        },
+        {
+          "name": "Sun and moon",
+          "meaning": "Painted at the top as witnesses to the marriage."
+        },
+        {
+          "name": "Fish and parrots",
+          "meaning": "Abundance and desire, filling the field around the central diagram."
+        }
+      ]
+    },
     source: {
       citation:
         "William G. Archer, 'Maithil Painting', Marg, vol. 3 no. 3, 1949.",
