@@ -62,7 +62,6 @@ declare global {
   interface Window {
     YT?: {
       Player: new (el: HTMLElement | string, opts: Record<string, unknown>) => YTPlayer;
-ateReady?: boolean;
     };
     onYouTubeIframeAPIReady?: () => void;
   }
