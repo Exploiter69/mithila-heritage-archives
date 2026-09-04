@@ -9,6 +9,7 @@ import {
   Section,
   SourceNote,
 } from "@/components/archive-ui";
+import { CommonsImageFigure } from "@/components/commons-image";
 import { heritage } from "@/data/heritage";
 
 const TITLE = "Mithila Heritage — Sites & Festivals — Mithila Digital Archive";
@@ -85,6 +86,13 @@ function HeritagePage() {
                         </li>
                       ))}
                     </ul>
+                    {h.image && (
+                      <CommonsImageFigure
+                        className="mt-6"
+                        image={h.image}
+                        subject={`${h.name} — ${h.nameDeva}`}
+                      />
+                    )}
                     <SourceNote source={h.source} />
                   </div>
                 </div>

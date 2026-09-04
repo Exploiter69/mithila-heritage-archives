@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { EntryCard, PageHeader, Section, SectionTitle, SourceNote } from "@/components/archive-ui";
+import { CommonsImageFigure } from "@/components/commons-image";
 import { artStyles, motifs } from "@/data/art";
 
 const TITLE = "Madhubani Painting Styles — Mithila Digital Archive";
