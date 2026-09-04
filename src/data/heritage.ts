@@ -1,4 +1,4 @@
-import type { Source } from "./types";
+import type { CommonsImage, Source } from "./types";
 
 export type HeritageKind = "Site" | "Festival";
 
@@ -11,6 +11,7 @@ export interface HeritageEntry {
   period: string;
   summary: string;
   context: string[];
+  image?: CommonsImage;
   source: Source;
 }
 
@@ -29,6 +30,15 @@ export const heritage: HeritageEntry[] = [
       "The Bihar–Nepal earthquake of 15 January 1934 destroyed most of the structures within minutes. The estate never rebuilt, and the site was left as it fell.",
       "What survives is unusually legible: carved marble, spans of arcade, and temple plinths standing in open field, largely unrestored and unfenced.",
     ],
+    image: {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Ruins_of_Rajnagar_palace_Madhubani_district.jpg/1280px-Ruins_of_Rajnagar_palace_Madhubani_district.jpg",
+      "filePage": "https://commons.wikimedia.org/wiki/File:Ruins_of_Rajnagar_palace_Madhubani_district.jpg",
+      "fileTitle": "Ruins of Rajnagar palace Madhubani district",
+      "credit": "Jitagna (own work, Wikimedia Commons)",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "caption": "Ruins of the Rajnagar palace, former palace of the Rajas of Darbhanga, Madhubani district."
+    },
     source: {
       citation:
         "Bihar State Gazetteer, Darbhanga; and Report on the Bihar Earthquake of 1934, Geological Survey of India.",
@@ -49,6 +59,15 @@ export const heritage: HeritageEntry[] = [
       "Ghiyāsuddīn Tughlaq's campaign of 1324–26 ended the dynasty; the last ruler Harisiṃhadeva withdrew to the Nepal hills, carrying the Taleju cult with him.",
       "The site today is a large field of earthworks, tanks and scattered brick, only partly excavated, straddling farmland in Bara district.",
     ],
+    image: {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Simraungadh_Fort.jpg/1280px-Simraungadh_Fort.jpg",
+      "filePage": "https://commons.wikimedia.org/wiki/File:Simraungadh_Fort.jpg",
+      "fileTitle": "Simraungadh Fort",
+      "credit": "Gaurav Dhwaj Khadka (own work, Wikimedia Commons)",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "caption": "Remains at Simraungadh, Bara district, Nepal — a monument recorded in Wiki Loves Monuments Nepal."
+    },
     source: {
       citation:
         "R. K. Choudhary, History of Muslim Rule in Tirhut; Department of Archaeology, Nepal, site reports.",
@@ -89,6 +108,15 @@ export const heritage: HeritageEntry[] = [
       "The offering basket is fixed: ṭhekuā, sugarcane, banana, coconut and seasonal fruit, carried to the ghat in a bamboo soop and daura.",
       "Uniquely, the setting sun is worshipped before the rising one; the songs sung at the ghat are the Chhaṭhī Maiyā repertoire, popularised nationally by Sharda Sinha.",
     ],
+    image: {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Chatt_Puja_Celebration.jpg/1280px-Chatt_Puja_Celebration.jpg",
+      "filePage": "https://commons.wikimedia.org/wiki/File:Chatt_Puja_Celebration.jpg",
+      "fileTitle": "Chatt Puja Celebration",
+      "credit": "Debavasya (own work, Wikimedia Commons)",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "caption": "Chhath observance at the water: the offering made standing in the river, without a priest."
+    },
     source: {
       citation:
         "Ethnographic accounts in Bihar folk-religion surveys; widely documented practice.",
@@ -109,6 +137,15 @@ export const heritage: HeritageEntry[] = [
       "The figures are made from pond clay and painted; the songs, sung only by women and only in this week, mock Chugalā and bless the brothers.",
       "On Kārtik Pūrṇimā the figures are broken and immersed and the sisters feed their brothers — a rite of sibling obligation with no priestly component at all.",
     ],
+    image: {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Sama_Chakeva_is_a_native_festival_of_Mithila.jpg/1280px-Sama_Chakeva_is_a_native_festival_of_Mithila.jpg",
+      "filePage": "https://commons.wikimedia.org/wiki/File:Sama_Chakeva_is_a_native_festival_of_Mithila.jpg",
+      "fileTitle": "Sama Chakeva is a native festival of Mithila",
+      "credit": "Anand Rishav (own work, Wikimedia Commons)",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "caption": "Painted clay figures of Sāmā, Chakevā and the flock, modelled from pond clay for the seven nights of the festival."
+    },
     source: {
       citation:
         "Documented in Maithili folklore collections; observed practice in Madhubani and Saptari districts.",
@@ -129,6 +166,15 @@ export const heritage: HeritageEntry[] = [
       "Barāt parties travel from Ayodhya to Janakpur for the occasion, and the exchange between the two towns is treated as an affinal relationship between places.",
       "Maithili wedding song — samdāun, baṭgamanī and the kohbar repertoire — is performed publicly during the week, making it the largest annual display of the region's wedding music.",
     ],
+    image: {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Janaki_Mandir%2C_Janakpur_Nepal_01.jpg/1280px-Janaki_Mandir%2C_Janakpur_Nepal_01.jpg",
+      "filePage": "https://commons.wikimedia.org/wiki/File:Janaki_Mandir,_Janakpur_Nepal_01.jpg",
+      "fileTitle": "Janaki Mandir, Janakpur Nepal 01",
+      "credit": "Suyash.dwivedi (own work, Wikimedia Commons)",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "caption": "The Janakī Mandir at Janakpurdham, built in 1910 and the focus of the Vivāh Pañcamī week."
+    },
     source: {
       citation:
         "Janaki Mandir trust accounts; Nepal Tourism Board and district records.",
