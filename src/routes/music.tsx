@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Pause, Play } from "lucide-react";
+import { ExternalLink, Pause, Play } from "lucide-react";
 import { useState } from "react";
 
 import {
@@ -11,7 +11,7 @@ import {
   SourceNote,
 } from "@/components/archive-ui";
 import { usePlayer } from "@/components/player";
-import { musicFilters, songs } from "@/data/music";
+import { musicFilters, songs, STREAM_ATTRIBUTION_TEXT } from "@/data/music";
 
 const TITLE = "Maithili Music — Sohar, Baṭgamanī & Chhath Songs — Mithila Digital Archive";
 const DESC =
