@@ -77,6 +77,12 @@ function ArtPage() {
                       ))}
                     </div>
 
+                    <CommonsImageFigure
+                      className="mt-6"
+                      image={a.image}
+                      subject={`${a.name} — ${a.nameDeva}`}
+                    />
+
                     <SourceNote source={a.source} />
                   </div>
                 </div>
@@ -103,12 +109,13 @@ function ArtPage() {
         </ul>
 
         <div className="mt-12 rounded-sm border border-gold/50 bg-gold-soft/40 p-6 md:p-8">
-          <p className="label-eyebrow text-terracotta">Note on images</p>
+          <p className="label-eyebrow text-terracotta">Images & licensing</p>
           <p className="mt-3 max-w-3xl leading-relaxed text-muted-foreground">
-            v0.1 carries no photographs. Mithila painting is a living tradition
-            with living rights-holders, and the archive will not publish images
-            until each can be reproduced with the artist's or collection's
-            permission recorded alongside it.
+            Every image on this page is a freely licensed file from Wikimedia
+            Commons, reproduced with the contributor credit and licence recorded
+            on its file page and linked back to that page. Where a file does not
+            itself state a school of painting, the style attribution is this
+            archive's reading and is marked as such.
           </p>
         </div>
       </Section>
