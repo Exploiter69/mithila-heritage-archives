@@ -61,6 +61,15 @@ export function getArchiveContent<T>(type: ArchiveRecordType): T[] {
   return getArchiveRecords(type).map((record) => record.content as T);
 }
 
+export function getArchiveWordOfTheDay(date = new Date()): DictionaryEntry {
+  const dictionaryEntries = getArchiveContent<DictionaryEntry>("dictionary-entry");
+  const day = Math.floor(date.getTime() / 86_400_000);
+  const nouns = dictionaryEntries.filter(
+    (entry) => entry.wordClass !== "Idiom / Proverb",
+  );
+  return nouns[day % nouns.length] ?? dictionaryEntries[0]!;
+}
+
 export type {
   ArtStyle,
   Author,
