@@ -10,11 +10,14 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { artStyles } from "@/data/art";
-import { dictionaryEntries } from "@/data/dictionary";
-import { heritage } from "@/data/heritage";
-import { literaryWorks } from "@/data/literature";
-import { songs } from "@/data/music";
+import {
+  getArchiveContent,
+  type ArtStyle,
+  type DictionaryEntry,
+  type HeritageEntry,
+  type LiteraryWork,
+  type Song,
+} from "@/data/archive-read";
 
 type Hit = {
   group: string;
@@ -24,6 +27,12 @@ type Hit = {
   to: string;
   hash: string;
 };
+
+const literaryWorks = getArchiveContent<LiteraryWork>("literature-work");
+const songs = getArchiveContent<Song>("song");
+const artStyles = getArchiveContent<ArtStyle>("art-style");
+const heritage = getArchiveContent<HeritageEntry>("heritage-entry");
+const dictionaryEntries = getArchiveContent<DictionaryEntry>("dictionary-entry");
 
 const INDEX: Hit[] = [
   ...literaryWorks.map((w) => ({
