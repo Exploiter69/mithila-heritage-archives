@@ -1,5 +1,6 @@
 import { canonicalArchive } from "./archive-foundation";
 import type { ArchiveRecord, ArchiveRecordType } from "./types";
+import type { Proverb } from "./archive";
 import type { ArtStyle } from "./art";
 import type { DictionaryEntry } from "./dictionary";
 import type { HeritageEntry } from "./heritage";
@@ -55,5 +56,6 @@ export type {
   DictionaryEntry,
   HeritageEntry,
   LiteraryWork,
+  Proverb,
   Song,
 };

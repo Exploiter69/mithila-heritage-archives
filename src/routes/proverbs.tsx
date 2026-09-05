@@ -9,7 +9,7 @@ import {
   SearchField,
   SourceNote,
 } from "@/components/archive-ui";
-import { proverbs } from "@/data/archive";
+import { getArchiveContent, type Proverb } from "@/data/archive-read";
 
 const TITLE = "Maithili Proverbs (Lokokti) — Mithila Digital Archive";
 const DESC =
@@ -31,6 +31,7 @@ export const Route = createFileRoute("/proverbs")({
 
 function ProverbsPage() {
   const [q, setQ] = useState("");
+  const proverbs = getArchiveContent<Proverb>("proverb");
   const [theme, setTheme] = useState("All themes");
 
   const themes = useMemo(
