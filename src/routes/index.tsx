@@ -2,8 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { EntryCard, Section, SectionTitle, SourceNote } from "@/components/archive-ui";
 import { wordOfTheDay } from "@/data/dictionary";
-import { heritage } from "@/data/heritage";
-import { literaryWorks } from "@/data/literature";
+import { getArchiveContent, type HeritageEntry, type LiteraryWork } from "@/data/archive-read";
 
 const TITLE = "Mithila Digital Archive — मिथिला डिजिटल आर्काइव";
 const DESC =
@@ -58,6 +57,8 @@ const QUICK_CARDS = [
 
 function HomePage() {
   const word = wordOfTheDay();
+  const literaryWorks = getArchiveContent<LiteraryWork>("literature-work");
+  const heritage = getArchiveContent<HeritageEntry>("heritage-entry");
   const featured = literaryWorks.find((w) => w.slug === "bada-sukh-sar") ?? literaryWorks[0]!;
   const tradition = heritage.find((h) => h.slug === "sama-chakeva") ?? heritage[0]!;
 
