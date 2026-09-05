@@ -47,6 +47,16 @@ export function getArchiveProvenance(record: ArchiveRecord) {
   );
 }
 
+export function getArchiveBibliography() {
+  return canonicalArchive.sources
+    .filter((source) => source.captureKind === "bibliography-entry")
+    .map((source) => ({
+      name: source.citation,
+      kind: source.legacyKind ?? "Reference",
+      note: source.detail ?? "",
+    }));
+}
+
 export function getArchiveContent<T>(type: ArchiveRecordType): T[] {
   return getArchiveRecords(type).map((record) => record.content as T);
 }

@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { PageHeader, Section, SectionTitle } from "@/components/archive-ui";
-import { sources } from "@/data/archive";
+import { getArchiveBibliography } from "@/data/archive-read";
 
 const TITLE = "About & Sources — Mithila Digital Archive";
 const DESC =
@@ -51,6 +51,8 @@ const STATUS: [string, string][] = [
 ];
 
 function AboutPage() {
+  const sources = getArchiveBibliography();
+
   return (
     <>
       <PageHeader
