@@ -1,6 +1,6 @@
 import { canonicalArchive } from "./archive-foundation";
 import type { ArchiveRecord, ArchiveRecordType } from "./types";
-import type { Proverb } from "./archive";
+import type { Author, Proverb } from "./archive";
 import type { ArtStyle } from "./art";
 import type { DictionaryEntry } from "./dictionary";
 import type { HeritageEntry } from "./heritage";
@@ -53,6 +53,7 @@ export function getArchiveContent<T>(type: ArchiveRecordType): T[] {
 
 export type {
   ArtStyle,
+  Author,
   DictionaryEntry,
   HeritageEntry,
   LiteraryWork,

@@ -9,7 +9,7 @@ import {
   SearchField,
   SourceNote,
 } from "@/components/archive-ui";
-import { authors } from "@/data/archive";
+import { getArchiveContent, type Author } from "@/data/archive-read";
 
 const TITLE = "Maithili Authors — Mithila Digital Archive";
 const DESC =
@@ -31,6 +31,7 @@ export const Route = createFileRoute("/authors")({
 
 function AuthorsPage() {
   const [q, setQ] = useState("");
+  const authors = getArchiveContent<Author>("author");
 
   const results = useMemo(() => {
     const needle = q.trim().toLowerCase();
