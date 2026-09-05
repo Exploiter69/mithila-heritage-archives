@@ -22,3 +22,12 @@ cd <repository-name>
 npm i
 npm run dev
 ```
+
+## Archive data foundation
+
+Archive Foundation v1 introduces a canonical static data graph alongside the
+existing collection modules. It preserves current content while preparing
+stable records, sources, media, provenance, and validation for later phases.
+See [Archive Foundation v1](docs/archive-foundation-v1.md) for the data model,
+status mapping, and migration rules. With Bun installed, run
+`bun run archive:validate` to validate the graph.
