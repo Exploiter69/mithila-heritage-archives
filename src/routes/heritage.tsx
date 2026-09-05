@@ -10,7 +10,7 @@ import {
   SourceNote,
 } from "@/components/archive-ui";
 import { CommonsImageFigure } from "@/components/commons-image";
-import { heritage } from "@/data/heritage";
+import { getArchiveContent, type HeritageEntry } from "@/data/archive-read";
 
 const TITLE = "Mithila Heritage — Sites & Festivals — Mithila Digital Archive";
 const DESC =
@@ -34,6 +34,7 @@ const FILTERS = ["All", "Site", "Festival"];
 
 function HeritagePage() {
   const [kind, setKind] = useState("All");
+  const heritage = getArchiveContent<HeritageEntry>("heritage-entry");
   const results = heritage.filter((h) => kind === "All" || h.kind === kind);
 
   return (
