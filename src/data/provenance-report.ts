@@ -51,8 +51,8 @@ function countRecordsByStatus(status: VerificationStatus): number {
 function citationIsSpecific(citation: string): boolean {
   const value = citation.toLocaleLowerCase();
   return (
-    /\\b(ed\\.|edited|edition|edn\\.|vol\\.|volume|press|publisher|academy|akademi|university|journal|dictionary|kosh|chrestomathy|bibliography|records?|manuals?|collection|survey|institute|institute)\\b/.test(value) ||
-    /\\b\\d{4}\\b/.test(value)
+    /\b(ed\\.|edited|edition|edn\\.|vol\\.|volume|press|publisher|academy|akademi|university|journal|dictionary|kosh|chrestomathy|bibliography|records?|manuals?|collection|survey|institute|institute)\b/.test(value) ||
+    /\b\\d{4}\b/.test(value)
   );
 }
 
