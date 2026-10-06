@@ -154,8 +154,9 @@ function normalizeSearchText(value: string): string {
   return value
     .normalize("NFKC")
     .toLocaleLowerCase()
-    .replace(/[\u200B-\u200D\uFEFF\u2060\uFE0E\uFE0F]/g, "")
-    .replace(/[‐-‒–—―]/g, "-")
+    .replace(/[\u200B-\u200D\u2060]/g, "")
+    .replace(/[\uFEFF\uFE0E\uFE0F]/g, "")
+    .replace(/[‐‒–—―]/g, "-")
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -327,7 +328,7 @@ function getRecordSearchProjection(record: ArchiveRecord): {
       );
       break;
 
-    case "song":
+    case "song": {
       addSearchFields(
         values,
         content["title"],
@@ -378,6 +379,7 @@ function getRecordSearchProjection(record: ArchiveRecord): {
         content["period"],
       );
       break;
+    }
   }
 
   const sources = getArchiveSources(record);
