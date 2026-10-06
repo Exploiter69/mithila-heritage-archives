@@ -24,7 +24,9 @@ import type {
   CommonsImage,
   MediaRecord,
   MigrationRepresentation,
+  BibliographicSource,
   ProvenanceAssertion,
+  ProvenanceAssertionV2,
   Source,
   SourceRecord,
   SourceStatus,
@@ -252,6 +254,90 @@ const sources: SourceRecord[] = [
 ];
 const provenance = adapted.flatMap((entry) => entry.provenance);
 
+function stableSourceHash(value: string): string {
+  let first = 0x811c9dc5;
+  let second = 0x9e3779b9;
+  for (let index = 0; index < value.length; index += 1) {
+    const code = value.charCodeAt(index);
+    first ^= code;
+    first = Math.imul(first, 0x01000193);
+    second ^= code + index;
+    second = Math.imul(second, 0x85ebca6b);
+  }
+  return `${(first >>> 0).toString(16).padStart(8, "0")}${(second >>> 0).toString(16).padStart(8, "0")}`;
+}
+
+function sourceTypeFor(source: SourceRecord): BibliographicSource["sourceType"] {
+  const kind = source.legacyKind?.toLocaleLowerCase() ?? "";
+  if (kind.includes("book")) return "book";
+  if (kind.includes("article") || kind.includes("journal")) return "article";
+  if (kind.includes("website") || kind.includes("web")) return "website";
+  if (kind.includes("archive") || kind.includes("museum")) return "archive";
+  if (source.legacyStatus === "community") return "community";
+  return "unclassified";
+}
+
+/**
+ * Normalize exact source captures without merging merely similar citations.
+ * Identity is based on the full migrated bibliographic payload, so this step
+ * never claims that two merely related sources are the same source.
+ */
+function normalizeBibliographicSources(sourceRecords: SourceRecord[]): BibliographicSource[] {
+  const groups = new Map<string, BibliographicSource>();
+
+  for (const source of sourceRecords) {
+    const identityKey = JSON.stringify([
+      source.citation,
+      source.detail ?? "",
+      source.url ?? "",
+      source.legacyKind ?? "",
+    ]);
+    const id = `bibliography:${stableSourceHash(identityKey)}`;
+    const existing = groups.get(id);
+    if (existing) {
+      existing.captureIds.push(source.id);
+      continue;
+    }
+
+    groups.set(id, {
+      id,
+      citation: source.citation,
+      ...(source.detail ? { detail: source.detail } : {}),
+      ...(source.url ? { url: source.url } : {}),
+      sourceType: sourceTypeFor(source),
+      captureIds: [source.id],
+    });
+  }
+
+  return Array.from(groups.values());
+}
+
+const bibliographicSources = normalizeBibliographicSources(sources);
+const sourceToBibliographicId = new Map<string, string>();
+for (const source of bibliographicSources) {
+  for (const captureId of source.captureIds) {
+    sourceToBibliographicId.set(captureId, source.id);
+  }
+}
+
+const provenanceV2: ProvenanceAssertionV2[] = provenance.map((assertion) => {
+  const bibliographicSourceId = sourceToBibliographicId.get(assertion.sourceId);
+  if (!bibliographicSourceId) {
+    throw new Error(`Missing normalized source for provenance ${assertion.id}`);
+  }
+
+  return {
+    id: `provenance-v2:${assertion.id}`,
+    recordId: assertion.recordId,
+    bibliographicSourceId,
+    verificationStatus: assertion.verificationStatus,
+    evidenceRole: assertion.evidenceRole,
+    ...(assertion.locator ? { locator: assertion.locator } : {}),
+    ...(assertion.editorialNote ? { editorialNote: assertion.editorialNote } : {}),
+    sourceCaptureIds: [assertion.sourceId],
+  };
+});
+
 const media: MediaRecord[] = [];
 for (const record of records) {
   const content = record.content as Record<string, unknown>;
@@ -262,9 +348,19 @@ for (const record of records) {
 }
 
 /** No record relation is inferred without explicit support in existing data. */
-export const canonicalArchive: CanonicalArchiveData = { records, sources, media, provenance, relations: [] };
+export const canonicalArchive: CanonicalArchiveData = {
+  records,
+  sources,
+  media,
+  provenance,
+  bibliographicSources,
+  provenanceV2,
+  relations: [],
+};
 export const archiveRecords = canonicalArchive.records;
 export const sourceRecords = canonicalArchive.sources;
 export const mediaRecords = canonicalArchive.media;
 export const provenanceAssertions = canonicalArchive.provenance;
+export const normalizedBibliographicSources = canonicalArchive.bibliographicSources;
+export const provenanceAssertionsV2 = canonicalArchive.provenanceV2;
 export const recordRelations = canonicalArchive.relations;
