@@ -81,7 +81,7 @@ function ProverbsPage() {
               <EntryCard className="h-full">
                 <span className="label-eyebrow text-terracotta">{p.theme}</span>
                 <p className="deva mt-3 text-2xl leading-relaxed text-foreground">
-                  <a href={`/proverbs/${proverbRecords.find((record) => (record.content as Proverb).text === p.text)?.slug ?? ""}`} className="hover:text-terracotta">{p.text}</a>
+                  <Link to="/archive/$type/$slug" params={{ type: "proverb", slug: proverbRecords.find((record) => (record.content as Proverb).text === p.text)?.slug ?? "" }} className="hover:text-terracotta">{p.text}</a>
                 </p>
                 <p className="mt-2 font-sans text-sm tracking-wide text-muted-foreground">
                   {p.transliteration}
