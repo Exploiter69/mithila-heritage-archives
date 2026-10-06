@@ -86,6 +86,38 @@ const representationIds = canonicalArchive.records.flatMap((record) =>
 );
 assert.equal(new Set(representationIds).size, representationIds.length);
 
+assert.ok(
+  canonicalArchive.bibliographicSources.length > 0,
+  "provenance v2 must expose normalized bibliographic sources",
+);
+assert.ok(
+  canonicalArchive.bibliographicSources.length <= canonicalArchive.sources.length,
+  "normalization cannot create more bibliographic sources than source captures",
+);
+assert.equal(
+  canonicalArchive.provenanceV2.length,
+  canonicalArchive.provenance.length,
+  "every migrated provenance assertion must have a provenance v2 counterpart",
+);
+const normalizedCaptureIds = canonicalArchive.bibliographicSources.flatMap(
+  (source) => source.captureIds,
+);
+assert.deepEqual(
+  new Set(normalizedCaptureIds),
+  new Set(canonicalArchive.sources.map((source) => source.id)),
+  "normalized bibliographic sources must retain every source capture exactly once",
+);
+for (const assertion of canonicalArchive.provenance) {
+  const v2 = canonicalArchive.provenanceV2.find(
+    (item) => item.id === `provenance-v2:${assertion.id}`,
+  );
+  assert.ok(v2, `missing provenance v2 counterpart: ${assertion.id}`);
+  assert.equal(v2?.recordId, assertion.recordId);
+  assert.equal(v2?.verificationStatus, assertion.verificationStatus);
+  assert.equal(v2?.evidenceRole, assertion.evidenceRole);
+  assert.deepEqual(v2?.sourceCaptureIds, [assertion.sourceId]);
+}
+
 for (const record of canonicalArchive.records) {
   assert.ok(record.provenanceIds.length > 0, `published record lacks provenance: ${record.id}`);
   for (const sourceId of record.sourceIds) {
