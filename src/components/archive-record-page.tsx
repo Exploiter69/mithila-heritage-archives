@@ -292,7 +292,7 @@ export function ArchiveRecordPage({ record, canonicalUrl }: { record: ArchiveRec
         <span className="mx-2">/</span>
         <a href={ARCHIVE_ROUTE_CONFIG[record.type].collectionPath}>
           {ARCHIVE_ROUTE_CONFIG[record.type].label}
-        </Link>
+        </a>
         <span className="mx-2">/</span>
         <span className="text-foreground">{title.title}</span>
       </nav>
@@ -343,10 +343,10 @@ export function ArchiveRecordPage({ record, canonicalUrl }: { record: ArchiveRec
         )}
 
         <div className="mt-12 border-t border-border pt-6">
-          <Link to={ARCHIVE_ROUTE_CONFIG[record.type].collectionPath}
+          <a href={ARCHIVE_ROUTE_CONFIG[record.type].collectionPath}
             className="font-sans text-sm text-terracotta hover:underline">
             ← Back to {ARCHIVE_ROUTE_CONFIG[record.type].label}
-          </Link>
+          </a>
           <span className="mx-3 text-border">·</span>
           <a href={canonicalUrl} className="font-sans text-sm text-muted-foreground hover:text-foreground">
             Canonical URL
