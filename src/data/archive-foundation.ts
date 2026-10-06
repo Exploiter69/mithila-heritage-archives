@@ -252,6 +252,41 @@ const sources: SourceRecord[] = [
   ...adapted.flatMap((entry) => entry.sources),
   ...legacyBibliography.map((entry, index) => ({ id: `source:bibliography:${index + 1}`, citation: entry.name, detail: entry.note, captureKind: "bibliography-entry" as const, legacyKind: entry.kind })),
 ];
+
+const sourceReferenceUrls: Array<[string, string]> = [
+  ["G. A. Grierson, An Introduction to the Maithili Language", "https://archive.org/details/introductiontoma00grierich"],
+  ["Grierson, Maithili Chrestomathy", "https://archive.org/details/introductiontoma00grierich"],
+  ["Sahitya Akademi author record", "https://www.sahitya-akademi.gov.in/awards/akademi%20samman_suchi.jsp?JG4TxjCSLF=adUIQ"],
+  ["Sahitya Akademi Maithili bibliography", "https://www.sahitya-akademi.gov.in/publications/maithili-catalogue_h.jsp"],
+  ["Maithili Akademi", "https://www.sahitya-akademi.gov.in/publications/maithili-catalogue_h.jsp"],
+  ["Vidyapati", "https://www.sahitya-akademi.gov.in/publications/maithili-catalogue_h.jsp"],
+  ["Mithila Painting", "https://handicrafts.nic.in/crafts/All_Crafts/Craft_Categories/Miscellaneous/Folk_Painting/Mithila_painting/MithilaPaintingWebPage.html"],
+  ["Madhubani Paintings", "https://handicrafts.nic.in/crafts/All_Crafts/Craft_Categories/Miscellaneous/Folk_Painting/Madhubani_Painting/Madhubani_Paintingwebpage.html"],
+  ["Ganga Devi: Tradition and Expression in Mithila Painting", "https://books.google.com/books/about/Ganga_Devi.html?id=nfTVAAAAMAAJ"],
+  ["Varṇa Ratnākara", "https://search.worldcat.org/title/Varna-ratnakara-%28Vararatnakara%29-of-Jyotirisvara-Kavisekharacarya/oclc/166063766"],
+  ["Maithil Painting", "https://smarthistory.org/painting-mithila-introduction/"],
+  ["Mithila Painting: The Evolution of an Art Form", "https://chazen.wisc.edu/exhibitions/mithila-painting-the-evolution-of-an-art-form/"],
+  ["Janakpur", "https://janakpurmun.gov.np/sites/janakpurmun.gov.np/files/%E0%A4%9C%E0%A4%A8%E0%A4%95%E0%A4%AA%E0%A5%81%E0%A4%B0%20%E0%A4%B8%E0%A4%AE%E0%A5%8D%E0%A4%AA%E0%A4%A6%E0%A4%BE%20%E0%A4%B8%E0%A5%82%E0%A4%9A%E0%A5%80%20%E0%A4%A1%E0%A4%BF%E0%A4%9C%E0%A4%BE%E0%A4%87%E0%A4%A8.pdf"],
+  ["Sharda Sinha", "https://www.saregama.com/artist/sharda-sinha_7621/songs"],
+];
+
+function sourceUrlFor(source: SourceRecord): string | undefined {
+  const citation = source.citation.toLocaleLowerCase();
+  for (const [needle, url] of sourceReferenceUrls) {
+    if (citation.includes(needle.toLocaleLowerCase())) return url;
+  }
+  if (citation.includes("all india handicrafts board") || citation.includes("handicrafts")) {
+    return "https://handicrafts.nic.in/crafts/All_Crafts/Craft_Categories/Miscellaneous/Folk_Painting/Mithila_painting/MithilaPaintingWebPage.html";
+  }
+  if (citation.includes("ignca")) return "https://ignca.gov.in/PDF_data/Mithila_Paintings.pdf";
+  if (citation.includes("saregama")) return "https://www.saregama.com/artist/sharda-sinha_7621/songs";
+  return undefined;
+}
+
+const enrichedSources = sources.map((source) => {
+  const url = source.url ?? sourceUrlFor(source);
+  return url ? { ...source, url } : source;
+});
 const provenance = adapted.flatMap((entry) => entry.provenance);
 
 function stableSourceHash(value: string): string {
@@ -312,7 +347,7 @@ function normalizeBibliographicSources(sourceRecords: SourceRecord[]): Bibliogra
   return Array.from(groups.values());
 }
 
-const bibliographicSources = normalizeBibliographicSources(sources);
+const bibliographicSources = normalizeBibliographicSources(enrichedSources);
 const sourceToBibliographicId = new Map<string, string>();
 for (const source of bibliographicSources) {
   for (const captureId of source.captureIds) {
