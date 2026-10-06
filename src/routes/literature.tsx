@@ -57,7 +57,7 @@ function LiteraturePage() {
             <li key={w.slug} id={w.slug} className="scroll-mt-24">
               <EntryCard className="h-full">
                 <div className="flex flex-wrap items-baseline justify-between gap-3">
-                  <h2 className="deva text-2xl leading-snug text-foreground"><Link to="/archive/$type/$slug" params={{ type: "literature-work", slug: w.slug }} className="hover:text-terracotta">{w.titleDeva}</a></h2>
+                  <h2 className="deva text-2xl leading-snug text-foreground"><Link to="/archive/$type/$slug" params={{ type: "literature-work", slug: w.slug }} className="hover:text-terracotta">{w.titleDeva}</Link></h2>
                   <span className="label-eyebrow text-terracotta">{w.form}</span>
                 </div>
                 <p className="mt-1 font-sans text-sm tracking-wide text-muted-foreground italic">
