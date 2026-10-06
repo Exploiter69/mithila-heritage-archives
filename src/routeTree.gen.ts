@@ -144,6 +144,7 @@ export interface FileRouteTypes {
     | '/literature'
     | '/music'
     | '/proverbs'
+    | '/archive/$type/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
