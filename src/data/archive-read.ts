@@ -55,6 +55,17 @@ export function getArchiveRecordById(id: string): ArchiveRecord | undefined {
   return publishedRecords.find((record) => record.id === id);
 }
 
+export function getArchiveRecordByTypeAndSlug(
+  type: ArchiveRecordType,
+  slug: string,
+): ArchiveRecord | undefined {
+  return getArchiveRecordBySlug(type, slug);
+}
+
+export function getArchiveRecordPath(record: Pick<ArchiveRecord, "type" | "slug">): string {
+  return `/archive/${record.type}/${record.slug}`;
+}
+
 export function getArchiveSources(record: ArchiveRecord) {
   return canonicalArchive.sources.filter((source) =>
     record.sourceIds.includes(source.id),
