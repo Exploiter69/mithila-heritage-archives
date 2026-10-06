@@ -13,7 +13,8 @@
     "archive:validate": "bun src/data/validate-archive-cli.ts",
     "format": "prettier --write .",
     "test:archive": "bun scripts/archive-foundation.test.ts",
-    "test": "bun run test:archive"
+    "test": "bun run test:archive && bun run test:archive-records",
+    "test:archive-records": "bun scripts/archive-record-routes.test.ts"
   },
   "overrides": {
     "rolldown": "1.2.1"
