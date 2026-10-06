@@ -53,10 +53,7 @@ function expectInvalid(
   assert.equal(result.valid, false, "mutated archive should be invalid");
   assert.ok(
     result.errors.some((error) => error.includes(expectedMessage)),
-    `expected an error containing: ${expectedMessage}
-Actual errors:
-${result.errors.join("
-")}`,
+    `expected an error containing: ${expectedMessage}\nActual errors:\n${result.errors.join("\n")}`,
   );
 }
 
@@ -74,8 +71,7 @@ assert.deepEqual(
 );
 
 const valid = validateArchive(canonicalArchive);
-assert.equal(valid.valid, true, valid.errors.join("
-"));
+assert.equal(valid.valid, true, valid.errors.join("\n"));
 
 const recordIds = canonicalArchive.records.map((record) => record.id);
 assert.equal(new Set(recordIds).size, recordIds.length);
