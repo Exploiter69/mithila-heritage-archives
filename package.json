@@ -11,7 +11,9 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "archive:validate": "bun src/data/validate-archive-cli.ts",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "test:archive": "bun scripts/archive-foundation.test.ts",
+    "test": "bun run test:archive"
   },
   "overrides": {
     "rolldown": "1.2.1"
