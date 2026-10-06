@@ -1,6 +1,6 @@
 import { useNavigate } from "@tanstack/react-router";
 import { Search } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import {
   CommandDialog,
@@ -10,72 +10,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import {
-  getArchiveContent,
-  type ArtStyle,
-  type DictionaryEntry,
-  type HeritageEntry,
-  type LiteraryWork,
-  type Song,
-} from "@/data/archive-read";
-
-type Hit = {
-  group: string;
-  label: string;
-  deva: string;
-  keywords: string;
-  to: string;
-  hash: string;
-};
-
-const literaryWorks = getArchiveContent<LiteraryWork>("literature-work");
-const songs = getArchiveContent<Song>("song");
-const artStyles = getArchiveContent<ArtStyle>("art-style");
-const heritage = getArchiveContent<HeritageEntry>("heritage-entry");
-const dictionaryEntries = getArchiveContent<DictionaryEntry>("dictionary-entry");
-
-const INDEX: Hit[] = [
-  ...literaryWorks.map((w) => ({
-    group: "Literature",
-    label: `${w.transliteration} — ${w.author}`,
-    deva: w.titleDeva,
-    keywords: `${w.title} ${w.author} ${w.authorDeva} ${w.era} ${w.form}`,
-    to: "/literature",
-    hash: w.slug,
-  })),
-  ...songs.map((s) => ({
-    group: "Music",
-    label: `${s.transliteration} — ${s.performer}`,
-    deva: s.titleDeva,
-    keywords: `${s.title} ${s.performer} ${s.category} ${s.occasion}`,
-    to: "/music",
-    hash: s.slug,
-  })),
-  ...artStyles.map((a) => ({
-    group: "Art",
-    label: `${a.name} — Madhubani style`,
-    deva: a.nameDeva,
-    keywords: `${a.origin} ${a.motifs.join(" ")}`,
-    to: "/art",
-    hash: a.slug,
-  })),
-  ...heritage.map((h) => ({
-    group: "Heritage",
-    label: `${h.name} — ${h.kind}`,
-    deva: h.nameDeva,
-    keywords: `${h.place} ${h.period}`,
-    to: "/heritage",
-    hash: h.slug,
-  })),
-  ...dictionaryEntries.map((d) => ({
-    group: "Dictionary",
-    label: `${d.transliteration} — ${d.english.slice(0, 60)}`,
-    deva: d.headword,
-    keywords: `${d.hindi} ${d.english} ${d.wordClass}`,
-    to: "/language",
-    hash: d.slug,
-  })),
-];
+import { searchArchive } from "@/data/archive-read";
 
 export function GlobalSearch({
   open,
@@ -85,6 +20,7 @@ export function GlobalSearch({
   onOpenChange: (v: boolean) => void;
 }) {
   const navigate = useNavigate();
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -93,37 +29,87 @@ export function GlobalSearch({
         onOpenChange(!open);
       }
     };
+
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, [open, onOpenChange]);
 
-  const groups = Array.from(new Set(INDEX.map((i) => i.group)));
+  useEffect(() => {
+    if (!open) setQuery("");
+  }, [open]);
+
+  const results = useMemo(
+    () => searchArchive(query, { limit: 30 }),
+    [query],
+  );
+
+  const groups = useMemo(() => {
+    const grouped = new Map<string, typeof results>();
+
+    for (const result of results) {
+      const existing = grouped.get(result.typeLabel);
+      if (existing) existing.push(result);
+      else grouped.set(result.typeLabel, [result]);
+    }
+
+    return grouped;
+  }, [results]);
 
   return (
     <CommandDialog
       open={open}
       onOpenChange={onOpenChange}
+      shouldFilter={false}
     >
-      <CommandInput placeholder="Search in Devanagari or Latin — ओसार, Osaar, Bharnī, Chhath…" />
+      <CommandInput
+        value={query}
+        onValueChange={setQuery}
+        placeholder="Search in Devanagari or Latin — ओसार, Osaar, Bharnī, Chhath…"
+      />
+
       <CommandList>
-        <CommandEmpty>Nothing in v0.1 matches that yet.</CommandEmpty>
-        {groups.map((g) => (
-          <CommandGroup key={g} heading={g}>
-            {INDEX.filter((i) => i.group === g).map((hit) => (
-              <CommandItem
-                key={`${hit.to}${hit.hash}`}
-                value={`${hit.deva} ${hit.label} ${hit.keywords}`}
-                onSelect={() => {
-                  onOpenChange(false);
-                  navigate({ to: hit.to, hash: hit.hash });
-                }}
-              >
-                <span className="deva mr-2 text-base text-foreground">{hit.deva}</span>
-                <span className="font-sans text-xs text-muted-foreground">{hit.label}</span>
-              </CommandItem>
+        {!query.trim() ? (
+          <CommandEmpty>Search the Mithila Heritage Archive…</CommandEmpty>
+        ) : results.length === 0 ? (
+          <CommandEmpty>
+            Nothing in the archive matches “{query}”.
+          </CommandEmpty>
+        ) : (
+          <>
+            <div className="px-3 py-2 text-xs text-muted-foreground">
+              {results.length} result{results.length === 1 ? "" : "s"}
+            </div>
+
+            {Array.from(groups.entries()).map(([label, hits]) => (
+              <CommandGroup key={label} heading={label}>
+                {hits.map((hit) => (
+                  <CommandItem
+                    key={hit.record.id}
+                    value={hit.record.id}
+                    onSelect={() => {
+                      onOpenChange(false);
+                      navigate({ to: hit.url });
+                    }}
+                  >
+                    <div className="min-w-0">
+                      <div className="truncate">
+                        <span className="deva mr-2 text-base text-foreground">
+                          {hit.title}
+                        </span>
+                      </div>
+
+                      {hit.secondary && (
+                        <div className="truncate font-sans text-xs text-muted-foreground">
+                          {hit.secondary}
+                        </div>
+                      )}
+                    </div>
+                  </CommandItem>
+                ))}
+              </CommandGroup>
             ))}
-          </CommandGroup>
-        ))}
+          </>
+        )}
       </CommandList>
     </CommandDialog>
   );
@@ -137,7 +123,10 @@ export function SearchTrigger({
   className?: string;
 }) {
   const [mac, setMac] = useState(false);
-  useEffect(() => setMac(/Mac|iPhone|iPad/.test(navigator.platform)), []);
+
+  useEffect(() => {
+    setMac(/Mac|iPhone|iPad/.test(navigator.platform));
+  }, []);
 
   return (
     <button
