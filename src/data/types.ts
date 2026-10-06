@@ -128,6 +128,46 @@ export interface ProvenanceAssertion {
   editorialNote?: string;
 }
 
+/**
+ * Provenance v2 uses a normalized bibliographic identity while retaining the
+ * original SourceRecord capture IDs for migration traceability.
+ *
+ * Optional review fields are intentionally empty when the legacy dataset has
+ * no explicit editorial audit information. Migration must never invent them.
+ */
+export const bibliographicSourceTypes = [
+  "book",
+  "article",
+  "website",
+  "archive",
+  "community",
+  "unclassified",
+] as const;
+export type BibliographicSourceType = (typeof bibliographicSourceTypes)[number];
+
+export interface BibliographicSource {
+  id: string;
+  citation: string;
+  detail?: string;
+  url?: string;
+  sourceType: BibliographicSourceType;
+  captureIds: string[];
+}
+
+export interface ProvenanceAssertionV2 {
+  id: string;
+  recordId: string;
+  bibliographicSourceId: string;
+  verificationStatus: VerificationStatus;
+  evidenceRole: "record-level" | "claim-level";
+  claimId?: string;
+  locator?: string;
+  checkedAt?: string;
+  checkedBy?: string;
+  editorialNote?: string;
+  sourceCaptureIds: string[];
+}
+
 export interface DeterministicMediaLocator {
   kind: "deterministic-playback";
   /** Computed from an existing external identifier; not source-provided provenance. */
@@ -203,5 +243,9 @@ export interface CanonicalArchiveData {
   sources: SourceRecord[];
   media: MediaRecord[];
   provenance: ProvenanceAssertion[];
+  /** Normalized bibliographic identities introduced by Provenance v2. */
+  bibliographicSources: BibliographicSource[];
+  /** Evidence assertions using normalized bibliographic source identities. */
+  provenanceV2: ProvenanceAssertionV2[];
   relations: RecordRelation[];
 }
