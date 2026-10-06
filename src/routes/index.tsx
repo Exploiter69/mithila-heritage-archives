@@ -116,9 +116,7 @@ function HomePage() {
                 </p>
               </div>
             )}
-            <Link
-              to="/language/$slug"
-              params={{ slug: word.slug }}
+            <a href={`/language/${word.slug}`}
               className="mt-6 inline-block font-sans text-xs tracking-wide text-terracotta uppercase hover:underline"
             >
               Open in the dictionary
@@ -139,9 +137,7 @@ function HomePage() {
             <p className="mt-4 border-l-2 border-gold pl-4 leading-relaxed text-muted-foreground">
               {featured.body[0]?.translation}
             </p>
-            <Link
-              to="/literature/$slug"
-              params={{ slug: featured.slug }}
+            <a href={`/literature/${featured.slug}`}
               className="mt-6 inline-block font-sans text-xs tracking-wide text-terracotta uppercase hover:underline"
             >
               Read the full text
@@ -163,9 +159,7 @@ function HomePage() {
                 </li>
               ))}
             </ul>
-            <Link
-              to="/heritage/$slug"
-              params={{ slug: tradition.slug }}
+            <a href={`/heritage/${tradition.slug}`}
               className="mt-6 inline-block font-sans text-xs tracking-wide text-terracotta uppercase hover:underline"
             >
               More on heritage
