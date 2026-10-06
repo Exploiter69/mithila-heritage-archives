@@ -31,6 +31,9 @@ jobs:
       - name: Archive validation
         run: bun run archive:validate
 
+      - name: Provenance audit report
+        run: bun run archive:provenance-report
+
       - name: Archive foundation regression tests
         run: bun run test:archive
 
