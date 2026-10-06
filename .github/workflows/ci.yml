@@ -31,8 +31,14 @@ jobs:
       - name: Archive validation
         run: bun run archive:validate
 
-      - name: Archive regression tests
+      - name: Archive foundation regression tests
         run: bun run test:archive
+
+      - name: Canonical record route regression tests
+        run: bun run test:archive-records
+
+      - name: Full regression test suite
+        run: bun run test
 
       - name: Production build
         run: bun run build
