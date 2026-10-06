@@ -53,7 +53,10 @@ function expectInvalid(
   assert.equal(result.valid, false, "mutated archive should be invalid");
   assert.ok(
     result.errors.some((error) => error.includes(expectedMessage)),
-    `expected an error containing: ${expectedMessage}\nActual errors:\n${result.errors.join("\n")}`,
+    `expected an error containing: ${expectedMessage}
+Actual errors:
+${result.errors.join("
+")}`,
   );
 }
 
@@ -71,7 +74,8 @@ assert.deepEqual(
 );
 
 const valid = validateArchive(canonicalArchive);
-assert.equal(valid.valid, true, valid.errors.join("\n"));
+assert.equal(valid.valid, true, valid.errors.join("
+"));
 
 const recordIds = canonicalArchive.records.map((record) => record.id);
 assert.equal(new Set(recordIds).size, recordIds.length);
@@ -139,7 +143,11 @@ assert.ok(varna);
 assert.equal(varna.representations.length, 2);
 assert.equal(getArchiveRecordById(varna.id)?.slug, "varna-ratnakara");
 
-const featuredLiterature = getArchiveRecordBySlug("literature-work", "bada-sukh-sar");\nassert.ok(featuredLiterature);\nassert.ok(Array.isArray((featuredLiterature?.content as { body?: unknown }).body));\n\nassert.equal(getArchiveRecords("author").length, 5);
+const featuredLiterature = getArchiveRecordBySlug("literature-work", "bada-sukh-sar");
+assert.ok(featuredLiterature);
+assert.ok(Array.isArray((featuredLiterature?.content as { body?: unknown }).body));
+
+assert.equal(getArchiveRecords("author").length, 5);
 assert.equal(getArchiveContent("proverb").length, 6);
 assert.equal(getArchiveBibliography().length, 5);
 assert.deepEqual(getArchiveLiteratureForms(), [
