@@ -18,6 +18,7 @@ import { Route as LanguageRouteImport } from './routes/language'
 import { Route as LiteratureRouteImport } from './routes/literature'
 import { Route as MusicRouteImport } from './routes/music'
 import { Route as ProverbsRouteImport } from './routes/proverbs'
+import { Route as ArchiveTypeSlugRouteImport } from './routes/archive/$type.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -64,6 +65,11 @@ const ProverbsRoute = ProverbsRouteImport.update({
   path: '/proverbs',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ArchiveTypeSlugRoute = ArchiveTypeSlugRouteImport.update({
+  id: '/archive/$type/$slug',
+  path: '/archive/$type/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -75,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/literature': typeof LiteratureRoute
   '/music': typeof MusicRoute
   '/proverbs': typeof ProverbsRoute
+  '/archive/$type/$slug': typeof ArchiveTypeSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -86,6 +93,7 @@ export interface FileRoutesByTo {
   '/literature': typeof LiteratureRoute
   '/music': typeof MusicRoute
   '/proverbs': typeof ProverbsRoute
+  '/archive/$type/$slug': typeof ArchiveTypeSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -98,6 +106,7 @@ export interface FileRoutesById {
   '/literature': typeof LiteratureRoute
   '/music': typeof MusicRoute
   '/proverbs': typeof ProverbsRoute
+  '/archive/$type/$slug': typeof ArchiveTypeSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -145,6 +154,7 @@ export interface RootRouteChildren {
   LiteratureRoute: typeof LiteratureRoute
   MusicRoute: typeof MusicRoute
   ProverbsRoute: typeof ProverbsRoute
+  ArchiveTypeSlugRoute: typeof ArchiveTypeSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -212,6 +222,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProverbsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/archive/$type/$slug': {
+      id: '/archive/$type/$slug'
+      path: '/archive/$type/$slug'
+      fullPath: '/archive/$type/$slug'
+      preLoaderRoute: typeof ArchiveTypeSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -225,6 +242,7 @@ const rootRouteChildren: RootRouteChildren = {
   LiteratureRoute: LiteratureRoute,
   MusicRoute: MusicRoute,
   ProverbsRoute: ProverbsRoute,
+  ArchiveTypeSlugRoute: ArchiveTypeSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
