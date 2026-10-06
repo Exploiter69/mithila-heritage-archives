@@ -137,6 +137,36 @@ export const provenanceAssertionSchema = z.object({
   editorialNote: z.string().min(1).optional(),
 });
 
+const bibliographicSourceSchema = z.object({
+  id: idSchema,
+  citation: z.string().min(1),
+  detail: z.string().min(1).optional(),
+  url: urlSchema.optional(),
+  sourceType: z.enum([
+    "book",
+    "article",
+    "website",
+    "archive",
+    "community",
+    "unclassified",
+  ]),
+  captureIds: z.array(idSchema).min(1),
+});
+
+const provenanceAssertionV2Schema = z.object({
+  id: idSchema,
+  recordId: idSchema,
+  bibliographicSourceId: idSchema,
+  verificationStatus: z.enum(verificationStatuses),
+  evidenceRole: z.enum(["record-level", "claim-level"]),
+  claimId: idSchema.optional(),
+  locator: z.string().min(1).optional(),
+  checkedAt: z.string().datetime({ offset: true }).optional(),
+  checkedBy: z.string().min(1).optional(),
+  editorialNote: z.string().min(1).optional(),
+  sourceCaptureIds: z.array(idSchema).min(1),
+});
+
 export const recordRelationSchema = z.object({
   id: idSchema,
   fromRecordId: idSchema,
@@ -151,5 +181,7 @@ export const canonicalArchiveSchema = z.object({
   sources: z.array(sourceRecordSchema),
   media: z.array(mediaRecordSchema),
   provenance: z.array(provenanceAssertionSchema),
+  bibliographicSources: z.array(bibliographicSourceSchema),
+  provenanceV2: z.array(provenanceAssertionV2Schema),
   relations: z.array(recordRelationSchema),
 });
