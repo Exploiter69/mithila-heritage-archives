@@ -668,6 +668,8 @@ Priority: **P1**
 
 ## Phase 2 — First-class record URLs
 
+**Status: complete (2026-10-06)**
+
 **Goal:** turn every archive item into an addressable resource.
 
 Tasks:
@@ -680,6 +682,17 @@ Tasks:
 - breadcrumbs/back-to-collection;
 - related-source display;
 - media display.
+
+Completed implementation:
+
+- dynamic canonical record routes now exist for literature, authors, dictionary entries, proverbs, art, music, and heritage;
+- both art record variants and both music record variants resolve through their canonical type/slug identities;
+- unknown record slugs use TanStack Router not-found handling instead of rendering an empty record;
+- every record page has a stable breadcrumb, record identifier, source/evidence section, media attribution where applicable, and collection return link;
+- record pages generate unique title/description, robots, Open Graph, Twitter, and canonical-link metadata;
+- optional VITE_SITE_URL support makes canonical metadata absolute when the deployment origin is configured, while local development safely falls back to the route path;
+- collection cards and home-page featured entries now link to canonical record URLs instead of hash fragments;
+- archive record route regression tests verify every published canonical record resolves to a unique URL path.
 
 Priority: **P1**
 
