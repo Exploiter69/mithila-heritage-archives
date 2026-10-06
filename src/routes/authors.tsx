@@ -42,7 +42,7 @@ function AuthorsPage() {
         .toLowerCase()
         .includes(needle),
     );
-  }, [q]);
+  }, [q, authors]);
 
   return (
     <>
