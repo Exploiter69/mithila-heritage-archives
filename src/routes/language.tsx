@@ -49,7 +49,7 @@ function LanguagePage() {
         .toLowerCase();
       return matchesCls && (!needle || hay.includes(needle));
     });
-  }, [q, cls]);
+  }, [q, cls, dictionaryEntries]);
 
   return (
     <>
