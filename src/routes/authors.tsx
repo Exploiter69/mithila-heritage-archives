@@ -71,7 +71,7 @@ function AuthorsPage() {
                 <div className="grid gap-6 md:grid-cols-[1fr_1.6fr]">
                   <div>
                     <h2 className="text-2xl leading-tight tracking-tight text-foreground">
-                      <Link to="/authors/$slug" params={{ slug: a.slug }} className="hover:text-terracotta">{a.name}</Link>
+                      <a href={`/authors/${a.slug}`} className="hover:text-terracotta">{a.name}</Link>
                     </h2>
                     <p className="deva mt-1 text-lg text-terracotta">{a.nameMai}</p>
                     <MetaRow
