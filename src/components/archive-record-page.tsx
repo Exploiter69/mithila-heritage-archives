@@ -439,8 +439,39 @@ export function ArchiveRecordPage({
                   </p>
                 )}
                 <p className="mt-2 label-eyebrow text-muted-foreground">
-                  Evidence status: {evidence.provenance?.verificationStatus ?? "not recorded"}
+                  Evidence status:{" "}
+                  {evidence.provenanceV2?.verificationStatus ??
+                    evidence.provenance?.verificationStatus ??
+                    "not recorded"}
                 </p>
+                {evidence.normalizedSource && (
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    Source type: {evidence.normalizedSource.sourceType}
+                  </p>
+                )}
+                {evidence.provenanceV2?.claimId && (
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    Claim: {evidence.provenanceV2.claimId}
+                  </p>
+                )}
+                {evidence.provenanceV2?.locator && (
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    Locator: {evidence.provenanceV2.locator}
+                  </p>
+                )}
+                {evidence.provenanceV2?.checkedAt && (
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    Checked: {evidence.provenanceV2.checkedAt}
+                    {evidence.provenanceV2.checkedBy
+                      ? ` · ${evidence.provenanceV2.checkedBy}`
+                      : ""}
+                  </p>
+                )}
+                {evidence.provenanceV2?.editorialNote && (
+                  <p className="mt-2 text-sm italic text-muted-foreground">
+                    {evidence.provenanceV2.editorialNote}
+                  </p>
+                )}
               </div>
             ))}
           </div>
