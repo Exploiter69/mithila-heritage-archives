@@ -37,7 +37,7 @@ function ProverbsPage() {
 
   const themes = useMemo(
     () => ["All themes", ...Array.from(new Set(proverbs.map((p) => p.theme)))],
-    [],
+    [proverbs],
   );
 
   const results = useMemo(() => {
@@ -52,7 +52,7 @@ function ProverbsPage() {
           .includes(needle);
       return matchesTheme && matchesQ;
     });
-  }, [q, theme]);
+  }, [q, theme, proverbs]);
 
   return (
     <>
