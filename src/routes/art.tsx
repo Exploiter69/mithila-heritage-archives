@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { EntryCard, PageHeader, Section, SectionTitle, SourceNote } from "@/components/archive-ui";
 import { CommonsImageFigure } from "@/components/commons-image";
@@ -42,7 +42,7 @@ function ArtPage() {
                 <div className="grid gap-6 md:grid-cols-[1fr_1.6fr]">
                   <div>
                     <h2 className="text-2xl leading-tight tracking-tight text-foreground">
-                      <a href={`/art/${a.slug}`} className="hover:text-terracotta">{a.name}</a>
+                      <Link to="/archive/$type/$slug" params={{ type: "art-style", slug: a.slug }} className="hover:text-terracotta">{a.name}</a>
                     </h2>
                     <p className="deva mt-1 text-xl text-terracotta">{a.nameDeva}</p>
                     <p className="mt-4 font-sans text-sm leading-relaxed text-muted-foreground">
