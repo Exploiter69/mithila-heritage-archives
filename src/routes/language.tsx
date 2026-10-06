@@ -86,7 +86,7 @@ function LanguagePage() {
             <li key={d.slug} id={d.slug} className="scroll-mt-24">
               <article className="flex h-full flex-col rounded-sm border border-border bg-card p-6 transition-colors hover:border-gold">
                 <div className="flex flex-wrap items-baseline justify-between gap-3">
-                  <h2 className="deva text-3xl leading-snug text-foreground">{d.headword}</h2>
+                  <h2 className="deva text-3xl leading-snug text-foreground"><Link to="/language/$slug" params={{ slug: d.slug }} className="hover:text-terracotta">{d.headword}</Link></h2>
                   <span className="label-eyebrow text-terracotta">{d.wordClass}</span>
                 </div>
                 <p className="mt-1 font-sans text-sm tracking-wide text-muted-foreground">
