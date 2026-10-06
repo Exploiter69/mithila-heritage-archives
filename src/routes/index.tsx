@@ -140,12 +140,17 @@ function HomePage() {
               {featured?.body[0]?.translation}
             </p>
             {featured && (
-              <Link to="/archive/$type/$slug" params={{ type: "literature-work", slug: featured.slug }}
-              className="mt-6 inline-block font-sans text-xs tracking-wide text-terracotta uppercase hover:underline"
-            >
-              Read the full text
-            </Link>
-            <SourceNote source={featured.source} />
+              <>
+                <Link
+                  to="/archive/$type/$slug"
+                  params={{ type: "literature-work", slug: featured.slug }}
+                  className="mt-6 inline-block font-sans text-xs tracking-wide text-terracotta uppercase hover:underline"
+                >
+                  Read the full text
+                </Link>
+                <SourceNote source={featured.source} />
+              </>
+            )}
           </EntryCard>
         </div>
       </Section>
