@@ -8,8 +8,7 @@ import {
   SearchField,
   SourceNote,
 } from "@/components/archive-ui";
-import { wordClasses } from "@/data/dictionary";
-import { getArchiveContent, type DictionaryEntry } from "@/data/archive-read";
+import { getArchiveContent, getArchiveDictionaryWordClasses, type DictionaryEntry } from "@/data/archive-read";
 
 const TITLE = "Maithili Dictionary & Language — Mithila Digital Archive";
 const DESC =
@@ -72,7 +71,7 @@ function LanguagePage() {
           />
           <FilterBar
             label="Filter by word class"
-            options={wordClasses as unknown as string[]}
+            options={getArchiveDictionaryWordClasses()}
             active={cls}
             onSelect={setCls}
           />
