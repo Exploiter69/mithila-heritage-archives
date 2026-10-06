@@ -290,7 +290,7 @@ export function ArchiveRecordPage({ record, canonicalUrl }: { record: ArchiveRec
       <nav aria-label="Breadcrumb" className="mb-8 font-sans text-sm text-muted-foreground">
         <Link to="/">Archive</Link>
         <span className="mx-2">/</span>
-        <Link to={ARCHIVE_ROUTE_CONFIG[record.type].collectionPath}>
+        <a href={ARCHIVE_ROUTE_CONFIG[record.type].collectionPath}>
           {ARCHIVE_ROUTE_CONFIG[record.type].label}
         </Link>
         <span className="mx-2">/</span>
