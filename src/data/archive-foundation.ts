@@ -254,15 +254,10 @@ const sources: SourceRecord[] = [
 ];
 
 const sourceReferenceUrls: Array<[string, string]> = [
-  ["G. A. Grierson, An Introduction to the Maithili Language", "https://archive.org/details/introductiontoma00grierich"],
-  ["G. A. Grierson, An Introduction to the Maithili Language (1881–82);", "https://archive.org/details/introductiontoma00grierich"],
-  ["Grierson, Maithili Chrestomathy (1882)", "https://archive.org/details/introductiontoma00grierich"],
+  ["G. A. Grierson, An Introduction to the Maithili Language", "https://books.google.com/books/about/An_Introduction_to_the_Maithil%C3%AD_Languag.html?id=C3dOAQAAIAAJ"],
+  ["Grierson, Maithili Chrestomathy (1882)", "https://books.google.com/books/about/An_Introduction_to_the_Maithil%C3%AD_Languag.html?id=C3dOAQAAIAAJ"],
   ["S. K. Chatterji, introduction to Varṇa Ratnākara (1940)", "https://search.worldcat.org/title/Varna-ratnakara-%28Vararatnakara%29-of-Jyotirisvara-Kavisekharacarya/oclc/166063766"],
-  ["Sahitya Akademi Maithili bibliography", "https://sahitya-akademi.gov.in/publications/maithili-catalogue_h.jsp"],
-  ["Sahitya Akademi author record", "https://www.sahitya-akademi.gov.in/awards/akademi%20samman_suchi.jsp?JG4TxjCSLF=adUIQ"],
-  ["Grierson, Maithili Chrestomathy", "https://archive.org/details/introductiontoma00grierich"],
-  ["Sahitya Akademi author record", "https://www.sahitya-akademi.gov.in/awards/akademi%20samman_suchi.jsp?JG4TxjCSLF=adUIQ"],
-  ["Sahitya Akademi Maithili bibliography", "https://www.sahitya-akademi.gov.in/publications/maithili-catalogue_h.jsp"],
+  ["Grierson, Maithili Chrestomathy", "https://books.google.com/books/about/An_Introduction_to_the_Maithil%C3%AD_Languag.html?id=C3dOAQAAIAAJ"],
   ["Mithila Painting", "https://handicrafts.nic.in/crafts/All_Crafts/Craft_Categories/Miscellaneous/Folk_Painting/Mithila_painting/MithilaPaintingWebPage.html"],
   ["Madhubani Paintings", "https://handicrafts.nic.in/crafts/All_Crafts/Craft_Categories/Miscellaneous/Folk_Painting/Madhubani_Painting/Madhubani_Paintingwebpage.html"],
   ["Ganga Devi: Tradition and Expression in Mithila Painting", "https://books.google.com/books/about/Ganga_Devi.html?id=nfTVAAAAMAAJ"],
