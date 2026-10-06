@@ -5,8 +5,7 @@ import { useState } from "react";
 import { EntryCard, PageHeader, Section, SourceNote } from "@/components/archive-ui";
 import { FilterBar } from "@/components/archive-ui";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { literatureFilters } from "@/data/literature";
-import { getArchiveContent, type LiteraryWork } from "@/data/archive-read";
+import { getArchiveContent, getArchiveLiteratureForms, type LiteraryWork } from "@/data/archive-read";
 
 const TITLE = "Maithili Literature — Mithila Digital Archive";
 const DESC =
@@ -47,7 +46,7 @@ function LiteraturePage() {
         <div className="mb-10 border-b border-border pb-8">
           <FilterBar
             label="Filter by form"
-            options={literatureFilters as unknown as string[]}
+            options={getArchiveLiteratureForms()}
             active={form}
             onSelect={setForm}
           />
