@@ -2,8 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { EntryCard, PageHeader, Section, SectionTitle, SourceNote } from "@/components/archive-ui";
 import { CommonsImageFigure } from "@/components/commons-image";
-import { motifs } from "@/data/art";
-import { getArchiveContent, type ArtStyle } from "@/data/archive-read";
+import { getArchiveArtMotifs, getArchiveContent, type ArtStyle } from "@/data/archive-read";
 
 const TITLE = "Madhubani Painting Styles — Mithila Digital Archive";
 const DESC =
@@ -99,7 +98,7 @@ function ArtPage() {
       <Section className="pt-0">
         <SectionTitle eyebrow="Iconography" title="What the motifs mean" />
         <ul className="grid gap-6 md:grid-cols-2">
-          {motifs.map((m) => (
+          {getArchiveArtMotifs().map((m) => (
             <li key={m.name}>
               <EntryCard className="h-full">
                 <div className="flex items-baseline justify-between gap-3">
