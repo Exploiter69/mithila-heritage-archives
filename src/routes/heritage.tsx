@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 
 import {
@@ -64,7 +64,7 @@ function HeritagePage() {
                   <div>
                     <span className="label-eyebrow text-terracotta">{h.kind}</span>
                     <h2 className="mt-2 text-2xl leading-tight tracking-tight text-foreground">
-                      <Link to="/heritage/$slug" params={{ slug: h.slug }} className="hover:text-terracotta">{h.name}</a>
+                      <Link to="/archive/$type/$slug" params={{ type: "heritage-entry", slug: h.slug }} className="hover:text-terracotta">{h.name}</a>
                     </h2>
                     <p className="deva mt-1 text-xl text-muted-foreground">{h.nameDeva}</p>
                     <MetaRow
