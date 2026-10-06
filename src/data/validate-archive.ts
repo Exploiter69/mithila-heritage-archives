@@ -293,10 +293,8 @@ export function validateArchive(data: CanonicalArchiveData): ArchiveValidationRe
     }
   }
 
-  const v1ToV2 = new Map(
-    data.provenanceV2.flatMap((assertion) =>
-      assertion.sourceCaptureIds.map((captureId) => [captureId, assertion.id] as const),
-    ),
+  const provenanceV2ById = new Map(
+    data.provenanceV2.map((assertion) => [assertion.id, assertion] as const),
   );
 
   for (const assertion of data.provenanceV2) {
@@ -341,9 +339,24 @@ export function validateArchive(data: CanonicalArchiveData): ArchiveValidationRe
   }
 
   for (const assertion of provenance) {
-    if (!v1ToV2.has(assertion.sourceId)) {
+    const v2Id = `provenance-v2:${assertion.id}`;
+    const v2 = provenanceV2ById.get(v2Id);
+    if (!v2) {
       errors.push(
         `V1 provenance ${assertion.id} has no normalized provenance v2 assertion`,
+      );
+      continue;
+    }
+
+    if (
+      v2.recordId !== assertion.recordId ||
+      v2.verificationStatus !== assertion.verificationStatus ||
+      v2.evidenceRole !== assertion.evidenceRole ||
+      v2.sourceCaptureIds.length !== 1 ||
+      v2.sourceCaptureIds[0] !== assertion.sourceId
+    ) {
+      errors.push(
+        `Provenance v2 ${v2Id} does not preserve its v1 assertion semantics`,
       );
     }
   }
