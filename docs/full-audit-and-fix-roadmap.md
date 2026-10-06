@@ -639,6 +639,8 @@ Priority: **P0/P1**
 
 ## Phase 1 — Canonical selectors
 
+**Status: complete (2026-10-06)**
+
 **Goal:** make canonical archive data the only application-facing data source.
 
 Tasks:
@@ -649,6 +651,17 @@ Tasks:
 - add canonical source/provenance view models;
 - migrate remaining route imports away from collection data modules.
 
+
+
+Completed implementation:
+
+- archive-read.ts owns collection facet selectors for literature forms, music categories, dictionary word classes, and heritage kinds;
+- canonical evidence views join SourceRecord and ProvenanceAssertion for UI consumption;
+- canonical image/audio media helpers expose display and playback metadata without route-level URL construction;
+- curated art motif metadata and stream attribution copy are exposed through the archive read layer;
+- all collection routes no longer import runtime data/constants from literature.ts, music.ts, art.ts, or dictionary.ts;
+- archive-ui.tsx consumes the shared Source compatibility type from types.ts rather than importing the legacy aggregate module;
+- regression tests cover selector ordering, evidence ownership, and canonical media helpers.
 Priority: **P1**
 
 ---
