@@ -271,6 +271,8 @@ const sourceReferenceUrls: Array<[string, string]> = [
   ["Janakpur", "https://janakpurmun.gov.np/sites/janakpurmun.gov.np/files/%E0%A4%9C%E0%A4%A8%E0%A4%95%E0%A4%AA%E0%A5%81%E0%A4%B0%20%E0%A4%B8%E0%A4%AE%E0%A5%8D%E0%A4%AA%E0%A4%A6%E0%A4%BE%20%E0%A4%B8%E0%A5%82%E0%A4%9A%E0%A5%80%20%E0%A4%A1%E0%A4%BF%E0%A4%9C%E0%A4%BE%E0%A4%87%E0%A4%A8.pdf"],
   ["Maithili Lokgeet", "https://sahitya-akademi.gov.in/publications/maithili.pdf"],
   ["Sharda Sinha", "https://www.saregama.com/artist/sharda-sinha_7621/songs"],
+  ["Craft cluster surveys, Bihar; Upendra Maharathi Shilp Anusandhan Sansthan collections", "https://umsas.org.in/"],
+  ["Department of Archaeology, Nepal", "https://doa.gov.np/"],
 ];
 
 function sourceUrlFor(source: SourceRecord): string | undefined {
