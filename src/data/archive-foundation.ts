@@ -278,13 +278,7 @@ function sourceUrlFor(source: SourceRecord): string | undefined {
   for (const [needle, url] of sourceReferenceUrls) {
     if (citation.includes(needle.toLocaleLowerCase())) return url;
   }
-  if (citation.includes("all india handicrafts board") || citation.includes("mithila painting") || citation.includes("madhubani painting")) {
-    return citation.includes("madhubani painting")
-      ? "https://handicrafts.nic.in/crafts/All_Crafts/Craft_Categories/Miscellaneous/Folk_Painting/Madhubani_Painting/Madhubani_Paintingwebpage.html"
-      : "https://handicrafts.nic.in/crafts/All_Crafts/Craft_Categories/Miscellaneous/Folk_Painting/Mithila_painting/MithilaPaintingWebPage.html";
-  }
-  if (citation.includes("ignca")) return "https://ignca.gov.in/PDF_data/Mithila_Paintings.pdf";
-  if (citation.includes("saregama")) return "https://www.saregama.com/artist/sharda-sinha_7621/songs";
+  return undefined;
   return undefined;
 }
 
