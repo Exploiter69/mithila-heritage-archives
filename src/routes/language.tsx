@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 
 import {
@@ -86,7 +86,7 @@ function LanguagePage() {
             <li key={d.slug} id={d.slug} className="scroll-mt-24">
               <article className="flex h-full flex-col rounded-sm border border-border bg-card p-6 transition-colors hover:border-gold">
                 <div className="flex flex-wrap items-baseline justify-between gap-3">
-                  <h2 className="deva text-3xl leading-snug text-foreground"><a href={`/language/${d.slug}`} className="hover:text-terracotta">{d.headword}</a></h2>
+                  <h2 className="deva text-3xl leading-snug text-foreground"><Link to="/archive/$type/$slug" params={{ type: "dictionary-entry", slug: d.slug }} className="hover:text-terracotta">{d.headword}</a></h2>
                   <span className="label-eyebrow text-terracotta">{d.wordClass}</span>
                 </div>
                 <p className="mt-1 font-sans text-sm tracking-wide text-muted-foreground">
