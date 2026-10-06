@@ -501,7 +501,7 @@ function getArchiveFacetValues<T>(
   selector: (content: T) => string | undefined,
   allLabel = "All",
 ): string[] {
-  const values = getArchiveContent<T>()
+  const values = getArchiveContent<T>(type)
     .map(selector)
     .filter((value): value is string => Boolean(value?.trim()));
   return [allLabel, ...Array.from(new Set(values))];
