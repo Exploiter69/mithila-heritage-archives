@@ -255,6 +255,11 @@ const sources: SourceRecord[] = [
 
 const sourceReferenceUrls: Array<[string, string]> = [
   ["G. A. Grierson, An Introduction to the Maithili Language", "https://archive.org/details/introductiontoma00grierich"],
+  ["G. A. Grierson, An Introduction to the Maithili Language (1881–82);", "https://archive.org/details/introductiontoma00grierich"],
+  ["Grierson, Maithili Chrestomathy (1882)", "https://archive.org/details/introductiontoma00grierich"],
+  ["S. K. Chatterji, introduction to Varṇa Ratnākara (1940)", "https://search.worldcat.org/title/Varna-ratnakara-%28Vararatnakara%29-of-Jyotirisvara-Kavisekharacarya/oclc/166063766"],
+  ["Sahitya Akademi Maithili bibliography", "https://sahitya-akademi.gov.in/publications/maithili-catalogue_h.jsp"],
+  ["Sahitya Akademi author record", "https://www.sahitya-akademi.gov.in/awards/akademi%20samman_suchi.jsp?JG4TxjCSLF=adUIQ"],
   ["Grierson, Maithili Chrestomathy", "https://archive.org/details/introductiontoma00grierich"],
   ["Sahitya Akademi author record", "https://www.sahitya-akademi.gov.in/awards/akademi%20samman_suchi.jsp?JG4TxjCSLF=adUIQ"],
   ["Sahitya Akademi Maithili bibliography", "https://www.sahitya-akademi.gov.in/publications/maithili-catalogue_h.jsp"],
@@ -265,9 +270,6 @@ const sourceReferenceUrls: Array<[string, string]> = [
   ["Maithil Painting", "https://smarthistory.org/painting-mithila-introduction/"],
   ["Mithila Painting: The Evolution of an Art Form", "https://chazen.wisc.edu/exhibitions/mithila-painting-the-evolution-of-an-art-form/"],
   ["Janakpur", "https://janakpurmun.gov.np/sites/janakpurmun.gov.np/files/%E0%A4%9C%E0%A4%A8%E0%A4%95%E0%A4%AA%E0%A5%81%E0%A4%B0%20%E0%A4%B8%E0%A4%AE%E0%A5%8D%E0%A4%AA%E0%A4%A6%E0%A4%BE%20%E0%A4%B8%E0%A5%82%E0%A4%9A%E0%A5%80%20%E0%A4%A1%E0%A4%BF%E0%A4%9C%E0%A4%BE%E0%A4%87%E0%A4%A8.pdf"],
-  ["Chandā Jhā, Mithilā-bhāṣā Rāmāyaṇa", "https://tufs.repo.nii.ac.jp/records/26913"],
-  ["Maithili grammar notes, Yadav (1996)", "https://books.google.com/books/about/A_Reference_Grammar_of_Maithili.html?id=G6k03mvHoBwC"],
-  ["A Reference Grammar of Maithili", "https://books.google.com/books/about/A_Reference_Grammar_of_Maithili.html?id=G6k03mvHoBwC"],
   ["Maithili Lokgeet", "https://sahitya-akademi.gov.in/publications/maithili.pdf"],
   ["Sharda Sinha", "https://www.saregama.com/artist/sharda-sinha_7621/songs"],
 ];
