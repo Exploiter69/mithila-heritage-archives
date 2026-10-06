@@ -59,7 +59,7 @@ function HomePage() {
   const word = getArchiveWordOfTheDay();
   const literaryWorks = getArchiveContent<LiteraryWork>("literature-work");
   const heritage = getArchiveContent<HeritageEntry>("heritage-entry");
-  const featured = literaryWorks.find((w) => w.slug === "bada-sukh-sar") ?? literaryWorks[0]!;
+  const featured =\n    literaryWorks.find((w) => w.slug === "bada-sukh-sar" && Array.isArray(w.body)) ??\n    literaryWorks.find((w) => Array.isArray(w.body));
   const tradition = heritage.find((h) => h.slug === "sama-chakeva") ?? heritage[0]!;
 
   return (
@@ -126,18 +126,18 @@ function HomePage() {
           <EntryCard>
             <p className="label-eyebrow text-terracotta">Featured work · विद्यापति</p>
             <h2 className="deva mt-4 text-2xl leading-snug text-foreground">
-              {featured.titleDeva}
+              {featured?.titleDeva}
             </h2>
             <p className="mt-1 font-sans text-sm text-muted-foreground italic">
-              {featured.transliteration} · {featured.author}, {featured.era}
+              {featured?.transliteration} · {featured?.author}, {featured?.era}
             </p>
             <p className="deva mt-6 text-xl leading-loose whitespace-pre-line text-foreground/90">
-              {featured.body[0]?.deva}
+              {featured?.body[0]?.deva}
             </p>
             <p className="mt-4 border-l-2 border-gold pl-4 leading-relaxed text-muted-foreground">
-              {featured.body[0]?.translation}
+              {featured?.body[0]?.translation}
             </p>
-            <Link to="/archive/$type/$slug" params={{ type: "literature-work", slug: featured.slug }}
+            {featured && (\n              <Link to="/archive/$type/$slug" params={{ type: "literature-work", slug: featured.slug }}
               className="mt-6 inline-block font-sans text-xs tracking-wide text-terracotta uppercase hover:underline"
             >
               Read the full text
