@@ -139,7 +139,7 @@ assert.ok(varna);
 assert.equal(varna.representations.length, 2);
 assert.equal(getArchiveRecordById(varna.id)?.slug, "varna-ratnakara");
 
-assert.equal(getArchiveRecords("author").length, 5);
+const featuredLiterature = getArchiveRecordBySlug("literature-work", "bada-sukh-sar");\nassert.ok(featuredLiterature);\nassert.ok(Array.isArray((featuredLiterature?.content as { body?: unknown }).body));\n\nassert.equal(getArchiveRecords("author").length, 5);
 assert.equal(getArchiveContent("proverb").length, 6);
 assert.equal(getArchiveBibliography().length, 5);
 assert.deepEqual(getArchiveLiteratureForms(), [
