@@ -1,5 +1,11 @@
 import { canonicalArchive } from "./archive-foundation";
-import type { ArchiveRecord, ArchiveRecordType, Source } from "./types";
+import type {
+  ArchiveRecord,
+  ArchiveRecordType,
+  BibliographicSource,
+  ProvenanceAssertionV2,
+  Source,
+} from "./types";
 import type { Author, Proverb } from "./archive";
 import type { ArtStyle, Motif } from "./art";
 import type { DictionaryEntry } from "./dictionary";
@@ -14,6 +20,8 @@ const publishedRecords = canonicalArchive.records.filter(
 export interface ArchiveEvidenceView {
   source: ReturnType<typeof getArchiveSources>[number];
   provenance: ReturnType<typeof getArchiveProvenance>[number] | undefined;
+  normalizedSource: BibliographicSource | undefined;
+  provenanceV2: ProvenanceAssertionV2 | undefined;
 }
 
 export interface ArchiveImageMediaView {
@@ -84,13 +92,37 @@ export function getArchiveProvenance(record: ArchiveRecord) {
   );
 }
 
+export function getArchiveBibliographicSources(): BibliographicSource[] {
+  return canonicalArchive.bibliographicSources;
+}
+
+export function getArchiveProvenanceV2(record: ArchiveRecord): ProvenanceAssertionV2[] {
+  return canonicalArchive.provenanceV2.filter(
+    (assertion) => assertion.recordId === record.id,
+  );
+}
+
 export function getArchiveEvidence(record: ArchiveRecord): ArchiveEvidenceView[] {
   const sources = getArchiveSources(record);
   const provenance = getArchiveProvenance(record);
-  return sources.map((source) => ({
-    source,
-    provenance: provenance.find((assertion) => assertion.sourceId === source.id),
-  }));
+  const provenanceV2 = getArchiveProvenanceV2(record);
+
+  return sources.map((source) => {
+    const assertion = provenance.find((item) => item.sourceId === source.id);
+    const normalizedSource = canonicalArchive.bibliographicSources.find((item) =>
+      item.captureIds.includes(source.id),
+    );
+    const v2Assertion = provenanceV2.find((item) =>
+      item.sourceCaptureIds.includes(source.id),
+    );
+
+    return {
+      source,
+      provenance: assertion,
+      normalizedSource,
+      provenanceV2: v2Assertion,
+    };
+  });
 }
 
 export function getArchiveImageMedia(record: ArchiveRecord): ArchiveImageMediaView[] {
@@ -583,9 +615,11 @@ export function getArchiveWordOfTheDay(date = new Date()): DictionaryEntry {
 export type {
   ArtStyle,
   Author,
+  BibliographicSource,
   DictionaryEntry,
   HeritageEntry,
   LiteraryWork,
+  ProvenanceAssertionV2,
   Proverb,
   Song,
   Source,
