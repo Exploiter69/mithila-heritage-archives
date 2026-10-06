@@ -15,7 +15,8 @@
     "format": "prettier --write .",
     "test:archive": "bun scripts/archive-foundation.test.ts",
     "test": "bun run test:archive && bun run test:archive-records",
-    "test:archive-records": "bun scripts/archive-record-routes.test.ts"
+    "test:archive-records": "bun scripts/archive-record-routes.test.ts",
+    "provenance-report": "bun src/data/provenance-report-cli.ts"
   },
   "overrides": {
     "rolldown": "1.2.1"
