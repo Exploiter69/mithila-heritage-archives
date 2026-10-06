@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 
 import { EntryCard, PageHeader, Section, SectionTitle, SourceNote } from "@/components/archive-ui";
 import { CommonsImageFigure } from "@/components/commons-image";
