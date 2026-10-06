@@ -5,7 +5,7 @@ import {
   archiveRecordDescription,
   archiveRecordTitle,
 } from "@/components/archive-record-page";
-import { getArchiveRecordBySlug } from "@/data/archive-read";
+import { getArchiveImageMedia, getArchiveRecordBySlug } from "@/data/archive-read";
 
 export const Route = createFileRoute("/heritage/$slug")({
   loader: ({ params }) => {
@@ -19,7 +19,8 @@ export const Route = createFileRoute("/heritage/$slug")({
     const title = archiveRecordTitle(record);
     const description = archiveRecordDescription(record);
     const canonicalPath = "/heritage/" + record.slug;
-    const image = record.mediaIds.length > 0 ? undefined : undefined;
+    const image = getArchiveImageMedia(record)[0];
+    const canonicalUrl = (import.meta.env.VITE_SITE_URL?.replace(/\/$/, "") ?? "") + canonicalPath;
     return {
       meta: [
         { title: title + " — Heritage — Mithila Digital Archive" },
@@ -28,10 +29,11 @@ export const Route = createFileRoute("/heritage/$slug")({
         { property: "og:title", content: title },
         { property: "og:description", content: description },
         { property: "og:type", content: "article" },
-        { property: "og:url", content: canonicalPath },
+        { property: "og:url", content: canonicalUrl },
+        ...(image ? [{ property: "og:image", content: image.displayUrl }] : []),
         { name: "twitter:card", content: "summary_large_image" },
       ],
-      links: [{ rel: "canonical", href: canonicalPath }],
+      links: [{ rel: "canonical", href: canonicalUrl }],
     };
   },
   component: RecordRoute,
