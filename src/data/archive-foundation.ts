@@ -275,6 +275,15 @@ const sourceReferenceUrls: Array<[string, string]> = [
   ["Department of Archaeology, Nepal", "https://doa.gov.np/"],
 ];
 
+const sourceReferenceNeedles = new Set<string>();
+for (const [needle] of sourceReferenceUrls) {
+  const normalizedNeedle = needle.toLocaleLowerCase();
+  if (sourceReferenceNeedles.has(normalizedNeedle)) {
+    throw new Error(`Duplicate provenance URL mapping: ${needle}`);
+  }
+  sourceReferenceNeedles.add(normalizedNeedle);
+}
+
 function sourceUrlFor(source: SourceRecord): string | undefined {
   const citation = source.citation.toLocaleLowerCase();
   for (const [needle, url] of sourceReferenceUrls) {
