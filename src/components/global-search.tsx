@@ -59,7 +59,6 @@ export function GlobalSearch({
     <CommandDialog
       open={open}
       onOpenChange={onOpenChange}
-      shouldFilter={false}
     >
       <CommandInput
         value={query}
