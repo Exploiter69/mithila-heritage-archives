@@ -31,7 +31,7 @@ export default tseslint.config(
           ],
         },
       ],
-      "react-refresh/only-export-components": ["warn", { allowConstantExport: true, allowExportNames: ["archiveRecordDescription", "archiveRecordTitle", "badgeVariants", "buttonVariants", "navigationMenuTriggerStyle", "sidebarMenuButtonVariants", "toggleVariants", "useFormField", "usePlayer", "useSidebar"] }],
+      "react-refresh/only-export-components": ["warn", { allowConstantExport: true, allowExportNames: ["ARCHIVE_ROUTE_CONFIG", "archiveRecordDescription", "archiveRecordTitle", "badgeVariants", "buttonVariants", "navigationMenuTriggerStyle", "sidebarMenuButtonVariants", "toggleVariants", "useFormField", "usePlayer", "useSidebar"] }],
       "@typescript-eslint/no-unused-vars": "off",
     },
   },
