@@ -11,8 +11,7 @@ import {
   SourceNote,
 } from "@/components/archive-ui";
 import { usePlayer } from "@/components/player";
-import { musicFilters, STREAM_ATTRIBUTION_TEXT } from "@/data/music";
-import { getArchiveContent, type Song } from "@/data/archive-read";
+import { ARCHIVE_STREAM_ATTRIBUTION_TEXT, getArchiveContent, getArchiveMusicCategories, type Song } from "@/data/archive-read";
 
 const TITLE = "Maithili Music — Sohar, Baṭgamanī & Chhath Songs — Mithila Digital Archive";
 const DESC =
@@ -53,7 +52,7 @@ function MusicPage() {
         <div className="mb-10 border-b border-border pb-8">
           <FilterBar
             label="Filter by form"
-            options={musicFilters as unknown as string[]}
+            options={getArchiveMusicCategories()}
             active={cat}
             onSelect={setCat}
           />
@@ -157,7 +156,7 @@ function MusicPage() {
         <div className="mt-12 rounded-sm border border-border bg-secondary/60 p-6 md:p-8">
           <p className="label-eyebrow text-terracotta">Rights & attribution</p>
           <p className="mt-3 max-w-3xl leading-relaxed text-foreground/90">
-            {STREAM_ATTRIBUTION_TEXT}
+            {ARCHIVE_STREAM_ATTRIBUTION_TEXT}
           </p>
           <p className="mt-3 max-w-3xl font-sans text-sm leading-relaxed text-muted-foreground">
             Nothing is hosted by this archive. Selecting Play opens the
