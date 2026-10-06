@@ -2,9 +2,17 @@ import assert from "node:assert/strict";
 
 import { canonicalArchive } from "../src/data/archive-foundation";
 import {
+  ARCHIVE_STREAM_ATTRIBUTION_TEXT,
+  getArchiveArtMotifs,
   getArchiveBibliography,
   getArchiveContent,
+  getArchiveDictionaryWordClasses,
+  getArchiveEvidence,
+  getArchiveImageMedia,
+  getArchiveAudioMedia,
   getArchiveMedia,
+  getArchiveLiteratureForms,
+  getArchiveMusicCategories,
   getArchiveProvenance,
   getArchiveRecordById,
   getArchiveRecordBySlug,
@@ -102,6 +110,25 @@ assert.equal(getArchiveRecordById(varna.id)?.slug, "varna-ratnakara");
 assert.equal(getArchiveRecords("author").length, 5);
 assert.equal(getArchiveContent("proverb").length, 6);
 assert.equal(getArchiveBibliography().length, 5);
+assert.deepEqual(getArchiveLiteratureForms(), ["All", "कविता", "शास्त्रीय", "कथा"]);
+assert.deepEqual(getArchiveMusicCategories(), ["All", "लोकगीत", "छठी मईया", "सोहर", "बटगमनी"]);
+assert.deepEqual(getArchiveDictionaryWordClasses(), [
+  "All",
+  "Noun",
+  "Adjective",
+  "Verb",
+  "Idiom / Proverb",
+]);
+assert.deepEqual(getArchiveArtMotifs().map((motif) => motif.name), [
+  "Lotus",
+  "Fish",
+  "Bamboo",
+  "Sun",
+]);
+assert.ok(
+  ARCHIVE_STREAM_ATTRIBUTION_TEXT.includes("YouTube"),
+  "stream attribution copy should remain available from the canonical read layer",
+);
 
 const firstRecord = getArchiveRecords()[0];
 assert.ok(firstRecord);
@@ -115,6 +142,33 @@ assert.deepEqual(
   getArchiveMedia(firstRecord).map((media) => media.id),
   firstRecord.mediaIds,
 );
+assert.equal(getArchiveEvidence(firstRecord).length, firstRecord.sourceIds.length);
+assert.deepEqual(
+  getArchiveEvidence(firstRecord).map((evidence) => evidence.source.id),
+  firstRecord.sourceIds,
+);
+for (const evidence of getArchiveEvidence(firstRecord)) {
+  assert.ok(evidence.provenance);
+  assert.equal(evidence.provenance?.sourceId, evidence.source.id);
+}
+
+const imageRecord = getArchiveRecords("art-entry")[0] ?? getArchiveRecords("art-style")[0];
+assert.ok(imageRecord);
+assert.equal(
+  getArchiveImageMedia(imageRecord).length,
+  getArchiveMedia(imageRecord).filter((media) => media.kind === "image").length,
+);
+
+const audioRecord = getArchiveRecords("song")[0];
+assert.ok(audioRecord);
+const audioMedia = getArchiveAudioMedia(audioRecord);
+assert.equal(
+  audioMedia.length,
+  getArchiveMedia(audioRecord).filter((media) => media.kind === "audio-stream").length,
+);
+if (audioMedia[0]) {
+  assert.match(audioMedia[0].playbackUrl, /^https:\/\/www\.youtube\.com\/watch\?v=/);
+}
 
 const stableDate = new Date("2026-01-01T00:00:00.000Z");
 assert.equal(
