@@ -163,7 +163,7 @@ function normalizeSearchText(value: string): string {
 function normalizeLatinSearchText(value: string): string {
   return value
     .normalize("NFKD")
-    .replace(/[\\u0300-\\u036f]/g, "")
+    .replace(/[\u0300-\u036f]/g, "")
     .toLocaleLowerCase();
 }
 
