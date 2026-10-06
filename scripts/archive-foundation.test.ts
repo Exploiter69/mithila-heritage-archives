@@ -110,7 +110,16 @@ assert.equal(getArchiveRecordById(varna.id)?.slug, "varna-ratnakara");
 assert.equal(getArchiveRecords("author").length, 5);
 assert.equal(getArchiveContent("proverb").length, 6);
 assert.equal(getArchiveBibliography().length, 5);
-assert.deepEqual(getArchiveLiteratureForms(), ["All", "कविता", "शास्त्रीय", "कथा"]);
+assert.deepEqual(getArchiveLiteratureForms(), [
+  "All",
+  "Padāvalī",
+  "Narrative verse",
+  "Drama",
+  "Prose",
+  "कविता",
+  "कथा",
+  "शास्त्रीय",
+]);
 assert.deepEqual(getArchiveMusicCategories(), ["All", "लोकगीत", "छठी मईया", "सोहर", "बटगमनी"]);
 assert.deepEqual(getArchiveDictionaryWordClasses(), [
   "All",
