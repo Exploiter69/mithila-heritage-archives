@@ -9,7 +9,7 @@ import {
   SearchField,
   SourceNote,
 } from "@/components/archive-ui";
-import { getArchiveContent, type Proverb } from "@/data/archive-read";
+import { getArchiveContent, getArchiveRecords, type Proverb } from "@/data/archive-read";
 
 const TITLE = "Maithili Proverbs (Lokokti) — Mithila Digital Archive";
 const DESC =
@@ -31,7 +31,7 @@ export const Route = createFileRoute("/proverbs")({
 
 function ProverbsPage() {
   const [q, setQ] = useState("");
-  const proverbs = getArchiveContent<Proverb>("proverb");
+  const proverbs = getArchiveContent<Proverb>("proverb");\n  const proverbRecords = getArchiveRecords("proverb");
   const [theme, setTheme] = useState("All themes");
 
   const themes = useMemo(
@@ -79,7 +79,7 @@ function ProverbsPage() {
             <li key={p.transliteration}>
               <EntryCard className="h-full">
                 <span className="label-eyebrow text-terracotta">{p.theme}</span>
-                <p className="deva mt-3 text-2xl leading-relaxed text-foreground">{p.text}</p>
+                <p className="deva mt-3 text-2xl leading-relaxed text-foreground">\n                  <Link to="/proverbs/$slug" params={{ slug: proverbRecords.find((record) => (record.content as Proverb).text === p.text)?.slug ?? "" }} className="hover:text-terracotta">{p.text}</Link>\n                </p>
                 <p className="mt-2 font-sans text-sm tracking-wide text-muted-foreground">
                   {p.transliteration}
                 </p>
