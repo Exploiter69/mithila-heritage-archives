@@ -269,7 +269,6 @@ const sourceReferenceUrls: Array<[string, string]> = [
   ["Maithili grammar notes, Yadav (1996)", "https://books.google.com/books/about/A_Reference_Grammar_of_Maithili.html?id=G6k03mvHoBwC"],
   ["A Reference Grammar of Maithili", "https://books.google.com/books/about/A_Reference_Grammar_of_Maithili.html?id=G6k03mvHoBwC"],
   ["Maithili Lokgeet", "https://sahitya-akademi.gov.in/publications/maithili.pdf"],
-  ["Sahitya Akademi Maithili bibliography", "https://sahitya-akademi.gov.in/publications/maithili.pdf"],
   ["Sharda Sinha", "https://www.saregama.com/artist/sharda-sinha_7621/songs"],
 ];
 
