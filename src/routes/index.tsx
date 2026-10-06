@@ -116,7 +116,7 @@ function HomePage() {
                 </p>
               </div>
             )}
-            <a href={`/language/${word.slug}`}
+            <Link to="/archive/$type/$slug" params={{ type: "dictionary-entry", slug: word.slug }}
               className="mt-6 inline-block font-sans text-xs tracking-wide text-terracotta uppercase hover:underline"
             >
               Open in the dictionary
@@ -137,7 +137,7 @@ function HomePage() {
             <p className="mt-4 border-l-2 border-gold pl-4 leading-relaxed text-muted-foreground">
               {featured.body[0]?.translation}
             </p>
-            <a href={`/literature/${featured.slug}`}
+            <Link to="/archive/$type/$slug" params={{ type: "literature-work", slug: featured.slug }}
               className="mt-6 inline-block font-sans text-xs tracking-wide text-terracotta uppercase hover:underline"
             >
               Read the full text
@@ -159,7 +159,7 @@ function HomePage() {
                 </li>
               ))}
             </ul>
-            <a href={`/heritage/${tradition.slug}`}
+            <Link to="/archive/$type/$slug" params={{ type: "heritage-entry", slug: tradition.slug }}
               className="mt-6 inline-block font-sans text-xs tracking-wide text-terracotta uppercase hover:underline"
             >
               More on heritage
