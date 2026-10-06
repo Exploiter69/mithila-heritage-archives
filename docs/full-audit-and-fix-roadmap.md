@@ -718,17 +718,34 @@ Priority: **P1**
 
 ## Phase 4 — Provenance v2
 
-**Goal:** move from "citation attached to record" toward evidence-aware archival records.
+**Status: foundation implemented (2026-10-06)**
 
-Tasks:
+**Goal:** move from "citation attached to record" toward evidence-aware archival records without rewriting or strengthening existing claims.
 
-- normalized sources;
-- claim-level provenance;
-- locators/page/section;
-- checked dates;
-- editorial notes;
-- evidence roles;
-- source audit reporting.
+Implemented:
+
+- normalized bibliographic source identities with exact-capture traceability;
+- ProvenanceAssertionV2 alongside the compatibility v1 assertions;
+- explicit evidence role and optional claim scope;
+- optional locator, checked-at timestamp, reviewer, and editorial note fields;
+- deterministic provenance audit reporting;
+- graph validation for v1 → v2 semantic parity and source-capture ownership;
+- record-page rendering for provenance-v2 metadata when it exists.
+
+Important boundary:
+
+- legacy `verified`, `community`, and `needs-review` semantics are preserved;
+- missing review metadata is not treated as a failed verification;
+- no external website is contacted during builds or deterministic reports;
+- no source is upgraded merely because it has a URL;
+- normalized sources are merged only when their complete migrated bibliographic payload is identical.
+
+Next Provenance v2 work:
+
+- populate claim-level evidence only from explicit editorial/source review;
+- add page/section/quote locators where the source supports them;
+- optionally add live source-health reporting as a non-blocking audit tool;
+- perform an editorial verification pass before changing any verification status.
 
 Priority: **P1/P2**
 
