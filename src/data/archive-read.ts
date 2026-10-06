@@ -359,6 +359,7 @@ function getRecordSearchProjection(record: ArchiveRecord): {
         content["occasion"],
       );
       break;
+    }
 
     case "heritage-entry":
       addSearchFields(
@@ -379,7 +380,6 @@ function getRecordSearchProjection(record: ArchiveRecord): {
         content["period"],
       );
       break;
-    }
   }
 
   const sources = getArchiveSources(record);
