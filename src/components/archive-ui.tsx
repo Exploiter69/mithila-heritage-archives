@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import type { Source } from "@/data/archive";
+import type { Source } from "@/data/types";
 import { cn } from "@/lib/utils";
 
 export function PageHeader({
