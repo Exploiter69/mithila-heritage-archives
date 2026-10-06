@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { ExternalLink, Pause, Play } from "lucide-react";
 import { useState } from "react";
 
@@ -66,7 +66,7 @@ function MusicPage() {
               <li key={s.slug} id={s.slug} className="scroll-mt-24">
                 <EntryCard className="h-full">
                   <div className="flex flex-wrap items-baseline justify-between gap-3">
-                    <h2 className="deva text-2xl leading-snug text-foreground">{s.titleDeva}</h2>
+                    <h2 className="deva text-2xl leading-snug text-foreground"><Link to="/music/$slug" params={{ slug: s.slug }} className="hover:text-terracotta">{s.titleDeva}</Link></h2>
                     <span className="label-eyebrow text-terracotta">{s.category}</span>
                   </div>
                   <p className="mt-1 font-sans text-sm text-muted-foreground italic">
