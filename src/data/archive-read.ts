@@ -156,7 +156,7 @@ function normalizeSearchText(value: string): string {
     .toLocaleLowerCase()
     .replace(/[\u200B-\u200D\u2060]/g, "")
     .replace(/[\uFEFF\uFE0E\uFE0F]/g, "")
-    .replace(/[‐‒–—―]/g, "-")
+    .replace(/(?:‐|‒|–|—|―)/g, "-")
     .replace(/\s+/g, " ")
     .trim();
 }
