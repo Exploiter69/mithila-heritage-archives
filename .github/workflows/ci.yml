@@ -28,9 +28,6 @@ jobs:
       - name: Typecheck
         run: bun run typecheck
 
-      - name: Lint
-        run: bun run lint
-
       - name: Archive validation
         run: bun run archive:validate
 
@@ -39,3 +36,6 @@ jobs:
 
       - name: Production build
         run: bun run build
+
+      - name: Lint
+        run: bun run lint
