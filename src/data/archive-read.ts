@@ -498,10 +498,12 @@ export function searchArchive(
 
 function getArchiveFacetValues<T>(
   type: ArchiveRecordType,
-  selector: (content: T) => string,
+  selector: (content: T) => string | undefined,
   allLabel = "All",
 ): string[] {
-  const values = getArchiveContent<T>(type).map(selector);
+  const values = getArchiveContent<T>()
+    .map(selector)
+    .filter((value): value is string => Boolean(value?.trim()));
   return [allLabel, ...Array.from(new Set(values))];
 }
 
