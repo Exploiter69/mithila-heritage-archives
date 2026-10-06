@@ -74,7 +74,7 @@ function buildFindings(): ProvenanceAuditFinding[] {
       if (!source.url) codes.push("missing-url");
       if (!assertion.locator) codes.push("missing-locator");
       if (!assertion.checkedAt || !assertion.checkedBy) codes.push("missing-review");
-      if (assertion.evidenceRole === "record-level" && !assertion.claimId) {
+      if (assertion.evidenceRole === "claim-level" && !assertion.claimId) {
         codes.push("missing-claim-scope");
       }
       if (!citationIsSpecific(source.citation)) codes.push("vague-citation");
