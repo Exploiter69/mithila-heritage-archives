@@ -57,6 +57,14 @@ export function validateArchive(data: CanonicalArchiveData): ArchiveValidationRe
       "provenance ID",
     ),
     ...duplicateValues(
+      data.bibliographicSources.map((entry) => entry.id),
+      "bibliographic source ID",
+    ),
+    ...duplicateValues(
+      data.provenanceV2.map((entry) => entry.id),
+      "provenance v2 ID",
+    ),
+    ...duplicateValues(
       relations.map((entry) => entry.id),
       "relation ID",
     ),
@@ -70,7 +78,12 @@ export function validateArchive(data: CanonicalArchiveData): ArchiveValidationRe
   const sourceIds = new Set(sources.map((entry) => entry.id));
   const mediaIds = new Set(media.map((entry) => entry.id));
   const provenanceIds = new Set(provenance.map((entry) => entry.id));
+  const bibliographicSourceIds = new Set(
+    data.bibliographicSources.map((entry) => entry.id),
+  );
+  const provenanceV2Ids = new Set(data.provenanceV2.map((entry) => entry.id));
   const relationIds = new Set(relations.map((entry) => entry.id));
+  const sourceCaptureIds = new Set(sources.map((entry) => entry.id));
 
   const representationIds = new Set<string>();
 
@@ -258,6 +271,79 @@ export function validateArchive(data: CanonicalArchiveData): ArchiveValidationRe
     if (owner && !owner.sourceIds.includes(assertion.sourceId)) {
       errors.push(
         `Provenance ${assertion.id} uses source ${assertion.sourceId} not listed by record ${owner.id}`,
+      );
+    }
+  }
+
+  /*
+   * Provenance v2 normalizes bibliographic identities while preserving every
+   * migrated source capture. No v2 field may strengthen legacy evidence.
+   */
+  for (const source of data.bibliographicSources) {
+    if (source.captureIds.length === 0) {
+      errors.push(`Bibliographic source ${source.id} has no source captures`);
+    }
+
+    for (const captureId of source.captureIds) {
+      if (!sourceCaptureIds.has(captureId)) {
+        errors.push(
+          `Bibliographic source ${source.id} references missing source capture ${captureId}`,
+        );
+      }
+    }
+  }
+
+  const v1ToV2 = new Map(
+    data.provenanceV2.flatMap((assertion) =>
+      assertion.sourceCaptureIds.map((captureId) => [captureId, assertion.id] as const),
+    ),
+  );
+
+  for (const assertion of data.provenanceV2) {
+    if (!recordIds.has(assertion.recordId)) {
+      errors.push(
+        `Provenance v2 ${assertion.id} references missing record ${assertion.recordId}`,
+      );
+    }
+
+    if (!bibliographicSourceIds.has(assertion.bibliographicSourceId)) {
+      errors.push(
+        `Provenance v2 ${assertion.id} references missing bibliographic source ${assertion.bibliographicSourceId}`,
+      );
+    }
+
+    if (assertion.sourceCaptureIds.length === 0) {
+      errors.push(`Provenance v2 ${assertion.id} has no source capture`);
+    }
+
+    for (const captureId of assertion.sourceCaptureIds) {
+      if (!sourceCaptureIds.has(captureId)) {
+        errors.push(
+          `Provenance v2 ${assertion.id} references missing source capture ${captureId}`,
+        );
+      }
+    }
+
+    const owner = records.find((record) => record.id === assertion.recordId);
+    if (owner && !owner.provenanceIds.some((id) => id === assertion.id.replace("provenance-v2:", ""))) {
+      errors.push(
+        `Provenance v2 ${assertion.id} has no corresponding v1 provenance ownership`,
+      );
+    }
+
+    if (assertion.evidenceRole === "claim-level" && !assertion.claimId) {
+      errors.push(`Claim-level provenance v2 ${assertion.id} must have claimId`);
+    }
+
+    if (assertion.checkedAt && Number.isNaN(Date.parse(assertion.checkedAt))) {
+      errors.push(`Provenance v2 ${assertion.id} has invalid checkedAt`);
+    }
+  }
+
+  for (const assertion of provenance) {
+    if (!v1ToV2.has(assertion.sourceId)) {
+      errors.push(
+        `V1 provenance ${assertion.id} has no normalized provenance v2 assertion`,
       );
     }
   }
