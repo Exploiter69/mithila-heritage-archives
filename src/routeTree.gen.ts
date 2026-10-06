@@ -120,6 +120,7 @@ export interface FileRouteTypes {
     | '/literature'
     | '/music'
     | '/proverbs'
+    | '/archive/$type/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -131,6 +132,7 @@ export interface FileRouteTypes {
     | '/literature'
     | '/music'
     | '/proverbs'
+    | '/archive/$type/$slug'
   id:
     | '__root__'
     | '/'
