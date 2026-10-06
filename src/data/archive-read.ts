@@ -115,6 +115,376 @@ export function getArchiveContent<T>(type: ArchiveRecordType): T[] {
   return getArchiveRecords(type).map((record) => record.content as T);
 }
 
+export interface ArchiveSearchHit {
+  record: ArchiveRecord;
+  title: string;
+  secondary: string;
+  typeLabel: string;
+  url: string;
+}
+
+export interface ArchiveSearchOptions {
+  limit?: number;
+}
+
+const SEARCH_TYPE_LABELS: Record<ArchiveRecordType, string> = {
+  "literature-work": "Literature",
+  author: "Author",
+  "dictionary-entry": "Dictionary",
+  proverb: "Proverb",
+  "art-entry": "Art",
+  "art-style": "Art style",
+  "music-entry": "Music",
+  song: "Song",
+  "heritage-entry": "Heritage",
+};
+
+function normalizeSearchText(value: string): string {
+  return value
+    .normalize("NFKC")
+    .toLocaleLowerCase()
+    .replace(/[\\u200c\\u200d\\uFEFF]/g, "")
+    .replace(/[‐-‒–—―]/g, "-")
+    .replace(/\\s+/g, " ")
+    .trim();
+}
+
+function normalizeLatinSearchText(value: string): string {
+  return value
+    .normalize("NFKD")
+    .replace(/[\\u0300-\\u036f]/g, "")
+    .toLocaleLowerCase();
+}
+
+function addSearchField(values: string[], value: unknown): void {
+  if (typeof value === "string" && value.trim()) values.push(value);
+}
+
+function addSearchFields(values: string[], ...fields: unknown[]): void {
+  for (const field of fields) addSearchField(values, field);
+}
+
+function addStringArray(values: string[], value: unknown): void {
+  if (!Array.isArray(value)) return;
+  for (const item of value) addSearchField(values, item);
+}
+
+function getRecordSearchProjection(record: ArchiveRecord): {
+  title: string;
+  secondary: string;
+  searchText: string;
+} {
+  const content = record.content as Record<string, unknown>;
+  const values: string[] = [];
+  const secondaryValues: string[] = [];
+
+  switch (record.type) {
+    case "literature-work":
+      addSearchFields(
+        values,
+        content["title"],
+        content["titleDeva"],
+        content["titleMai"],
+        content["transliteration"],
+        content["author"],
+        content["authorDeva"],
+        content["period"],
+        content["form"],
+        content["language"],
+        content["summary"],
+      );
+      addSearchFields(
+        secondaryValues,
+        content["transliteration"],
+        content["author"],
+        content["period"],
+        content["form"],
+      );
+      break;
+
+    case "author":
+      addSearchFields(
+        values,
+        content["name"],
+        content["nameDeva"],
+        content["nameMai"],
+        content["transliteration"],
+        content["lifespan"],
+        content["place"],
+        content["role"],
+        content["bio"],
+      );
+      addStringArray(values, content["works"]);
+      addSearchFields(
+        secondaryValues,
+        content["name"],
+        content["lifespan"],
+        content["place"],
+        content["role"],
+      );
+      break;
+
+    case "dictionary-entry":
+      addSearchFields(
+        values,
+        content["headword"],
+        content["transliteration"],
+        content["pos"],
+        content["gloss"],
+        content["usage"],
+        content["usageGloss"],
+        content["register"],
+        content["english"],
+        content["hindi"],
+        content["wordClass"],
+      );
+      addSearchFields(
+        secondaryValues,
+        content["transliteration"],
+        content["gloss"],
+        content["pos"],
+        content["register"],
+      );
+      break;
+
+    case "proverb":
+      addSearchFields(
+        values,
+        content["text"],
+        content["transliteration"],
+        content["literal"],
+        content["meaning"],
+        content["theme"],
+      );
+      addSearchFields(
+        secondaryValues,
+        content["transliteration"],
+        content["meaning"],
+        content["theme"],
+      );
+      break;
+
+    case "art-entry":
+      addSearchFields(
+        values,
+        content["title"],
+        content["titleDeva"],
+        content["tradition"],
+        content["region"],
+        content["materials"],
+        content["description"],
+      );
+      addSearchFields(
+        secondaryValues,
+        content["tradition"],
+        content["region"],
+        content["materials"],
+      );
+      break;
+
+    case "art-style":
+      addSearchFields(
+        values,
+        content["name"],
+        content["nameDeva"],
+        content["transliteration"],
+        content["origin"],
+      );
+      addStringArray(values, content["motifs"]);
+      addSearchFields(
+        secondaryValues,
+        content["origin"],
+        content["transliteration"],
+      );
+      break;
+
+    case "music-entry":
+      addSearchFields(
+        values,
+        content["title"],
+        content["titleDeva"],
+        content["titleMai"],
+        content["transliteration"],
+        content["genre"],
+        content["occasion"],
+        content["description"],
+      );
+      addSearchFields(
+        secondaryValues,
+        content["genre"],
+        content["occasion"],
+      );
+      break;
+
+    case "song":
+      addSearchFields(
+        values,
+        content["title"],
+        content["titleDeva"],
+        content["transliteration"],
+        content["performer"],
+        content["occasion"],
+        content["category"],
+        content["about"],
+      );
+      const lyrics = content["lyrics"];
+      if (Array.isArray(lyrics)) {
+        for (const lyric of lyrics) {
+          if (lyric && typeof lyric === "object") {
+            addSearchFields(
+              values,
+              (lyric as Record<string, unknown>)["deva"],
+              (lyric as Record<string, unknown>)["translation"],
+            );
+          }
+        }
+      }
+      addSearchFields(
+        secondaryValues,
+        content["transliteration"],
+        content["performer"],
+        content["category"],
+        content["occasion"],
+      );
+      break;
+
+    case "heritage-entry":
+      addSearchFields(
+        values,
+        content["name"],
+        content["nameDeva"],
+        content["transliteration"],
+        content["kind"],
+        content["place"],
+        content["period"],
+        content["summary"],
+      );
+      addStringArray(values, content["context"]);
+      addSearchFields(
+        secondaryValues,
+        content["kind"],
+        content["place"],
+        content["period"],
+      );
+      break;
+  }
+
+  const sources = getArchiveSources(record);
+  for (const source of sources) {
+    addSearchField(values, source.citation);
+    addSearchField(values, source.detail);
+  }
+
+  const title =
+    (typeof content["titleDeva"] === "string" && content["titleDeva"]) ||
+    (typeof content["nameDeva"] === "string" && content["nameDeva"]) ||
+    (typeof content["headword"] === "string" && content["headword"]) ||
+    (typeof content["text"] === "string" && content["text"]) ||
+    (typeof content["title"] === "string" && content["title"]) ||
+    (typeof content["name"] === "string" && content["name"]) ||
+    (typeof content["transliteration"] === "string" &&
+      content["transliteration"]) ||
+    record.slug;
+
+  const searchText = normalizeSearchText(
+    [
+      record.slug,
+      SEARCH_TYPE_LABELS[record.type],
+      ...values,
+    ].join(" "),
+  );
+
+  return {
+    title,
+    secondary: Array.from(new Set(secondaryValues)).join(" — "),
+    searchText,
+  };
+}
+
+function searchFieldMatch(searchText: string, query: string): boolean {
+  const normalizedQuery = normalizeSearchText(query);
+  if (!normalizedQuery) return false;
+
+  const normalizedSearch = normalizeSearchText(searchText);
+  if (normalizedSearch.includes(normalizedQuery)) return true;
+
+  return normalizeLatinSearchText(searchText).includes(
+    normalizeLatinSearchText(query),
+  );
+}
+
+export function searchArchive(
+  query: string,
+  options: ArchiveSearchOptions = {},
+): ArchiveSearchHit[] {
+  const normalizedQuery = normalizeSearchText(query);
+  if (!normalizedQuery) return [];
+
+  const terms = normalizedQuery.split(" ").filter(Boolean);
+  const limit = Math.max(1, options.limit ?? 20);
+
+  return getArchiveRecords()
+    .map((record) => {
+      const projection = getRecordSearchProjection(record);
+      const normalizedTitle = normalizeSearchText(projection.title);
+      const normalizedSlug = normalizeSearchText(record.slug);
+      const normalizedLatinTitle = normalizeLatinSearchText(projection.title);
+      const normalizedLatinSlug = normalizeLatinSearchText(record.slug);
+      const latinQuery = normalizeLatinSearchText(query);
+
+      const exactTitle =
+        normalizedTitle === normalizedQuery ||
+        normalizedLatinTitle === latinQuery;
+      const titleMatch =
+        normalizedTitle.includes(normalizedQuery) ||
+        normalizedLatinTitle.includes(latinQuery);
+      const slugMatch =
+        normalizedSlug.includes(normalizedQuery) ||
+        normalizedLatinSlug.includes(latinQuery);
+      const allTermsMatch = terms.every((term) =>
+        searchFieldMatch(projection.searchText, term),
+      );
+
+      if (!allTermsMatch) return null;
+
+      let score = 1;
+      if (exactTitle) score += 100;
+      else if (titleMatch) score += 60;
+      if (slugMatch) score += 30;
+      for (const term of terms) {
+        if (
+          normalizedTitle.includes(term) ||
+          normalizedLatinTitle.includes(normalizeLatinSearchText(term))
+        ) {
+          score += 10;
+        }
+      }
+
+      return {
+        record,
+        title: projection.title,
+        secondary: projection.secondary,
+        typeLabel: SEARCH_TYPE_LABELS[record.type],
+        url: `/archive/${record.type}/${record.slug}`,
+        score,
+      };
+    })
+    .filter(
+      (
+        hit,
+      ): hit is ArchiveSearchHit & { score: number } => hit !== null,
+    )
+    .sort(
+      (a, b) =>
+        b.score - a.score ||
+        a.typeLabel.localeCompare(b.typeLabel) ||
+        a.title.localeCompare(b.title, undefined, { sensitivity: "base" }),
+    )
+    .slice(0, limit)
+    .map(({ score: _score, ...hit }) => hit);
+}
+
+
 function getArchiveFacetValues<T>(
   type: ArchiveRecordType,
   selector: (content: T) => string,
