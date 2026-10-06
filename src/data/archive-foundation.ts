@@ -258,8 +258,6 @@ const sourceReferenceUrls: Array<[string, string]> = [
   ["Grierson, Maithili Chrestomathy", "https://archive.org/details/introductiontoma00grierich"],
   ["Sahitya Akademi author record", "https://www.sahitya-akademi.gov.in/awards/akademi%20samman_suchi.jsp?JG4TxjCSLF=adUIQ"],
   ["Sahitya Akademi Maithili bibliography", "https://www.sahitya-akademi.gov.in/publications/maithili-catalogue_h.jsp"],
-  ["Maithili Akademi", "https://www.sahitya-akademi.gov.in/publications/maithili-catalogue_h.jsp"],
-  ["Vidyapati", "https://www.sahitya-akademi.gov.in/publications/maithili-catalogue_h.jsp"],
   ["Mithila Painting", "https://handicrafts.nic.in/crafts/All_Crafts/Craft_Categories/Miscellaneous/Folk_Painting/Mithila_painting/MithilaPaintingWebPage.html"],
   ["Madhubani Paintings", "https://handicrafts.nic.in/crafts/All_Crafts/Craft_Categories/Miscellaneous/Folk_Painting/Madhubani_Painting/Madhubani_Paintingwebpage.html"],
   ["Ganga Devi: Tradition and Expression in Mithila Painting", "https://books.google.com/books/about/Ganga_Devi.html?id=nfTVAAAAMAAJ"],
@@ -275,8 +273,10 @@ function sourceUrlFor(source: SourceRecord): string | undefined {
   for (const [needle, url] of sourceReferenceUrls) {
     if (citation.includes(needle.toLocaleLowerCase())) return url;
   }
-  if (citation.includes("all india handicrafts board") || citation.includes("handicrafts")) {
-    return "https://handicrafts.nic.in/crafts/All_Crafts/Craft_Categories/Miscellaneous/Folk_Painting/Mithila_painting/MithilaPaintingWebPage.html";
+  if (citation.includes("all india handicrafts board") || citation.includes("mithila painting") || citation.includes("madhubani painting")) {
+    return citation.includes("madhubani painting")
+      ? "https://handicrafts.nic.in/crafts/All_Crafts/Craft_Categories/Miscellaneous/Folk_Painting/Madhubani_Painting/Madhubani_Paintingwebpage.html"
+      : "https://handicrafts.nic.in/crafts/All_Crafts/Craft_Categories/Miscellaneous/Folk_Painting/Mithila_painting/MithilaPaintingWebPage.html";
   }
   if (citation.includes("ignca")) return "https://ignca.gov.in/PDF_data/Mithila_Paintings.pdf";
   if (citation.includes("saregama")) return "https://www.saregama.com/artist/sharda-sinha_7621/songs";
@@ -385,7 +385,7 @@ for (const record of records) {
 /** No record relation is inferred without explicit support in existing data. */
 export const canonicalArchive: CanonicalArchiveData = {
   records,
-  sources,
+  sources: enrichedSources,
   media,
   provenance,
   bibliographicSources,
