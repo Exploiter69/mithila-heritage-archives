@@ -154,9 +154,9 @@ function normalizeSearchText(value: string): string {
   return value
     .normalize("NFKC")
     .toLocaleLowerCase()
-    .replace(/[\\u200c\\u200d\\uFEFF]/g, "")
+    .replace(/[\u200B-\u200D\uFEFF\u2060\uFE0E\uFE0F]/g, "")
     .replace(/[‐-‒–—―]/g, "-")
-    .replace(/\\s+/g, " ")
+    .replace(/\s+/g, " ")
     .trim();
 }
 
