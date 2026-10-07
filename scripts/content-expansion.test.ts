@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 
-import { sahityaAkademiMaithiliAwards } from "../src/data/content-expansion-literature";
+import { sahityaAkademiMaithiliAwards, yuvaPuraskarMaithiliAwards } from "../src/data/content-expansion-literature";
 import { canonicalArchive } from "../src/data/archive-foundation";
 
 assert.equal(sahityaAkademiMaithiliAwards.length, 57);
@@ -26,3 +26,4 @@ for (const entry of sahityaAkademiMaithiliAwards) {
   assert.equal(record?.contentStatus, "published");
 }
 console.log("Content expansion literature tests passed: 57 Sahitya Akademi Maithili award records.");
+\nassert.equal(yuvaPuraskarMaithiliAwards.length, 15);\nassert.deepEqual(yuvaPuraskarMaithiliAwards.map((entry) => entry.awardYear), Array.from({ length: 15 }, (_, index) => 2011 + index));\nfor (const entry of yuvaPuraskarMaithiliAwards) {\n  assert.equal(entry.source.status, "verified");\n  assert.equal(entry.source.url, "https://sahitya-akademi.gov.in/awards/yuva_samman_suchi.jsp");\n  assert.ok(entry.note.includes("Bibliographic recognition record only"));\n  assert.ok(canonicalArchive.records.some((item) => item.type === "literature-work" && item.slug === entry.slug));\n}\n
