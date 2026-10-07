@@ -144,7 +144,38 @@ export const musicExpansion: MusicEntry[] = [
   slug,title,titleMai,genre,occasion,description,
   source:{citation:"IGNCA classification and documentation of Maithili folksongs; Nepal Tourism Board for Chhath.",url,status:"verified" as const},
   };
-});
+}).concat([
+  {
+    slug: "mithila-vaibhav-audio-archive",
+    title: "Mithila Vaibhav — IGNCA audio archive leads",
+    titleMai: "मिथिला-वैभव — इन्दिरा गाँधी राष्ट्रीय कला केन्द्र श्रव्य अभिलेख",
+    genre: "Archive / folk repertoire",
+    occasion: "Mithila folk-song documentation",
+    description: "An institutional IGNCA audio-archive page lists recordings/leads including Hari Kirtan, Samdaun, Tirhut, Chaitabara, Sohar, Udasi and Kirtan under Mithila Vaibhav.",
+    performers: ["Group of women in Mithila (archive descriptor; individual names not supplied on the page)"],
+    recordingLeads: [
+      { title: "Hari Kirtan", source: { citation: "IGNCA CoIL-Net audio archive, Mithila Vaibhav.", url: "https://ignca.gov.in/coilnet/aud_0001.htm", status: "verified" } },
+      { title: "Samdaun", source: { citation: "IGNCA CoIL-Net audio archive, Mithila Vaibhav.", url: "https://ignca.gov.in/coilnet/aud_0001.htm", status: "verified" } },
+      { title: "Tirhut", source: { citation: "IGNCA CoIL-Net audio archive, Mithila Vaibhav.", url: "https://ignca.gov.in/coilnet/aud_0001.htm", status: "verified" } },
+      { title: "Chaitabara", source: { citation: "IGNCA CoIL-Net audio archive, Mithila Vaibhav.", url: "https://ignca.gov.in/coilnet/aud_0001.htm", status: "verified" } },
+      { title: "Sohar 1 and Sohar 2", source: { citation: "IGNCA CoIL-Net audio archive, Mithila Vaibhav.", url: "https://ignca.gov.in/coilnet/aud_0001.htm", status: "verified" } },
+      { title: "Udasi", source: { citation: "IGNCA CoIL-Net audio archive, Mithila Vaibhav.", url: "https://ignca.gov.in/coilnet/aud_0001.htm", status: "verified" } },
+      { title: "Kirtan", source: { citation: "IGNCA CoIL-Net audio archive, Mithila Vaibhav.", url: "https://ignca.gov.in/coilnet/aud_0001.htm", status: "verified" } },
+    ],
+    source: { citation: "Indira Gandhi National Centre for the Arts, CoIL-Net Audio Recordings — Mithila Vaibhav.", url: "https://ignca.gov.in/coilnet/aud_0001.htm", status: "verified" },
+  },
+  {
+    slug: "vindhyavasini-devi-maithili-folk-singing",
+    title: "Vindhyavasini Devi — Maithili folk-singing demonstration",
+    titleMai: "विन्ध्यवासिनी देवी — मैथिली लोकगायन प्रदर्शन",
+    genre: "Folk singing",
+    occasion: "Institutional performance and demonstration",
+    description: "Sahitya Akademi's Loka activity archive records Vindhyavasini Devi rendering and demonstrating folk-singing styles in Bhojpuri, Maithili and Magaler languages at Allahabad in February 2002.",
+    performers: ["Vindhyavasini Devi"],
+    recordingLeads: [],
+    source: { citation: "Sahitya Akademi, Loka folk-culture activity archive.", url: "https://sahitya-akademi.gov.in/literaray-activities/loka.jsp", status: "verified" },
+  },
+]);
 
 export const heritageExpansion: HeritageEntry[] = [
   ["janaki-mandir","Janaki Mandir","जानकी मन्दिर","Site","Janakpurdham, Dhanusha, Nepal","19th–20th century temple complex","A major Mithila pilgrimage landmark dedicated to Sita/Janaki, combining local and Mughal-influenced architectural forms.","Nepal Tourism Board records the temple as a three-storey, sixty-room complex and a major pilgrimage site; the exact construction date varies across official NTB pages and is retained as an editorial discrepancy rather than silently resolved.","https://ntb.gov.np/janaki-mandir--janakpur--dhanusha"],
