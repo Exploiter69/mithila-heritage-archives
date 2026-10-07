@@ -75,6 +75,7 @@ export const catalogueLiterature: Array<{
     status: "verified" as const,
     url: "https://www.sahitya-akademi.gov.in/publications/maithili-catalogue_h.jsp",
   },
+  };
 });
 
 export const folkCultureExpansion: HeritageEntry[] = [
