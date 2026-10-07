@@ -9,7 +9,7 @@
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint .",
-    "typecheck": "tsr generate && tsc --noEmit",
+    "typecheck": "tsc --noEmit",
     "archive:validate": "bun src/data/validate-archive-cli.ts",
     "archive:provenance-report": "bun src/data/provenance-report-cli.ts",
     "format": "prettier --write .",
@@ -21,8 +21,7 @@
     "archive:media": "bun src/data/archive-media-cli.ts",
     "archive:qa": "bun src/data/archive-qa-cli.ts",
     "archive:export": "bun src/data/archive-export-cli.ts",
-    "archive:editorial": "bun src/data/editorial-workflow-cli.ts",
-    "routes:generate": "tsr generate"
+    "archive:editorial": "bun src/data/editorial-workflow-cli.ts"
   },
   "overrides": {
     "rolldown": "1.2.1"
