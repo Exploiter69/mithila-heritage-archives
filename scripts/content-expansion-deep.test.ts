@@ -10,12 +10,12 @@ import {
   musicExpansion,
   heritageExpansion,
 } from "../src/data/content-expansion-deep";
-import { sahityaAkademiMaithiliAwards } from "../src/data/content-expansion-literature";
+import { sahityaAkademiMaithiliAwards, yuvaPuraskarMaithiliAwards } from "../src/data/content-expansion-literature";
 import { languageResearchExpansion } from "../src/data/content-expansion-language";
 
 assert.equal(sahityaAkademiMaithiliAwards.length, 57);
 assert.equal(
-  new Set(sahityaAkademiMaithiliAwards.map((entry) => entry.author)).size,
+  new Set([...sahityaAkademiMaithiliAwards, ...yuvaPuraskarMaithiliAwards].map((entry) => entry.author)).size,
   awardRecipientAuthors.length,
   "author expansion should deduplicate repeat award recipients",
 );
@@ -67,7 +67,9 @@ for (const entry of awardRecipientAuthors) {
   assert.equal(entry.source.status, "verified");
   assert.equal(
     entry.source.url,
-    "https://www.sahitya-akademi.gov.in/awards/akademi%20samman_suchi.jsp",
+    entry.source.url === "https://sahitya-akademi.gov.in/awards/yuva_samman_suchi.jsp"
+      ? "https://sahitya-akademi.gov.in/awards/yuva_samman_suchi.jsp"
+      : "https://www.sahitya-akademi.gov.in/awards/akademi%20samman_suchi.jsp",
   );
 }
 
