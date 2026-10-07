@@ -7,13 +7,13 @@ export const Route = createFileRoute("/learn")({
   component: LearnPage,
 });
 
-const destination: Record<string, "/language" | "/literature" | "/art" | "/music" | "/heritage" | "/archive/author/vidyapati" | "/explore"> = {
+const destination: Record<string, "/language" | "/literature" | "/art" | "/music" | "/heritage" | "/explore"> = {
   maithili: "/language",
   literature: "/literature",
   art: "/art",
   music: "/music",
   heritage: "/heritage",
-  vidyapati: "/archive/author/vidyapati",
+  vidyapati: "/authors",
   explore: "/explore",
 };
 
