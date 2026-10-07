@@ -268,7 +268,7 @@ const adapted = [
   ).map((entry) =>
     adaptRecord(
       "dictionary-entry",
-      identityFor(`collection-dictionary-${entry.slug}`),
+      { id: `rec-exp-dictionary-${entry.slug}`, slug: entry.slug },
       `representation:collection-dictionary:${entry.slug}`,
       { module: "content-expansion-language.ts", exportName: "languageResearchExpansion" },
       entry,
