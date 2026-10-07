@@ -9,12 +9,14 @@ export function ThemeToggle() {
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     const next = stored ? stored === "dark" : prefersDark;
     document.documentElement.classList.toggle("dark", next);
+    document.documentElement.style.colorScheme = next ? "dark" : "light";
     setDark(next);
   }, []);
 
   const toggle = () => {
     const next = !dark;
     document.documentElement.classList.toggle("dark", next);
+    document.documentElement.style.colorScheme = next ? "dark" : "light";
     window.localStorage.setItem("mithila-theme", next ? "dark" : "light");
     setDark(next);
   };
