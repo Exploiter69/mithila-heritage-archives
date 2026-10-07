@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { EntryCard, PageHeader, Section } from "@/components/archive-ui";
 import { canonicalArchive } from "@/data/archive-foundation";
