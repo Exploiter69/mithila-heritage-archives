@@ -37,8 +37,8 @@ The regression suite currently protects this baseline:
 
 | Object | Count |
 | --- | ---: |
-| Canonical records | 65 |
-| Migration representations | 66 |
+| Canonical records | 102 |
+| Migration representations | 103 |
 | Source records | 71 |
 | Provenance assertions | 66 |
 | Media records | 15 |
