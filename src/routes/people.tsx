@@ -41,7 +41,7 @@ function PeoplePage() {
                 return records.find((record) => {
                   if (record.type !== "literature-work") return false;
                   const content = record.content as Record<string, unknown>;
-                  return [content.title, content.titleDeva, content.titleMai, content.transliteration, record.slug.replaceAll("-", " ")]
+                  return [content['title'], content['title']Deva, content['title']Mai, content['transliteration'], record.slug.replaceAll("-", " ")]
                     .filter((value): value is string => typeof value === "string")
                     .some((value) => value.normalize("NFKC").toLocaleLowerCase().trim() === normalized);
                 });
