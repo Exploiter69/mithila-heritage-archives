@@ -80,6 +80,8 @@ export const relationPredicates = [
   "about",
   "related-to",
   "part-of",
+  "example-of",
+  "associated-with",
 ] as const;
 export type RelationPredicate = (typeof relationPredicates)[number];
 
