@@ -78,8 +78,8 @@ function LanguageLabPage() {
           {results.length} lexical records
         </p>
         <div className="mt-5 grid gap-4 md:grid-cols-2">
-          {results.slice(0, 100).map((word) => (
-            <EntryCard key={word.slug}>
+          {results.slice(0, 100).map((word, index) => (
+            <EntryCard key={word.slug + "-" + index}>
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <h2 className="deva text-2xl">{word.headword}</h2>
