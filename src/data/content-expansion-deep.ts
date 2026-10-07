@@ -57,7 +57,7 @@ export const catalogueLiterature: Array<{
   ["sati-bihula","Sati Bihula","सती बिहुला","Buchru Paswan, editor","2013","Folk epic","A Sahitya Akademi publication of the Sati Bihula folk-epic tradition."]
 ].map((row) => {
   const [slug, title, titleMai, author, period, form, summary] = row as [string, string, string, string, string, string, string];
-  return ({
+  return {
   slug,title,titleMai,author,period,
   titleDeva: titleMai,
   transliteration: title,
@@ -95,7 +95,7 @@ export const folkCultureExpansion: HeritageEntry[] = [
   ["foodways-makhana","Makhana foodway","मखाना","Festival","Mithila","Ritual and household foodways","Foxnut is an important Mithila foodway and appears in contemporary festival and household descriptions, especially around Kojagara.","The archive records Makhana as a foodway research topic; specific historical claims about ritual antiquity require culinary and ethnographic sources.","https://ntb.gov.np/en/janakpur"],
 ].map((row) => {
   const [slug, name, nameDeva, kind, place, period, summary, context, url] = row as [string, string, string, string, string, string, string, string, string];
-  return ({
+  return {
   slug,name,nameDeva,kind: kind as "Festival" | "Site",place,period,summary,context:[context],
   source:{citation:"Institutional or catalogue documentation consulted for Mithila cultural research.",url,status:"verified" as const},
 }));
@@ -117,7 +117,7 @@ export const artExpansion: ArtEntry[] = [
   ["contemporary-mithila-social-themes","Contemporary social-theme painting","Contemporary practice","Mithila and Madhubani","Paper, canvas and commercial craft surfaces","The Government handicrafts portal notes contemporary Madhubani artists using the form to address social issues alongside traditional themes.","https://handicrafts.nic.in/crafts/All_Crafts/Craft_Categories/Miscellaneous/Folk_Painting/Madhubani_Painting/Madhubani_Paintingwebpage.html"],
 ].map((row) => {
   const [slug, title, tradition, region, materials, description, url] = row as [string, string, string, string, string, string, string];
-  return ({
+  return {
   slug,title,tradition,region,materials,description,
   source:{citation:"Office of the Development Commissioner (Handicrafts), Government of India; and Nepal Tourism Board where noted.",url,status:"verified" as const},
 }));
@@ -137,7 +137,7 @@ export const musicExpansion: MusicEntry[] = [
   ["women-folk-song","Women's folk-song repertoire","महिला लोकगीत","Folk song","Ritual and life-cycle","A broad performance ecology in which women are major singers and transmitters of Maithili ritual knowledge.","https://ignca.gov.in/janapada-sampada/"],
 ].map((row) => {
   const [slug, title, titleMai, genre, occasion, description, url] = row as [string, string, string, string, string, string, string];
-  return ({
+  return {
   slug,title,titleMai,genre,occasion,description,
   source:{citation:"IGNCA classification and documentation of Maithili folksongs; Nepal Tourism Board for Chhath.",url,status:"verified" as const},
 }));
