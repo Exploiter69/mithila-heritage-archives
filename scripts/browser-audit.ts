@@ -179,18 +179,35 @@ async function main() {
 
     const results: any[] = [];
 
+    async function waitForPageReady(timeoutMs = 15_000) {
+      const started = Date.now();
+      while (Date.now() - started < timeoutMs) {
+        const ready = await cdp.command("Runtime.evaluate", {
+          expression: "document.readyState === 'complete' && Boolean(document.querySelector('main#main-content'))",
+          returnByValue: true,
+        });
+        if (ready.result?.result?.value === true) {
+          await sleep(250);
+          return;
+        }
+        await sleep(100);
+      }
+      throw new Error("Timed out waiting for the rendered application shell.");
+    }
+
     for (const viewport of viewports) {
       await cdp.command("Emulation.setDeviceMetricsOverride", viewport);
       for (const route of routes) {
         const url = new URL(route, BASE_URL).toString();
         await cdp.command("Page.navigate", { url });
-        await sleep(1800);
+        await waitForPageReady();
 
         const evaluation = await cdp.command("Runtime.evaluate", {
           expression: `(() => {
             const named = (el) => (el.getAttribute("aria-label") || el.getAttribute("title") || el.innerText || "").trim();
             const badImages = [...document.images].filter((img) => !img.alt.trim()).map((img) => img.src);
             const badButtons = [...document.querySelectorAll("button,[role=button]")].filter((el) => !named(el)).map((el) => el.outerHTML.slice(0, 200));
+            const badLinks = [...document.querySelectorAll("a[href],[role=link]")].filter((el) => !named(el)).map((el) => el.outerHTML.slice(0, 200));
             const badInputs = [...document.querySelectorAll("input,select,textarea")].filter((el) => {
               if (el.getAttribute("aria-label") || el.getAttribute("aria-labelledby")) return false;
               const id = el.id;
@@ -204,7 +221,7 @@ async function main() {
               lang: document.documentElement.lang,
               hasMain: Boolean(document.querySelector("main#main-content")),
               hasSkipLink: Boolean(document.querySelector('a[href="#main-content"]')),
-              badImages, badButtons, badInputs, duplicateIds,
+              badImages, badButtons, badLinks, badInputs, duplicateIds,
               metrics: {
                 lcp: window.__mithilaAudit?.lcp || 0,
                 cls: window.__mithilaAudit?.cls || 0,
@@ -220,18 +237,16 @@ async function main() {
           returnByValue: true,
         });
 
-        const ax = await cdp.command("Accessibility.getFullAXTree");
-        const axNodes = ax.result?.nodes ?? [];
-        const unnamedInteractive = axNodes.filter((node: any) =>
-          !node.ignored &&
-          ["button", "link", "textbox", "combobox", "checkbox", "radio"].includes(node.role?.value) &&
-          !(node.name?.value || "").trim()
-        ).length;
+        const evaluated = evaluation.result?.result?.value ?? {};
+        const unnamedInteractive =
+          (evaluated.badButtons?.length ?? 0) +
+          (evaluated.badLinks?.length ?? 0) +
+          (evaluated.badInputs?.length ?? 0);
 
         results.push({
           viewport: viewport.name,
           route,
-          ...(evaluation.result?.result?.value ?? {}),
+          ...evaluated,
           accessibility: { unnamedInteractive },
         });
       }
@@ -243,6 +258,7 @@ async function main() {
       !item.hasSkipLink ||
       item.badImages.length ||
       item.badButtons.length ||
+      item.badLinks.length ||
       item.badInputs.length ||
       item.duplicateIds.length ||
       item.accessibility.unnamedInteractive > 0 ||
