@@ -22,7 +22,7 @@ function canonicalPath(type: ArchiveRecordType, slug: string): string {
   return `${CANONICAL_ROUTE_PREFIX}/${type}/${slug}`;
 }
 
-assert.equal(canonicalArchive.records.length, 102);
+assert.equal(canonicalArchive.records.length, 122);
 
 const paths = new Set<string>();
 const ids = new Set<string>();
