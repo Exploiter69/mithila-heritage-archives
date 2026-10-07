@@ -24,7 +24,9 @@ assert.ok(catalogueLiterature.length >= 15);
 assert.ok(folkCultureExpansion.length >= 10);
 assert.ok(artExpansion.length >= 10);
 assert.ok(musicExpansion.length >= 10);
-assert.ok(heritageExpansion.length >= 8);\nassert.ok(languageResearchExpansion.length >= 100);\nassert.equal(new Set(languageResearchExpansion.map((entry) => entry.slug)).size, languageResearchExpansion.length);
+assert.ok(heritageExpansion.length >= 8);
+assert.ok(languageResearchExpansion.length >= 100);
+assert.equal(new Set(languageResearchExpansion.map((entry) => entry.slug)).size, languageResearchExpansion.length);
 
 const canonicalKeys = canonicalArchive.records.map((record) => `${record.type}:${record.slug}`);
 assert.equal(new Set(canonicalKeys).size, canonicalKeys.length);
@@ -56,7 +58,12 @@ for (const entry of [...catalogueLiterature, ...folkCultureExpansion, ...artExpa
   assert.ok(entry.source.url);
 }
 
-for (const entry of languageResearchExpansion) {\n  assert.equal(entry.attested, false);\n  assert.equal(entry.source.status, "needs-review");\n}\n\nfor (const entry of awardRecipientAuthors) {
+for (const entry of languageResearchExpansion) {
+  assert.equal(entry.attested, false);
+  assert.equal(entry.source.status, "needs-review");
+}
+
+for (const entry of awardRecipientAuthors) {
   assert.equal(entry.source.status, "verified");
   assert.equal(
     entry.source.url,
