@@ -97,7 +97,8 @@ export interface MigrationRepresentation<TPayload = unknown> {
       | "music.ts"
       | "art.ts"
       | "heritage.ts"
-      | "dictionary.ts";
+      | "dictionary.ts"
+      | "content-expansion-literature.ts";
     exportName: string;
   };
   /** Original payload retained without editorial rewriting. */
