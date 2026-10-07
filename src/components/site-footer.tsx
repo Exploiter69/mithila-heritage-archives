@@ -34,10 +34,16 @@ export function SiteFooter() {
         <nav aria-label="Footer research">
           <p className="label-eyebrow text-muted-foreground">Research</p>
           <ul className="mt-4 space-y-2">
-            {["/research", "/search", "/sources", "/graph", "/media"].map((path) => (
-              <li key={path}>
-                <Link to={path} className="font-sans text-sm text-foreground/80 transition-colors hover:text-terracotta">
-                  {path.slice(1).replace("-", " ")}
+            {[
+              ["/research", "Research"],
+              ["/search", "Search"],
+              ["/sources", "Sources"],
+              ["/graph", "Graph"],
+              ["/media", "Media"],
+            ].map(([to, label]) => (
+              <li key={to}>
+                <Link to={to} className="font-sans text-sm text-foreground/80 transition-colors hover:text-terracotta">
+                  {label}
                 </Link>
               </li>
             ))}
