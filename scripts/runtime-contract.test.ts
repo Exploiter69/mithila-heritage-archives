@@ -29,7 +29,7 @@ for (const [type, records] of collections) {
 }
 
 const published = getArchiveRecords();
-assert.equal(published.length, 650);
+assert.equal(published.length, 693);
 assert.deepEqual(new Set(published.map((record) => record.type)), new Set(archiveRecordTypes));
 
 const envelope = getPublicArchiveEnvelope();
