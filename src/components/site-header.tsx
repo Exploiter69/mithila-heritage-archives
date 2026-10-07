@@ -12,12 +12,18 @@ export const NAV = [
   { to: "/art", label: "Art", deva: "कला" },
   { to: "/heritage", label: "Heritage", deva: "धरोहर" },
   { to: "/language", label: "Language", deva: "भाषा" },
+  { to: "/atlas", label: "Atlas", deva: "मानचित्र" },
+  { to: "/explore", label: "Explore", deva: "देखू" },
 ] as const;
 
 export const SECONDARY_NAV = [
   { to: "/authors", label: "Authors" },
   { to: "/proverbs", label: "Proverbs" },
   { to: "/about", label: "About & Sources" },
+  { to: "/people", label: "People" },
+  { to: "/timeline", label: "Timeline" },
+  { to: "/learn", label: "Learn Mithila" },
+  { to: "/stats", label: "Archive status" },
 ] as const;
 
 export function SiteHeader() {
@@ -113,7 +119,7 @@ export function SiteHeader() {
               </nav>
             </SheetContent>
           </Sheet>
-          <Link to="/research" className="hidden font-sans text-[0.8rem] text-muted-foreground transition-colors hover:text-terracotta xl:inline">Research</Link>
+          <div className="hidden items-center gap-3 xl:flex"><Link to="/research" className="font-sans text-[0.8rem] text-muted-foreground transition-colors hover:text-terracotta">Research</Link><Link to="/graph" className="font-sans text-[0.8rem] text-muted-foreground transition-colors hover:text-terracotta">Graph</Link></div>
         </div>
       </div>
 
