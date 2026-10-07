@@ -89,9 +89,10 @@ export const heritage: HeritageEntry[] = [
       "The surrounding grove and tank are managed by the temple trust; the annual Śivarātri melā draws crowds from across Darbhanga and Madhubani.",
     ],
     source: {
-      citation: "District Gazetteer of Darbhanga; temple trust records.",
+      citation: "District Gazetteer of Darbhanga; Madhubani district reporting; local heritage documentation.",
+      url: "https://www.jagran.com/bihar/madhubani-kapileshwar-nath-mahadev-temple-to-develop-as-a-tourist-destination-19655873.html",
       status: "community",
-      detail: "Foundation date is traditional rather than documented.",
+      detail: "The temple location and current public heritage status are documented; the foundation date remains traditional rather than documented.",
     },
   },
   {
