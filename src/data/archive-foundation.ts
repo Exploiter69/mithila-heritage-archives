@@ -17,6 +17,7 @@ import { dictionaryEntries } from "./dictionary";
 import { heritage } from "./heritage";
 import { literaryWorks } from "./literature";
 import { songs, type Stream } from "./music";
+import { buildArchiveRelations } from "./archive-relations";
 import type {
   ArchiveRecord,
   ArchiveRecordType,
@@ -391,7 +392,8 @@ for (const record of records) {
   if (stream && typeof stream === "object" && "youtubeId" in stream) media.push(addMedia(record, streamMedia(record, stream as Stream)));
 }
 
-/** No record relation is inferred without explicit support in existing data. */
+const relations = buildArchiveRelations(records, enrichedSources);
+
 export const canonicalArchive: CanonicalArchiveData = {
   records,
   sources: enrichedSources,
@@ -399,7 +401,7 @@ export const canonicalArchive: CanonicalArchiveData = {
   provenance,
   bibliographicSources,
   provenanceV2,
-  relations: [],
+  relations,
 };
 export const archiveRecords = canonicalArchive.records;
 export const sourceRecords = canonicalArchive.sources;
