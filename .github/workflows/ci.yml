@@ -37,6 +37,18 @@ jobs:
       - name: Archive data quality audit
         run: bun run archive:quality
 
+      - name: Media preservation audit
+        run: bun run archive:media
+
+      - name: Consolidated archive QA
+        run: bun run archive:qa
+
+      - name: Editorial workflow report
+        run: bun run archive:editorial
+
+      - name: Public export contract
+        run: bun run archive:export > /tmp/archive-export.json
+
       - name: Archive foundation regression tests
         run: bun run test:archive
 
