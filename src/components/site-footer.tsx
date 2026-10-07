@@ -40,6 +40,11 @@ export function SiteFooter() {
               ["/sources", "Sources"],
               ["/graph", "Graph"],
               ["/media", "Media"],
+              ["/atlas", "Cultural Atlas"],
+              ["/explore", "Explore Mithila"],
+              ["/provenance", "Provenance"],
+              ["/sources-explorer", "Source Explorer"],
+              ["/stats", "Archive status"],
             ] as const).map(([to, label]) => (
               <li key={to}>
                 <Link to={to} className="font-sans text-sm text-foreground/80 transition-colors hover:text-terracotta">
@@ -53,7 +58,7 @@ export function SiteFooter() {
         <nav aria-label="Footer secondary">
           <p className="label-eyebrow text-muted-foreground">More</p>
           <ul className="mt-4 space-y-2">
-            {SECONDARY_NAV.map((item) => (
+            {([...SECONDARY_NAV, { to: "/people", label: "People" }, { to: "/timeline", label: "Timeline" }, { to: "/learn", label: "Learn Mithila" }] as const).map((item) => (
               <li key={item.to}>
                 <Link
                   to={item.to}
