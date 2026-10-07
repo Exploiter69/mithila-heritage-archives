@@ -83,7 +83,7 @@ function MusicPage() {
                   <p className="mt-5 leading-relaxed text-muted-foreground">{s.about}</p>
 
                   <div className="mt-6 flex flex-wrap items-center gap-2">
-                    <button
+                    {s.stream && <button
                       type="button"
                       onClick={() =>
                         play({
