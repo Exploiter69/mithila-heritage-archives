@@ -11,6 +11,7 @@ import {
   heritageExpansion,
 } from "../src/data/content-expansion-deep";
 import { sahityaAkademiMaithiliAwards } from "../src/data/content-expansion-literature";
+import { languageResearchExpansion } from "../src/data/content-expansion-language";
 
 assert.equal(sahityaAkademiMaithiliAwards.length, 57);
 assert.equal(
@@ -23,13 +24,13 @@ assert.ok(catalogueLiterature.length >= 15);
 assert.ok(folkCultureExpansion.length >= 10);
 assert.ok(artExpansion.length >= 10);
 assert.ok(musicExpansion.length >= 10);
-assert.ok(heritageExpansion.length >= 8);
+assert.ok(heritageExpansion.length >= 8);\nassert.ok(languageResearchExpansion.length >= 100);\nassert.equal(new Set(languageResearchExpansion.map((entry) => entry.slug)).size, languageResearchExpansion.length);
 
 const canonicalKeys = canonicalArchive.records.map((record) => `${record.type}:${record.slug}`);
 assert.equal(new Set(canonicalKeys).size, canonicalKeys.length);
 
 assert.ok(
-  new Set(dictionaryEntries.map((entry) => entry.slug)).size >= 100,
+  new Set([...dictionaryEntries, ...languageResearchExpansion].map((entry) => entry.slug)).size >= 100,
   "language expansion must provide at least 100 unique lexical records",
 );
 
@@ -55,7 +56,7 @@ for (const entry of [...catalogueLiterature, ...folkCultureExpansion, ...artExpa
   assert.ok(entry.source.url);
 }
 
-for (const entry of awardRecipientAuthors) {
+for (const entry of languageResearchExpansion) {\n  assert.equal(entry.attested, false);\n  assert.equal(entry.source.status, "needs-review");\n}\n\nfor (const entry of awardRecipientAuthors) {
   assert.equal(entry.source.status, "verified");
   assert.equal(
     entry.source.url,
