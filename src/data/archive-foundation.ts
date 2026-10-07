@@ -131,6 +131,7 @@ function sourceFor(
     id: `source:${record.id}:${migratedRepresentation.id}`,
     citation: source.citation,
     ...(source.detail ? { detail: source.detail } : {}),
+    ...(source.url ? { url: source.url } : {}),
     captureKind: "record-citation",
     representationId: migratedRepresentation.id,
     legacyStatus: source.status,
