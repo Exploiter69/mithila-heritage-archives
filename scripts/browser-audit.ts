@@ -39,22 +39,12 @@ async function startAppServer() {
     return null;
   }
 
-  // Run the audit against the production build rather than Vite's development
-  // transform server. This keeps route generation, module compilation and the
-  // measured browser navigation on the same artifact that users would receive
-  // from a deployment.
-  const build = Bun.spawn(["bun", "run", "build"], {
-    stdout: "inherit",
-    stderr: "inherit",
-    env: process.env,
-  });
-  const buildExit = await build.exited;
-  if (buildExit !== 0) {
-    throw new Error(`Application build failed before browser audit (exit code ${buildExit}).`);
-  }
-
+  // TanStack Start's configured Nitro target does not expose a Vite-compatible
+  // dist/server/server.js for `vite preview`. Use the same Vite dev server that
+  // CI already uses for the browser audit, while warming every audited route
+  // before Chromium measurements begin.
   const proc = Bun.spawn(
-    ["bun", "run", "preview", "--", "--host", "127.0.0.1", "--port", "4173"],
+    ["bun", "run", "dev", "--", "--host", "127.0.0.1", "--port", "4173"],
     {
       stdout: "inherit",
       stderr: "inherit",
