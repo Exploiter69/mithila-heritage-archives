@@ -13,6 +13,6 @@ for (const point of CULTURAL_ATLAS_POINTS) {
 }
 assert.ok(MITHILA_TIMELINE.length >= 8);
 const stats = archiveEvidenceStats();
-assert.equal(stats.records, 693);
+assert.equal(stats.records, 723);
 assert.ok(stats.literature > 0 && stats.language > 0 && stats.music > 0 && stats.art > 0 && stats.heritage > 0);
 console.log("Archive experience tests passed.");
