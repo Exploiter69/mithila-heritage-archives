@@ -101,10 +101,10 @@ export const sahityaAkademiMaithiliAwards: AwardLiteratureRecord[] = [
   return {
     slug: `sahitya-akademi-${year}-${slug}`,
     title,
-    titleDeva: "",
+    titleDeva: transliteration,
     transliteration: title,
     author,
-    authorDeva: "",
+    authorDeva: author,
     authorBio: `Maithili author of the Sahitya Akademi Award-winning work listed for ${year}.`,
     era: String(year),
     form,
