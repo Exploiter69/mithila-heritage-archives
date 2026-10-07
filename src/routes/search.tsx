@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { EntryCard, PageHeader, Section } from "@/components/archive-ui";
-import { searchArchiveAdvanced, getResearchFacets, TYPE_LABELS } from "@/data/archive-platform";
+import { searchArchiveAdvanced, applyResearchIntent, getResearchFacets, TYPE_LABELS } from "@/data/archive-platform";
 import type { ArchiveRecordType, VerificationStatus } from "@/data/types";
 
 export const Route = createFileRoute("/search")({
@@ -25,7 +25,7 @@ function SearchPage() {
   const [mediaOnly, setMediaOnly] = useState(false);
   const [relatedOnly, setRelatedOnly] = useState(false);
   const facets = getResearchFacets();
-  const results = useMemo(() => searchArchiveAdvanced(query, {
+  const results = useMemo(() => applyResearchIntent(searchArchiveAdvanced(query, {
     ...(type === "all" ? {} : { types: [type] }),
     ...(status === "all" ? {} : { statuses: [status] }),
     ...(mediaOnly ? { hasMedia: true } : {}),
@@ -40,7 +40,7 @@ function SearchPage() {
         <div className="grid gap-4 rounded-sm border border-border bg-secondary/50 p-5 md:grid-cols-[1fr_auto_auto]">
           <label className="font-sans text-sm">
             <span className="label-eyebrow block text-muted-foreground">Query</span>
-            <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="विद्यापति, Vidyapati, Chhath..." className="mt-2 w-full rounded-sm border border-input bg-background px-3 py-2 text-foreground outline-none focus:ring-2 focus:ring-ring" />
+            <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="e.g. Maithili literary works associated with Vidyapati..." className="mt-2 w-full rounded-sm border border-input bg-background px-3 py-2 text-foreground outline-none focus:ring-2 focus:ring-ring" />
           </label>
           <label className="font-sans text-sm">
             <span className="label-eyebrow block text-muted-foreground">Collection</span>
