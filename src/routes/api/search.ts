@@ -7,7 +7,10 @@ export const Route = createFileRoute("/api/search")({
       GET: async ({ request }) => {
         const url = new URL(request.url);
         const query = url.searchParams.get("q")?.trim() ?? "";
-        const limit = Math.min(50, Math.max(1, Number(url.searchParams.get("limit") ?? 20)));
+        const requestedLimit = Number(url.searchParams.get("limit") ?? 20);
+        const limit = Number.isFinite(requestedLimit)
+          ? Math.min(50, Math.max(1, Math.trunc(requestedLimit)))
+          : 20;
         if (!query) return Response.json({ query: "", results: [] });
         return Response.json({
           apiVersion: "1.0",
