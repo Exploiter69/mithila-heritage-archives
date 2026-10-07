@@ -104,7 +104,7 @@ function MusicPage() {
                         <Play className="size-3.5 fill-current" />
                       )}
                       {current && playing ? "Playing" : "Play"}
-                    </button>
+                    </button>}
 
                     <button
                       type="button"
@@ -115,7 +115,7 @@ function MusicPage() {
                       {showing ? "Hide lyrics" : "Lyrics"}
                     </button>
 
-                    <a
+                    {s.stream && <a
                       href={`https://www.youtube.com/watch?v=${s.stream.youtubeId}`}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -123,13 +123,19 @@ function MusicPage() {
                     >
                       YouTube
                       <ExternalLink className="size-3.5" />
-                    </a>
+                    </a>}
                   </div>
 
-                  <p className="mt-3 font-sans text-xs leading-relaxed text-muted-foreground">
-                    <span className="text-foreground/80">{s.stream.channelKind}:</span>{" "}
-                    {s.stream.channel}. {s.stream.note}
-                  </p>
+                  {s.stream ? (
+                    <p className="mt-3 font-sans text-xs leading-relaxed text-muted-foreground">
+                      <span className="text-foreground/80">{s.stream.channelKind}:</span>{" "}
+                      {s.stream.channel}. {s.stream.note}
+                    </p>
+                  ) : (
+                    <p className="mt-3 font-sans text-xs leading-relaxed text-muted-foreground">
+                      Recording lead — no external stream attached yet.
+                    </p>
+                  )}
 
                   {showing && (
                     <div className="mt-6 space-y-5 border-t border-border pt-6">
