@@ -32,6 +32,7 @@ if (image && image.kind === "image") {
       imageRecord,
       { ...image, payload: { caption: image.payload.caption } },
       "https://example.org",
+      { width: 1200, height: 800, format: "image/jpeg" },
     );
     assert.equal(manifest.type, "Manifest");
     assert.equal(manifest.items[0]!.items[0]!.items[0]!.body.id, image.displayUrl);
