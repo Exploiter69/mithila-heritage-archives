@@ -34,6 +34,9 @@ jobs:
       - name: Provenance audit report
         run: bun run archive:provenance-report
 
+      - name: Archive data quality audit
+        run: bun run archive:quality
+
       - name: Archive foundation regression tests
         run: bun run test:archive
 
