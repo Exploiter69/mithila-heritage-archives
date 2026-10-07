@@ -53,7 +53,7 @@ function SearchPage() {
             </select>
           </label>
         </div>
-        <p className="mt-6 font-sans text-sm text-muted-foreground">{query.trim() ? \`\${results.length} result\${results.length === 1 ? "" : "s"}\` : "Enter a query to search."}</p>
+        <p className="mt-6 font-sans text-sm text-muted-foreground">{query.trim() ? `\${results.length} result\${results.length === 1 ? "" : "s"}` : "Enter a query to search."}</p>
         <ul className="mt-5 grid gap-4 md:grid-cols-2">
           {results.map((hit) => (
             <li key={hit.record.id}>
