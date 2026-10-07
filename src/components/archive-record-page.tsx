@@ -55,6 +55,7 @@ function sourceFromRecord(record: ArchiveRecord): Source | undefined {
   return {
     citation: evidence.source.citation,
     ...(evidence.source.detail ? { detail: evidence.source.detail } : {}),
+    ...(evidence.source.url ? { url: evidence.source.url } : {}),
     status:
       status === "community-attested"
         ? "community"
@@ -451,7 +452,7 @@ export function ArchiveRecordPage({
                     Source type: {evidence.normalizedSource.sourceType}
                   </p>
                 )}
-                {evidence.provenanceV2?.claimId && (
+                {evidence.provenanceV2?.evidenceRole && (\n                  <p className="mt-1 text-xs text-muted-foreground">\n                    Evidence role: {evidence.provenanceV2.evidenceRole}\n                  </p>\n                )}\n                {evidence.provenanceV2?.claimId && (
                   <p className="mt-1 text-xs text-muted-foreground">
                     Claim: {evidence.provenanceV2.claimId}
                   </p>
@@ -469,7 +470,7 @@ export function ArchiveRecordPage({
                       : ""}
                   </p>
                 )}
-                {evidence.provenanceV2?.editorialNote && (
+                {evidence.source.url && (\n                  <a href={evidence.source.url} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-xs text-terracotta hover:underline">\n                    Open cited source\n                  </a>\n                )}\n                {evidence.provenanceV2?.editorialNote && (
                   <p className="mt-2 text-sm italic text-muted-foreground">
                     {evidence.provenanceV2.editorialNote}
                   </p>
