@@ -29,7 +29,7 @@ const EXPECTED = {
   representations: 66,
   sources: 71,
   provenance: 66,
-  media: 15,
+  media: 18,
   relations: 12,
 } as const;
 
