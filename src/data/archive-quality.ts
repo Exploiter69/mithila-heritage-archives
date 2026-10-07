@@ -101,7 +101,7 @@ function auditRecord(record: ArchiveRecord): ArchiveQualityFinding[] {
   if (
     record.type === "dictionary-entry" &&
     record.representations.some((representation) => representation.origin.module === "dictionary.ts") &&
-    !Array.isArray(content.examples)
+    !Array.isArray(content["examples"])
   ) {
     findings.push(
       finding(
@@ -116,7 +116,7 @@ function auditRecord(record: ArchiveRecord): ArchiveQualityFinding[] {
   if (
     record.type === "song" &&
     record.representations.some((representation) => representation.origin.module === "music.ts") &&
-    !Array.isArray(content.lyrics)
+    !Array.isArray(content["lyrics"])
   ) {
     findings.push(
       finding(
