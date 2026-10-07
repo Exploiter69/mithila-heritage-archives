@@ -6,6 +6,8 @@ export interface Source {
   citation: string;
   status: SourceStatus;
   detail?: string;
+  /** Stable public source URL when the editor actually consulted and verified it. */
+  url?: string;
 }
 
 /**
