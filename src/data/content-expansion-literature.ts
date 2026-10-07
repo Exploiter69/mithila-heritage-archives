@@ -82,7 +82,7 @@ export const sahityaAkademiMaithiliAwards: AwardLiteratureRecord[] = [
   ["2023","Bodha Sanketan","Basukinath Jha","Essays"],
   ["2024","Prabandh Sangrah","Mahendra Malangia","Essays"],
   ["2025","Dhatri Paat San Gaam","Mahendra","Memoir"],
-].map(([year,title,author,category]) => {
+].map((row) => {\n  const [year, title, author, category] = row as [string, string, string, string];
   const slug = title.toLocaleLowerCase()
     .replace(/[’‘']/g, "")
     .replace(/[^a-z0-9]+/g, "-")
