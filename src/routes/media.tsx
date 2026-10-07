@@ -24,7 +24,7 @@ function MediaPage() {
             return (
               <li key={item.id}>
                 <EntryCard className="h-full">
-                  <p className="label-eyebrow text-terracotta">{item.kind} · {item.provider}</p>
+                  <p className="label-eyebrow text-terracotta">{item.kind} · {item.provider} · {item.preservation}</p>
                   <Link to="/archive/$type/$slug" params={{ type: record.type, slug: record.slug }} className="mt-2 block text-xl hover:text-terracotta">{record.slug}</Link>
                   {item.kind === "image" && (
                     <p className="mt-3 text-sm text-muted-foreground">{item.payload.credit} · {item.payload.license}</p>
