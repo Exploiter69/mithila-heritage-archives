@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { EntryCard, PageHeader, Section } from "@/components/archive-ui";
 import { canonicalArchive } from "@/data/archive-foundation";
 import { graphNeighbors, titleFor } from "@/data/archive-experience";
+import { RELATION_PREDICATE_LABELS } from "@/data/archive-platform";
 import { findShortestRecordPath } from "@/data/research-infrastructure";
 import { archiveRecordTitle } from "@/components/archive-record-page";
 
@@ -49,7 +50,7 @@ function GraphPage() {
               <div className="grid w-full gap-3 sm:grid-cols-2">
                 {neighbors.map(({ relation, target, typeLabel }) => (
                   <Link key={relation.id} to="/archive/$type/$slug" params={{ type: target.type, slug: target.slug }} className="rounded-sm border border-border bg-background p-4 hover:border-gold">
-                    <span className="label-eyebrow text-terracotta">{relation.predicate} · {typeLabel}</span>
+                    <span className="label-eyebrow text-terracotta">{RELATION_PREDICATE_LABELS[relation.predicate]} · {typeLabel} · {relation.sourceIds.length} source{relation.sourceIds.length === 1 ? "" : "s"}</span>
                     <span className="mt-2 block text-base">{archiveRecordTitle(target)}</span>
                   </Link>
                 ))}
