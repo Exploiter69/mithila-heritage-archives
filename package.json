@@ -14,7 +14,7 @@
     "archive:provenance-report": "bun src/data/provenance-report-cli.ts",
     "format": "prettier --write .",
     "test:archive": "bun scripts/archive-foundation.test.ts",
-    "test": "bun run test:archive && bun run test:identity && bun run test:archive-records && bun run test:runtime && bun run test:research && bun run test:content-expansion && bun run test:content-expansion-heritage && bun run test:content-expansion-deep",
+    "test": "bun run test:archive && bun run test:identity && bun run test:archive-records && bun run test:runtime && bun run test:research && bun run test:content-expansion && bun run test:content-expansion-heritage && bun run test:content-expansion-deep && bun run test:experience",
     "test:archive-records": "bun scripts/archive-record-routes.test.ts",
     "test:runtime": "bun scripts/runtime-contract.test.ts",
     "test:http-smoke": "bun scripts/http-smoke.ts",
@@ -30,7 +30,8 @@
     "test:content-expansion": "bun scripts/content-expansion.test.ts",
     "test:content-expansion-heritage": "bun scripts/content-expansion-heritage.test.ts",
     "test:content-expansion-deep": "bun scripts/content-expansion-deep.test.ts",
-    "test:identity": "bun scripts/archive-identity-audit.test.ts"
+    "test:identity": "bun scripts/archive-identity-audit.test.ts",
+    "test:experience": "bun scripts/archive-experience.test.ts"
   },
   "overrides": {
     "rolldown": "1.2.1"
