@@ -18,6 +18,7 @@ import { heritage } from "./heritage";
 import { literaryWorks } from "./literature";
 import { songs, type Stream } from "./music";
 import { buildArchiveRelations } from "./archive-relations";
+import { sahityaAkademiMaithiliAwards } from "./content-expansion-literature";
 import type {
   ArchiveRecord,
   ArchiveRecordType,
@@ -239,6 +240,7 @@ const adapted = [
   ...legacyArt.map((entry) => adaptRecord("art-entry", identityFor(`legacy-art-${entry.slug}`), `representation:legacy-art:${entry.slug}`, { module: "archive.ts", exportName: "art" }, entry)),
   ...legacyMusic.map((entry) => adaptRecord("music-entry", identityFor(`legacy-music-${entry.slug}`), `representation:legacy-music:${entry.slug}`, { module: "archive.ts", exportName: "music" }, entry)),
   ...literaryWorks.filter((entry) => entry.slug !== "varna-ratnakara").map((entry) => adaptRecord("literature-work", identityFor(`collection-literature-${entry.slug}`), `representation:collection-literature:${entry.slug}`, { module: "literature.ts", exportName: "literaryWorks" }, entry)),
+  ...sahityaAkademiMaithiliAwards.map((entry) => adaptRecord("literature-work", { id: `rec-akademi-${entry.awardYear}-${entry.slug.slice(-18)}`, slug: entry.slug }, `representation:award-literature:${entry.slug}`, { module: "content-expansion-literature.ts", exportName: "sahityaAkademiMaithiliAwards" }, entry)),
   ...songs.map((entry) => adaptRecord("song", identityFor(`collection-song-${entry.slug}`), `representation:collection-song:${entry.slug}`, { module: "music.ts", exportName: "songs" }, entry)),
   ...artStyles.map((entry) => adaptRecord("art-style", identityFor(`collection-art-${entry.slug}`), `representation:collection-art:${entry.slug}`, { module: "art.ts", exportName: "artStyles" }, entry)),
   ...heritage.map((entry) => adaptRecord("heritage-entry", identityFor(`collection-heritage-${entry.slug}`), `representation:collection-heritage:${entry.slug}`, { module: "heritage.ts", exportName: "heritage" }, entry)),
