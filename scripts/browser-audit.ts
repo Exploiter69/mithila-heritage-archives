@@ -147,17 +147,20 @@ type AuditResult = AuditEvaluation & {
 class Cdp {
   private ws: WebSocket;
   private nextId = 1;
+  private closed = false;
   private pending = new Map<number, { resolve: (value: CdpResponse) => void; reject: (error: Error) => void }>();
   private commandTimeoutMs = Number(process.env.CDP_COMMAND_TIMEOUT_MS ?? 15_000);
 
   constructor(url: string) {
     this.ws = new WebSocket(url);
     this.ws.onerror = () => {
+      if (this.closed) return;
       const error = new Error("CDP websocket error");
       for (const pending of this.pending.values()) pending.reject(error);
       this.pending.clear();
     };
     this.ws.onclose = () => {
+      if (this.closed) return;
       const error = new Error("CDP websocket closed");
       for (const pending of this.pending.values()) pending.reject(error);
       this.pending.clear();
@@ -189,6 +192,7 @@ class Cdp {
   }
 
   command(method: string, params: Record<string, unknown> = {}) {
+    if (this.closed) return Promise.reject(new Error("CDP websocket is closed"));
     const id = this.nextId++;
     return new Promise<CdpResponse>((resolve, reject) => {
       this.pending.set(id, { resolve, reject });
@@ -209,6 +213,9 @@ class Cdp {
   }
 
   close() {
+    if (this.closed) return;
+    this.closed = true;
+    this.pending.clear();
     this.ws.close();
   }
 }
@@ -228,10 +235,12 @@ async function main() {
     "about:blank",
   ], { stdout: "ignore", stderr: "ignore" });
 
+  let cdp: Cdp | null = null;
+
   try {
     await waitForJson("http://127.0.0.1:9222/json/version");
     const target = await (await fetch("http://127.0.0.1:9222/json/new?about:blank", { method: "PUT" })).json();
-    const cdp = new Cdp(target.webSocketDebuggerUrl);
+    cdp = new Cdp(target.webSocketDebuggerUrl);
     await cdp.connect();
 
     await cdp.command("Page.enable");
@@ -386,8 +395,8 @@ async function main() {
       throw new Error(`Browser accessibility/performance audit found ${failures.length} failing route/viewport checks.`);
     }
 
-    cdp.close();
   } finally {
+    cdp?.close();
     chromeProc.kill();
     await stopAppServer(appServer);
   }
