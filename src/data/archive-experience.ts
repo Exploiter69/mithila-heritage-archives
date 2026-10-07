@@ -50,4 +50,49 @@ export function graphNeighbors(r:ArchiveRecord){return getRelatedRecords(r).map(
 export function archiveEvidenceStats(){const records=getArchiveRecords();const counts={verified:0,"community-attested":0,"needs-review":0,disputed:0};for(const r of records)counts[r.verificationStatus]++;return {...getArchiveStats(),statuses:counts,people:getArchiveAuthors().length,literature:records.filter(r=>r.type==="literature-work").length,language:records.filter(r=>r.type==="dictionary-entry").length,music:records.filter(r=>r.type==="song"||r.type==="music-entry").length,art:records.filter(r=>r.type==="art-entry"||r.type==="art-style").length,heritage:records.filter(r=>r.type==="heritage-entry").length};}
 
 export const ART_MOTIFS=[["Fish","माछ","Recurring visual motif; interpretation depends on tradition and source."],["Lotus","कमल","Recurring vegetal motif; meanings should be tied to documented context."],["Peacock","मोर","Recurring decorative and symbolic motif."],["Bamboo","बाँस","Material and visual motif with domestic and ritual presence."],["Sun","सूर्य","Common celestial motif; ritual meaning varies by context."],["Moon","चन्द्र","Common celestial motif; interpretation varies by tradition."],["Turtle","कछुआ","Recurring motif; no universal meaning asserted."],["Serpent","नाग","Recurring motif; meanings require source-level context."],["Tree of life","जीवन-वृक्ष","Descriptive label; no universal interpretation asserted."],["Geometry","ज्यामितीय रूप","Recurring decorative forms across styles."]] as const;
+
+export function atlasPointRecords() {
+  return CULTURAL_ATLAS_POINTS.map((point) => ({
+    point,
+    record: recordBySlug(point.slug),
+  }));
+}
+
+export interface CorpusTimelineEvent extends TimelineEvent {
+  sourceRecordId: string;
+  precision: "year-extracted" | "orientation-only";
+}
+
+function firstExplicitYear(record: ArchiveRecord): number | undefined {
+  const content = record.content as Record<string, unknown>;
+  for (const field of ["year", "publicationYear", "awardYear", "era", "period", "lifespan"]) {
+    const value = content[field];
+    if (typeof value === "number" && Number.isInteger(value)) return value;
+    if (typeof value === "string") {
+      const match = value.match(/\\b(1[0-9]{3}|2[0-9]{3})\\b/);
+      if (match) return Number(match[1]);
+    }
+  }
+  return undefined;
+}
+
+export function getCorpusTimelineEvents(): CorpusTimelineEvent[] {
+  return canonicalArchive.records
+    .filter((record) => record.contentStatus === "published")
+    .flatMap((record) => {
+      const year = firstExplicitYear(record);
+      if (year === undefined) return [];
+      return [{
+        year,
+        label: titleFor(record),
+        description: "Chronological anchor extracted from the record's structured date/period field; it is not an independent biographical or historical assertion.",
+        slug: record.slug,
+        type: record.type,
+        sourceRecordId: record.id,
+        precision: "year-extracted" as const,
+      }];
+    })
+    .sort((a, b) => a.year - b.year || a.label.localeCompare(b.label));
+}
+
 export function provenanceCoverage(){const a=canonicalArchive.provenanceV2;return {assertions:a.length,locators:a.filter(x=>!!x.locator).length,claims:a.filter(x=>!!x.claimId).length,reviewers:a.filter(x=>!!x.checkedBy).length,checked:a.filter(x=>!!x.checkedAt).length};}
