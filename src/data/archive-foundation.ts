@@ -260,7 +260,7 @@ const adapted = [
   ...heritageExpansion.map((entry) => adaptRecord("heritage-entry", { id: `rec-exp-site-${entry.slug}`, slug: entry.slug }, `representation:expanded-site:${entry.slug}`, { module: "content-expansion-deep.ts", exportName: "heritageExpansion" }, entry)),
   ...artExpansion.map((entry) => adaptRecord("art-entry", { id: `rec-exp-art-${entry.slug}`, slug: entry.slug }, `representation:expanded-art:${entry.slug}`, { module: "content-expansion-deep.ts", exportName: "artExpansion" }, entry)),
   ...musicExpansion.map((entry) => adaptRecord("music-entry", { id: `rec-exp-music-${entry.slug}`, slug: entry.slug }, `representation:expanded-music:${entry.slug}`, { module: "content-expansion-deep.ts", exportName: "musicExpansion" }, entry)),
-  ...dictionaryEntries.map((entry) => adaptRecord("dictionary-entry", identityFor(`collection-dictionary-${entry.slug}`), `representation:collection-dictionary:${entry.slug}`, { module: "dictionary.ts", exportName: "dictionaryEntries" }, entry)),
+  ...Array.from(new Map(dictionaryEntries.map((entry) => [entry.slug, entry])).values()).map((entry) => adaptRecord("dictionary-entry", identityFor(`collection-dictionary-${entry.slug}`), `representation:collection-dictionary:${entry.slug}`, { module: "dictionary.ts", exportName: "dictionaryEntries" }, entry)),
 ];
 
 const canonicalVarna = adaptRecord("literature-work", identityFor("collection-literature-varna-ratnakara"), "representation:collection-literature:varna-ratnakara", { module: "literature.ts", exportName: "literaryWorks" }, currentVarna);
