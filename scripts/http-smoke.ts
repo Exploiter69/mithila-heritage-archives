@@ -1,7 +1,7 @@
 const base = process.env.ARCHIVE_SMOKE_BASE_URL ?? "http://127.0.0.1:4173";
 
 const publicRoutes = [
-  "/", "/literature", "/language", "/authors", "/proverbs", "/art",
+  "/", "/about", "/literature", "/language", "/authors", "/proverbs", "/art",
   "/heritage", "/music", "/search", "/graph", "/sources", "/media", "/research",
 ];
 
@@ -24,9 +24,14 @@ for (const path of [...publicRoutes, ...apiRoutes]) {
   console.log(response.status, path);
 }
 
-const notFound = await fetch(base + "/archive/not-a-type/not-a-record");
-if (notFound.status !== 404) {
-  throw new Error("invalid canonical record route should return 404, got " + notFound.status);
+const invalidRecord = await fetch(base + "/archive/not-a-type/not-a-record");
+if (invalidRecord.status !== 404) {
+  throw new Error("invalid canonical record route should return 404, got " + invalidRecord.status);
 }
 
-console.log("HTTP runtime smoke passed:", publicRoutes.length + apiRoutes.length, "routes");
+for (const path of ["/api/archive/not-a-type", "/api/records/not-a-type/nope"]) {
+  const response = await fetch(base + path);
+  if (response.status !== 404) throw new Error(path + " should return 404, got " + response.status);
+}
+
+console.log("HTTP runtime smoke passed:", publicRoutes.length + apiRoutes.length, "routes plus invalid-route checks");
