@@ -289,11 +289,23 @@ async function main() {
     }
 
     async function waitForPageReady() {
-      // Do not poll Runtime.evaluate while a Vite/TanStack navigation is still
-      // executing. In Chromium this can leave the CDP request pending for the
-      // full command timeout and make the audit fail before it can inspect the
-      // rendered page. The subsequent DOM evaluation remains the authoritative
-      // readiness/accessibility check.
+      // Vite/TanStack navigation can briefly expose the server shell before the
+      // client document has committed its rendered route. Avoid polling Runtime
+      // during that transition; give the first navigation a deterministic settle
+      // window, then use one DOM probe. If the document is still the bare shell,
+      // reload once and give the browser another settle window. A second bare
+      // shell is a real audit failure and is left for the final assertions below.
+      await sleep(2_000);
+
+      const readiness = await cdp!.command("Runtime.evaluate", {
+        expression: "Boolean(document.querySelector('main#main-content'))",
+        returnByValue: true,
+        timeout: 5_000,
+      });
+      const ready = readiness.result?.result?.value === true;
+      if (ready) return;
+
+      await cdp!.command("Page.reload", { ignoreCache: false });
       await sleep(2_000);
     }
 
