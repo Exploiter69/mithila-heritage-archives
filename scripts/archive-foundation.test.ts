@@ -157,6 +157,8 @@ assert.ok(Array.isArray((featuredLiterature?.content as { body?: unknown }).body
 assert.equal(getArchiveRecords("author").length, 5);
 assert.equal(getArchiveContent("proverb").length, 6);
 assert.equal(getArchiveBibliography().length, 5);
+assert.equal(getArchiveLiteraryWorks().length, 5);
+assert.equal(getArchiveDictionaryEntries().length, 7);
 assert.deepEqual(getArchiveLiteratureForms(), [
   "All",
   "Padāvalī",
