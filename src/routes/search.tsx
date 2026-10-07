@@ -30,8 +30,8 @@ function SearchPage() {
     ...(status === "all" ? {} : { statuses: [status] }),
     ...(mediaOnly ? { hasMedia: true } : {}),
     ...(relatedOnly ? { hasRelations: true } : {}),
-    limit: 50,
-  }), [query, type, status, mediaOnly, relatedOnly]);
+    limit: 100,
+  }), query), [query, type, status, mediaOnly, relatedOnly]);
 
   return (
     <>
