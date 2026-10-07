@@ -450,6 +450,33 @@ for (const relation of relations) {
   if (to && !to.relationIds.includes(relation.id)) to.relationIds.push(relation.id);
 }
 
+export function getArchiveIdentityAudit() {
+  const expected = [
+    ...legacyLiterature.filter((entry) => entry.slug !== "varna-ratnakara").map((entry) => `legacy-literature-${entry.slug}`),
+    ...authors.map((entry) => `legacy-author-${entry.slug}`),
+    ...legacyDictionary.map((entry) => `legacy-dictionary-${entry.headword}`),
+    "legacy-proverb-आमक गाछ आमे फड़त",
+    "legacy-proverb-जकर लाठी तकर भैंस",
+    "legacy-proverb-बिनु बरखा खेत सुन",
+    "legacy-proverb-बेसी बाजनिहार कम करैत अछि",
+    "legacy-proverb-नैहरक मीठ, ससुरारिक तीत",
+    "legacy-proverb-कोसी के भरोस घर नहि बनाउ",
+    ...legacyArt.map((entry) => `legacy-art-${entry.slug}`),
+    ...legacyMusic.map((entry) => `legacy-music-${entry.slug}`),
+    ...literaryWorks.filter((entry) => entry.slug !== "varna-ratnakara").map((entry) => `collection-literature-${entry.slug}`),
+    "collection-literature-varna-ratnakara",
+    ...songs.map((entry) => `collection-song-${entry.slug}`),
+    ...artStyles.map((entry) => `collection-art-${entry.slug}`),
+    ...heritage.map((entry) => `collection-heritage-${entry.slug}`),
+  ];
+  const missing = expected.filter((key) => !IDENTITIES[key]);
+  const ids = Object.values(IDENTITIES).map((identity) => identity.id);
+  const slugs = Object.values(IDENTITIES).map((identity) => identity.slug);
+  const duplicateIds = ids.filter((id, index) => ids.indexOf(id) !== index);
+  const duplicateSlugs = slugs.filter((slug, index) => slugs.indexOf(slug) !== index);
+  return { expectedCount: expected.length, registeredCount: Object.keys(IDENTITIES).length, missing, duplicateIds: [...new Set(duplicateIds)], duplicateSlugs: [...new Set(duplicateSlugs)] };
+}
+
 export const canonicalArchive: CanonicalArchiveData = {
   records,
   sources: enrichedSources,
