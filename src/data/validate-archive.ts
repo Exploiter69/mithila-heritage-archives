@@ -279,6 +279,8 @@ export function validateArchive(data: CanonicalArchiveData): ArchiveValidationRe
    * Provenance v2 normalizes bibliographic identities while preserving every
    * migrated source capture. No v2 field may strengthen legacy evidence.
    */
+  const bibliographicCaptureOwners = new Map<string, string>();
+
   for (const source of data.bibliographicSources) {
     if (source.captureIds.length === 0) {
       errors.push(`Bibliographic source ${source.id} has no source captures`);
@@ -289,7 +291,25 @@ export function validateArchive(data: CanonicalArchiveData): ArchiveValidationRe
         errors.push(
           `Bibliographic source ${source.id} references missing source capture ${captureId}`,
         );
+        continue;
       }
+
+      const previousOwner = bibliographicCaptureOwners.get(captureId);
+      if (previousOwner) {
+        errors.push(
+          `Source capture ${captureId} belongs to multiple bibliographic sources: ${previousOwner}, ${source.id}`,
+        );
+      } else {
+        bibliographicCaptureOwners.set(captureId, source.id);
+      }
+    }
+  }
+
+  for (const captureId of sourceCaptureIds) {
+    if (!bibliographicCaptureOwners.has(captureId)) {
+      errors.push(
+        `Source capture ${captureId} is not represented by a normalized bibliographic source`,
+      );
     }
   }
 
@@ -318,6 +338,13 @@ export function validateArchive(data: CanonicalArchiveData): ArchiveValidationRe
       if (!sourceCaptureIds.has(captureId)) {
         errors.push(
           `Provenance v2 ${assertion.id} references missing source capture ${captureId}`,
+        );
+        continue;
+      }
+
+      if (bibliographicCaptureOwners.get(captureId) !== assertion.bibliographicSourceId) {
+        errors.push(
+          `Provenance v2 ${assertion.id} source capture ${captureId} is not owned by its bibliographic source`,
         );
       }
     }
