@@ -1,7 +1,10 @@
 #!/usr/bin/env bun
 
 const BASE_URL = process.env.BASE_URL ?? "http://127.0.0.1:4173";
-const routes = ["/", "/literature", "/language", "/search", "/graph", "/sources", "/media", "/research"];
+const routes = [
+  "/", "/about", "/literature", "/language", "/authors", "/proverbs",
+  "/art", "/heritage", "/music", "/search", "/graph", "/sources", "/media", "/research",
+];
 const viewports = [
   { name: "desktop", width: 1366, height: 768, deviceScaleFactor: 1 },
   { name: "mobile", width: 390, height: 844, deviceScaleFactor: 1 },
