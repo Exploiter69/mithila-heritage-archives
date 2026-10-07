@@ -17,7 +17,11 @@
     "test": "bun run test:archive && bun run test:archive-records",
     "test:archive-records": "bun scripts/archive-record-routes.test.ts",
     "provenance-report": "bun src/data/provenance-report-cli.ts",
-    "archive:quality": "bun src/data/archive-quality-cli.ts"
+    "archive:quality": "bun src/data/archive-quality-cli.ts",
+    "archive:media": "bun src/data/archive-media-cli.ts",
+    "archive:qa": "bun src/data/archive-qa-cli.ts",
+    "archive:export": "bun src/data/archive-export-cli.ts",
+    "archive:editorial": "bun src/data/editorial-workflow-cli.ts"
   },
   "overrides": {
     "rolldown": "1.2.1"
