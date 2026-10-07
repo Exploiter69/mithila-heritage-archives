@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 
 import { canonicalArchive } from "../src/data/archive-foundation";
+import { dictionaryEntries } from "../src/data/dictionary";
+import { awardRecipientAuthors, catalogueLiterature, folkCultureExpansion, artExpansion, musicExpansion, heritageExpansion } from "../src/data/content-expansion-deep";
 import { auditArchiveQuality } from "../src/data/archive-quality";
 import {
   ARCHIVE_STREAM_ATTRIBUTION_TEXT,
@@ -26,11 +28,21 @@ import {
 import { validateArchive } from "../src/data/validate-archive";
 import type { CanonicalArchiveData } from "../src/data/types";
 
+const EXPANDED_RECORDS =
+  127 +
+  awardRecipientAuthors.length +
+  catalogueLiterature.length +
+  folkCultureExpansion.length +
+  artExpansion.length +
+  musicExpansion.length +
+  heritageExpansion.length +
+  (new Set(dictionaryEntries.map((entry) => entry.slug)).size - 27);
+
 const EXPECTED = {
-  records: 127,
-  representations: 128,
-  sources: 133,
-  provenance: 128,
+  records: EXPANDED_RECORDS,
+  representations: EXPANDED_RECORDS + 1,
+  sources: 133 + (EXPANDED_RECORDS - 127),
+  provenance: 128 + (EXPANDED_RECORDS - 127),
   media: 19,
   relations: 12,
 } as const;
@@ -160,7 +172,7 @@ assert.equal(getArchiveRecords("author").length, 5);
 assert.equal(getArchiveContent("proverb").length, 6);
 assert.equal(getArchiveBibliography().length, 5);
 assert.equal(getArchiveLiteraryWorks().length, 62);
-assert.equal(getArchiveDictionaryEntries().length, 27);
+assert.equal(getArchiveDictionaryEntries().length, new Set(dictionaryEntries.map((entry) => entry.slug)).size);\nassert.ok(getArchiveDictionaryEntries().length >= 100);
 assert.deepEqual(getArchiveLiteratureForms(), [
   "All",
   "Padāvalī",
