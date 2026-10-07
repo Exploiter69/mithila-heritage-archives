@@ -34,7 +34,7 @@ Public JSON endpoints are available under /api/archive, /api/archive/:type, /api
 
 ## Phase 11 — SEO, accessibility & performance
 
-The application has canonical record URLs, route-level metadata, a dynamic /sitemap.xml endpoint, reduced-motion handling, semantic headings and source links. The existing Vite production build remains the performance gate.
+The application has canonical record URLs, route-level metadata, machine-readable record structured data, reduced-motion handling, semantic headings and source links. The existing Vite production build remains the performance gate.
 
 ## Phase 12 — Editorial/admin workflow
 
