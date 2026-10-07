@@ -24,6 +24,10 @@ export const SECONDARY_NAV = [
   { to: "/timeline", label: "Timeline" },
   { to: "/learn", label: "Learn Mithila" },
   { to: "/stats", label: "Archive status" },
+  { to: "/literature-portal", label: "Literature portal" },
+  { to: "/language-lab", label: "Language Lab" },
+  { to: "/art-atlas", label: "Art Atlas" },
+  { to: "/music-archive", label: "Music Archive" },
 ] as const;
 
 export function SiteHeader() {
