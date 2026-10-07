@@ -62,7 +62,6 @@ function RecordRoute() {
   const canonicalUrl = `/archive/${record.type}/${record.slug}`;
   return (
     <>
-      <ArchiveStructuredData record={record} canonicalUrl={canonicalUrl} />
       <ArchiveRecordPage record={record} canonicalUrl={canonicalUrl} />
     </>
   );
