@@ -5,7 +5,7 @@ import { NAV, SECONDARY_NAV } from "./site-header";
 export function SiteFooter() {
   return (
     <footer className="mt-24 border-t border-border bg-secondary/60">
-      <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 md:grid-cols-[1.4fr_1fr_1fr] md:px-8">
+      <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 md:grid-cols-[1.4fr_1fr_1fr_1fr] md:px-8">
         <div>
           <p className="deva text-xl text-terracotta">मिथिला डिजिटल आर्काइव</p>
           <p className="mt-3 max-w-sm text-sm leading-relaxed text-muted-foreground">
