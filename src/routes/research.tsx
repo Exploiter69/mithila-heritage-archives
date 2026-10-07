@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { EntryCard, PageHeader, Section, SectionTitle } from "@/components/archive-ui";
 import { getArchiveStats, getResearchFacets } from "@/data/archive-platform";
