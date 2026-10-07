@@ -144,7 +144,9 @@ export const musicExpansion: MusicEntry[] = [
   slug,title,titleMai,genre,occasion,description,
   source:{citation:"IGNCA classification and documentation of Maithili folksongs; Nepal Tourism Board for Chhath.",url,status:"verified" as const},
   };
-}).concat([
+}) as MusicEntry[];
+
+export const institutionalMusicExpansion: MusicEntry[] = [
   {
     slug: "mithila-vaibhav-audio-archive",
     title: "Mithila Vaibhav — IGNCA audio archive leads",
@@ -163,7 +165,6 @@ export const musicExpansion: MusicEntry[] = [
       { title: "Kirtan", source: { citation: "IGNCA CoIL-Net audio archive, Mithila Vaibhav.", url: "https://ignca.gov.in/coilnet/aud_0001.htm", status: "verified" } },
     ],
     source: { citation: "Indira Gandhi National Centre for the Arts, CoIL-Net Audio Recordings — Mithila Vaibhav.", url: "https://ignca.gov.in/coilnet/aud_0001.htm", status: "verified" },
-  } as MusicEntry,
   {
     slug: "vindhyavasini-devi-maithili-folk-singing",
     title: "Vindhyavasini Devi — Maithili folk-singing demonstration",
@@ -174,8 +175,10 @@ export const musicExpansion: MusicEntry[] = [
     performers: ["Vindhyavasini Devi"],
     recordingLeads: [],
     source: { citation: "Sahitya Akademi, Loka folk-culture activity archive.", url: "https://sahitya-akademi.gov.in/literaray-activities/loka.jsp", status: "verified" },
-  } as MusicEntry,
+  },
 ]);
+
+export const musicExpansionCombined: MusicEntry[] = [...musicExpansion, ...institutionalMusicExpansion];
 
 export const heritageExpansion: HeritageEntry[] = [
   ["janaki-mandir","Janaki Mandir","जानकी मन्दिर","Site","Janakpurdham, Dhanusha, Nepal","19th–20th century temple complex","A major Mithila pilgrimage landmark dedicated to Sita/Janaki, combining local and Mughal-influenced architectural forms.","Nepal Tourism Board records the temple as a three-storey, sixty-room complex and a major pilgrimage site; the exact construction date varies across official NTB pages and is retained as an editorial discrepancy rather than silently resolved.","https://ntb.gov.np/janaki-mandir--janakpur--dhanusha"],
