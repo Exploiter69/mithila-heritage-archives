@@ -26,9 +26,9 @@ export const LEARN_MODULES = [
 ];
 export interface TimelineEvent { year:number; label:string; description:string; slug?:string; type?:ArchiveRecordType; status?:string; }
 export const MITHILA_TIMELINE: TimelineEvent[] = [
-  { year:1380, label:"Vidyāpati", description:"The archive's medieval literary orientation point; exact chronology is treated according to the cited author record.", slug:"vidyapati", type:"author" },
+  { year:1352, label:"Vidyāpati", description:"A commonly cited birth-year anchor; scholarship on Vidyāpati chronology remains contested, so this is an orientation date rather than a precise biographical claim.", slug:"vidyapati", type:"author" },
   { year:1400, label:"Kīrtilatā", description:"A canonical literary work associated with Vidyāpati in the archive's explicit relationship layer.", slug:"kirtilata", type:"literature-work" },
-  { year:1400, label:"Varṇa Ratnākara", description:"A major early Maithili prose work associated with Jyotirīśvara and the Karṇāṭa court at Simraungadh.", slug:"varna-ratnakara", type:"literature-work" },
+  { year:1324, label:"Varṇa Ratnākara", description:"A major early Maithili prose work associated with Jyotirīśvara and the Karṇāṭa court at Simraungadh.", slug:"varna-ratnakara", type:"literature-work" },
   { year:1881, label:"Grierson's Maithili study", description:"An Introduction to the Maithili Language anchors the archive's historical language-source layer.", status:"source milestone" },
   { year:1966, label:"Sahitya Akademi Maithili awards", description:"The award corpus begins in the archive with the 1966 Maithili award record.", status:"award corpus" },
   { year:2002, label:"Institutional folk-singing documentation", description:"Sahitya Akademi's Loka archive records Maithili folk-singing demonstration by Vindhyavasini Devi in its programme documentation.", status:"institutional archive" },
