@@ -198,7 +198,7 @@ function isLiteraryBody(value: unknown): value is LiteraryWork["body"] {
     if (!line || typeof line !== "object" || Array.isArray(line)) return false;
     const item = line as Record<string, unknown>;
     return hasStringFields(item, ["deva", "translation"]) &&
-      (item.translit === undefined || typeof item.translit === "string");
+      (item["translit"] === undefined || typeof item["translit"] === "string");
   });
 }
 
