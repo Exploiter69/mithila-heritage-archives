@@ -17,7 +17,7 @@ function SourcesPage() {
   const [kind, setKind] = useState("all");
   const sources = useMemo(() => canonicalArchive.bibliographicSources
     .filter((source) => kind === "all" || source.sourceType === kind)
-    .filter((source) => `\${source.citation} \${source.detail ?? ""}`.toLowerCase().includes(query.toLowerCase()))
+    .filter((source) => `${source.citation} ${source.detail ?? ""}`.toLowerCase().includes(query.toLowerCase()))
     .sort((a, b) => a.citation.localeCompare(b.citation)), [query, kind]);
 
   return (
