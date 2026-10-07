@@ -1,0 +1,6 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { PageHeader, Section } from "@/components/archive-ui";
+import { EXPLORE_JOURNEYS, journeyRecords } from "@/data/archive-experience";
+import { RecordLinkCard } from "@/components/experience-card";
+export const Route=createFileRoute("/explore")({head:()=>({meta:[{title:"Explore Mithila — Mithila Digital Archive"}]}),component:ExplorePage});
+function ExplorePage(){return <><PageHeader eyebrow="Discovery" title="Explore Mithila" titleMai="मिथिला देखू" intro="Curated paths for readers who do not already know the archive. Every destination remains a canonical archive record."/><Section><div className="grid gap-6 md:grid-cols-2">{EXPLORE_JOURNEYS.map(j=><article key={j.slug} className="rounded-sm border border-border p-6"><p className="label-eyebrow text-terracotta">{j.title}</p><h2 className="deva mt-2 text-2xl">{j.titleDeva}</h2><p className="mt-3 text-muted-foreground">{j.intro}</p><div className="mt-5 grid gap-3">{journeyRecords(j).map(r=><RecordLinkCard key={r.id} record={r}/>)}</div><Link to={j.slug==="literature"?"/literature":j.slug==="language"?"/language":j.slug==="art"?"/art":j.slug==="music"?"/music":j.slug==="heritage"?"/atlas":"/heritage"} className="mt-5 inline-block text-sm text-terracotta hover:underline">Open collection →</Link></article>)}</div></Section></>}
