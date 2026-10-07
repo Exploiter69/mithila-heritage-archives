@@ -88,7 +88,11 @@ export function buildArchiveRelations(
     ...deriveExplicitAuthorWorkRelations(records),
   ];
 
+  const seen = new Set<string>();
   return explicitRelations.flatMap((spec) => {
+    const key = [spec.from, spec.predicate, spec.to].join("|");
+    if (seen.has(key)) return [];
+    seen.add(key);
     const from = bySlug.get(spec.from);
     const to = bySlug.get(spec.to);
     if (!from || !to || from.id === to.id) return [];
