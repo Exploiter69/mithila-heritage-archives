@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { EntryCard, PageHeader, Section, SectionTitle, SourceNote } from "@/components/archive-ui";
 import { CommonsImageFigure } from "@/components/commons-image";
-import { getArchiveArtMotifs, getArchiveContent, type ArtStyle } from "@/data/archive-read";
+import { getArchiveArtMotifs, getArchiveArtStyles } from "@/data/archive-read";
 
 const TITLE = "Madhubani Painting Styles — Mithila Digital Archive";
 const DESC =
@@ -23,7 +23,7 @@ export const Route = createFileRoute("/art")({
 });
 
 function ArtPage() {
-  const artStyles = getArchiveContent<ArtStyle>("art-style");
+  const artStyles = getArchiveArtStyles();
 
   return (
     <>
