@@ -60,5 +60,10 @@ export const Route = createFileRoute("/archive/$type/$slug")({
 function RecordRoute() {
   const record = Route.useLoaderData();
   const canonicalUrl = `/archive/${record.type}/${record.slug}`;
-  return <ArchiveRecordPage record={record} canonicalUrl={canonicalUrl} />;
+  return (
+    <>
+      <ArchiveStructuredData record={record} canonicalUrl={canonicalUrl} />
+      <ArchiveRecordPage record={record} canonicalUrl={canonicalUrl} />
+    </>
+  );
 }
