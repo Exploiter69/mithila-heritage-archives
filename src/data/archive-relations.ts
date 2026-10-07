@@ -35,14 +35,60 @@ const AWARD_RELATION_SPECS: RelationSpec[] = sahityaAkademiMaithiliAwards.map((a
   };
 });
 
+function normalizeRelationText(value: string): string {
+  return value
+    .normalize("NFKC")
+    .toLocaleLowerCase()
+    .replace(/[.,"'’‘“”()\[\]{}:;!?]/g, " ")
+    .replace(/\\s+/g, " ")
+    .trim();
+}
+
+function deriveExplicitAuthorWorkRelations(records: ArchiveRecord[]): RelationSpec[] {
+  const authors = records.filter((record) => record.type === "author");
+  const works = records.filter((record) => record.type === "literature-work");
+  const byTitle = new Map<string, ArchiveRecord>();
+  for (const work of works) {
+    const content = work.content as Record<string, unknown>;
+    for (const key of ["title", "titleDeva", "titleMai", "transliteration"]) {
+      if (typeof content[key] === "string" && content[key].trim()) {
+        byTitle.set(normalizeRelationText(content[key]), work);
+      }
+    }
+    byTitle.set(normalizeRelationText(work.slug.replaceAll("-", " ")), work);
+  }
+
+  return authors.flatMap((author) => {
+    const content = author.content as Record<string, unknown>;
+    const worksListed = Array.isArray(content.works)
+      ? content.works.filter((item): item is string => typeof item === "string")
+      : [];
+    return worksListed.flatMap((workName) => {
+      const work = byTitle.get(normalizeRelationText(workName));
+      if (!work || work.id === author.id) return [];
+      return [{
+        from: author.slug,
+        to: work.slug,
+        predicate: "has-work" as const,
+        note: "Relationship derived from the author's explicitly listed works field; the endpoint records retain their own source evidence.",
+      }];
+    });
+  });
+}
+
 export function buildArchiveRelations(
   records: ArchiveRecord[],
   sources: SourceRecord[],
 ): RecordRelation[] {
   const bySlug = new Map(records.map((record) => [record.slug, record]));
   const sourceIds = new Map(sources.map((source) => [source.id, source]));
+  const explicitRelations = [
+    ...RELATION_SPECS,
+    ...AWARD_RELATION_SPECS,
+    ...deriveExplicitAuthorWorkRelations(records),
+  ];
 
-  return [...RELATION_SPECS, ...AWARD_RELATION_SPECS].flatMap((spec) => {
+  return explicitRelations.flatMap((spec) => {
     const from = bySlug.get(spec.from);
     const to = bySlug.get(spec.to);
     if (!from || !to || from.id === to.id) return [];
