@@ -13,20 +13,22 @@ export const Route = createFileRoute("/api/records/$type/$slug")({
         }
         const record = getPublicRecord(params.type as ArchiveRecordType, params.slug);
         if (!record) return Response.json({ error: "Record not found" }, { status: 404 });
-        const canonicalRecord = getArchiveRecordById(record.id);\n        if (!canonicalRecord) return Response.json({ error: "Canonical record not found" }, { status: 500 });\n        const url = new URL(request.url);
+        const canonicalRecord = getArchiveRecordById(record.id);
+        if (!canonicalRecord) return Response.json({ error: "Canonical record not found" }, { status: 500 });
+        const url = new URL(request.url);
         const format = url.searchParams.get("format");
         if (format === "citation") {
           return Response.json({ apiVersion: "2.0", recordId: record.id, ...getCitationBundle(canonicalRecord, url.origin) });
         }
         if (format === "iiif") {
-          const image = getArchiveImageMedia(record)[0];
+          const image = getArchiveImageMedia(canonicalRecord)[0];
           if (!image) return Response.json({ error: "Record has no image media", recordId: record.id }, { status: 404 });
           return Response.json(buildIiifManifest(canonicalRecord, image, url.origin), {
             headers: { "Content-Type": "application/ld+json;profile=http://iiif.io/api/presentation/3/context.json", "Cache-Control": "public, max-age=3600, s-maxage=86400" },
           });
         }
         if (format === "preservation") {
-          const media = getArchiveMedia(record);
+          const media = getArchiveMedia(canonicalRecord);
           return Response.json({
             apiVersion: "2.0",
             recordId: record.id,
