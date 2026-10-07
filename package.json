@@ -32,7 +32,8 @@
     "test:content-expansion-deep": "bun scripts/content-expansion-deep.test.ts",
     "test:identity": "bun scripts/archive-identity-audit.test.ts",
     "test:experience": "bun scripts/archive-experience.test.ts",
-    "test:deep-audit": "bun scripts/archive-deep-audit.test.ts"
+    "test:deep-audit": "bun scripts/archive-deep-audit.test.ts",
+    "archive:contributions": "bun scripts/contribution-audit.ts"
   },
   "overrides": {
     "rolldown": "1.2.1"
