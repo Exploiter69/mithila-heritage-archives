@@ -31,3 +31,12 @@ For each work, research and add where a reliable source is actually consulted:
 11. relationships to author, other works, themes and places.
 
 The award register is the **indexing backbone**; the next goal is to turn these 57 thin bibliographic records into deep scholarly records without sacrificing provenance.
+
+
+## Wave 3 — Maithili language research seed
+
+- Expanded the dictionary from 7 to **27 entries**.
+- Added everyday vocabulary covering home, landscape, agriculture, food, family and common actions.
+- Historical/reference-dictionary coverage is cited through Grierson and the University of Chicago's Digital Dictionaries of South Asia catalogue.
+- New entries are deliberately marked **needs-review** because their example sentences are editorial seeds, not claimed historical corpus quotations.
+- Next pass: replace editorial examples with attested examples from digitized dictionaries/texts and add grammatical metadata, dialect labels, semantic domains and source locators.
