@@ -5,7 +5,7 @@ const manageServer =
 
 const publicRoutes = [
   "/", "/about", "/literature", "/language", "/authors", "/proverbs", "/art",
-  "/heritage", "/music", "/search", "/graph", "/sources", "/media", "/research",
+  "/heritage", "/music", "/search", "/graph", "/sources", "/media", "/research", "/explore", "/atlas", "/people", "/provenance", "/art-atlas", "/music-archive", "/timeline", "/learn", "/stats", "/sources-explorer", "/literature-portal", "/language-lab",
 ];
 
 const apiRoutes = [
