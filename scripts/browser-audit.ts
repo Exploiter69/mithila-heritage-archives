@@ -39,11 +39,25 @@ async function startAppServer() {
     return null;
   }
 
+  // Run the audit against the production build rather than Vite's development
+  // transform server. This keeps route generation, module compilation and the
+  // measured browser navigation on the same artifact that users would receive
+  // from a deployment.
+  const build = Bun.spawn(["bun", "run", "build"], {
+    stdout: "inherit",
+    stderr: "inherit",
+    env: process.env,
+  });
+  const buildExit = await build.exited;
+  if (buildExit !== 0) {
+    throw new Error(`Application build failed before browser audit (exit code ${buildExit}).`);
+  }
+
   const proc = Bun.spawn(
-    ["bun", "run", "dev", "--", "--host", "127.0.0.1", "--port", "4173"],
+    ["bun", "run", "preview", "--", "--host", "127.0.0.1", "--port", "4173"],
     {
-      stdout: "ignore",
-      stderr: "ignore",
+      stdout: "inherit",
+      stderr: "inherit",
       env: { ...process.env, HOST: "127.0.0.1", PORT: "4173" },
       detached: true,
     },
@@ -52,7 +66,11 @@ async function startAppServer() {
   try {
     await waitForUrl(new URL("/", BASE_URL).toString());
   } catch (error) {
-    proc.kill();
+    try {
+      Bun.spawnSync(["kill", "-TERM", `-${proc.pid}`]);
+    } catch {
+      proc.kill();
+    }
     throw error;
   }
 
