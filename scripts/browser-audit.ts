@@ -30,7 +30,7 @@ async function waitForUrl(url: string, timeoutMs = 30_000) {
     await sleep(250);
   }
   throw new Error(
-    "Timed out waiting for the application server at " + url + ". Run `bun run build` first or provide BASE_URL for an already-running server.",
+    "Timed out waiting for the application server at " + url + ". provide BASE_URL for an already-running server.",
   );
 }
 
@@ -40,7 +40,7 @@ async function startAppServer() {
   }
 
   const proc = Bun.spawn(
-    ["bun", "run", "preview", "--", "--host", "127.0.0.1", "--port", "4173"],
+    ["bun", "run", "dev", "--", "--host", "127.0.0.1", "--port", "4173"],
     {
       stdout: "ignore",
       stderr: "ignore",
