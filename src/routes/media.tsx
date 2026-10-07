@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { EntryCard, PageHeader, Section } from "@/components/archive-ui";
 import { canonicalArchive } from "@/data/archive-foundation";
+import { auditArchiveQuality } from "@/data/archive-quality";
 
 export const Route = createFileRoute("/media")({
   head: () => ({ meta: [
@@ -11,6 +12,7 @@ export const Route = createFileRoute("/media")({
 });
 
 function MediaPage() {
+  const mediaGaps = auditArchiveQuality().warnings.filter((finding) => finding.code === "missing-image-media");
   return (
     <>
       <PageHeader eyebrow="Digital preservation" title="Media register" titleMai="मीडिया" intro="Media is tracked separately from cultural claims. External files remain external while attribution, licensing, provider and locator metadata stay auditable." />
@@ -36,6 +38,24 @@ function MediaPage() {
           })}
         </ul>
       </Section>
+
+      {mediaGaps.length > 0 && (
+        <Section className="pt-0">
+          <div className="rounded-sm border border-terracotta/40 bg-terracotta-soft/30 p-6">
+            <p className="label-eyebrow text-terracotta">Editorial media gaps</p>
+            <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+              These records are intentionally shown as gaps until a source-backed image is available. The archive does not substitute unrelated imagery just to remove a warning.
+            </p>
+            <ul className="mt-4 space-y-2">
+              {mediaGaps.map((finding) => (
+                <li key={finding.recordId} className="font-sans text-sm text-foreground/85">
+                  {finding.recordKey ?? finding.recordId}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Section>
+      )}
     </>
   );
 }
