@@ -27,10 +27,10 @@ import { validateArchive } from "../src/data/validate-archive";
 import type { CanonicalArchiveData } from "../src/data/types";
 
 const EXPECTED = {
-  records: 102,
-  representations: 103,
-  sources: 108,
-  provenance: 103,
+  records: 122,
+  representations: 123,
+  sources: 128,
+  provenance: 123,
   media: 19,
   relations: 12,
 } as const;
@@ -159,7 +159,7 @@ assert.ok(Array.isArray((featuredLiterature?.content as { body?: unknown }).body
 assert.equal(getArchiveRecords("author").length, 5);
 assert.equal(getArchiveContent("proverb").length, 6);
 assert.equal(getArchiveBibliography().length, 5);
-assert.equal(getArchiveLiteraryWorks().length, 42);
+assert.equal(getArchiveLiteraryWorks().length, 62);
 assert.equal(getArchiveDictionaryEntries().length, 7);
 assert.deepEqual(getArchiveLiteratureForms(), [
   "All",
