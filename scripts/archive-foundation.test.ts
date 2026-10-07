@@ -29,7 +29,7 @@ import {
 import { validateArchive } from "../src/data/validate-archive";
 import type { CanonicalArchiveData } from "../src/data/types";
 
-const EXPANDED_RECORDS = 648;
+const EXPANDED_RECORDS = 650;
 
 const EXPECTED = {
   records: EXPANDED_RECORDS,
