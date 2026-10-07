@@ -52,6 +52,9 @@ jobs:
       - name: Public export contract
         run: bun run archive:export > /tmp/archive-export.json
 
+      - name: Contribution proposal audit
+        run: bun run archive:contributions
+
       - name: Archive foundation regression tests
         run: bun run test:archive
 
