@@ -40,3 +40,20 @@ The award register is the **indexing backbone**; the next goal is to turn these 
 - Historical/reference-dictionary coverage is cited through Grierson and the University of Chicago's Digital Dictionaries of South Asia catalogue.
 - New entries are deliberately marked **needs-review** because their example sentences are editorial seeds, not claimed historical corpus quotations.
 - Next pass: replace editorial examples with attested examples from digitized dictionaries/texts and add grammatical metadata, dialect labels, semantic domains and source locators.
+
+
+## Wave 4 — Deep cross-collection expansion
+
+**Status:** seeded into the canonical archive.
+
+- **Language:** expanded the lexical research corpus far beyond the 100-entry threshold, covering kinship, agriculture, household life, ritual, foodways, crafts, music, heritage, grammar and research terminology. These lexical leads are marked **needs-review** and intentionally do **not** fabricate attested examples.
+- **Literature:** added a source-backed Sahitya Akademi bibliography layer covering major folk-literature, poetry/prose development, journals, women's writing, Dalit folk literature, folk epics and Maithili Ramayana research.
+- **Authors:** created author records for the unique recipients represented in the 57-entry Sahitya Akademi award corpus. Repeated award recipients are represented once and retain all awarded works through their source-derived work list.
+- **Folk culture:** added research records for life-cycle songs, Madhushravani, wedding repertoire, seasonal songs, women's oral transmission, folk tales/epics, aripan, kohbar ritual space and foodway research.
+- **Art:** added records for Mithila painting, Bharni, Kachni, Godhana, Kohbar, Aripan, natural pigments, women-led transmission, major modern artist leads, Jitwarpur/Ranti geography and Nepal Tarai practice.
+- **Music:** added genre/repertoire records for Sohar, Sanskar Geet, Vivah Geet, Batgamani, Samdaun, Nachari, Mahesvani, seasonal songs, Chhath, Madhushravani and folk-epic singing.
+- **Heritage:** added Janaki Mandir, Ganga Sagar, Dhanusha Sagar, Dhanushadham, Ram Mandir, Jaleshwar Mahadev, Shyama Mai Temple, Janakpur's pond landscape, the Nepal-Tarai cultural landscape and contemporary Janakpur Mithila-art infrastructure.
+
+### Integrity boundary
+
+This wave is intentionally **not** described as a finished scholarly edition of every record. The lexical corpus is a research lead set until each headword has a page-located dictionary/corpus citation and native-speaker review. The literature bibliography is an indexing backbone until individual editions are consulted. Community and living-practice claims remain source-scoped rather than being presented as universal Mithila custom.
