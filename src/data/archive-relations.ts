@@ -1,4 +1,6 @@
 import type { ArchiveRecord, RecordRelation, RelationPredicate, SourceRecord } from "./types";
+import { sahityaAkademiMaithiliAwards } from "./content-expansion-literature";
+import { awardRecipientAuthors } from "./content-expansion-deep";
 
 type RelationSpec = {
   from: string;
@@ -23,6 +25,16 @@ const RELATION_SPECS: RelationSpec[] = [
   { from: "aripan", to: "mithila-painting", predicate: "related-to", note: "Both records explicitly describe Mithila visual/ritual drawing traditions, while remaining distinct practices." },
 ];
 
+const AWARD_RELATION_SPECS: RelationSpec[] = sahityaAkademiMaithiliAwards.map((award) => {
+  const author = awardRecipientAuthors.find((entry) => entry.name === award.author);
+  return {
+    from: author?.slug ?? "",
+    to: award.slug,
+    predicate: "has-work" as const,
+    note: `The Sahitya Akademi award register links ${award.author} with ${award.title} as the Maithili award recipient work for ${award.awardYear}.`,
+  };
+});
+
 export function buildArchiveRelations(
   records: ArchiveRecord[],
   sources: SourceRecord[],
@@ -30,7 +42,7 @@ export function buildArchiveRelations(
   const bySlug = new Map(records.map((record) => [record.slug, record]));
   const sourceIds = new Map(sources.map((source) => [source.id, source]));
 
-  return RELATION_SPECS.flatMap((spec) => {
+  return [...RELATION_SPECS, ...AWARD_RELATION_SPECS].flatMap((spec) => {
     const from = bySlug.get(spec.from);
     const to = bySlug.get(spec.to);
     if (!from || !to || from.id === to.id) return [];
