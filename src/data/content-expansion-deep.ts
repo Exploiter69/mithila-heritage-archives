@@ -57,7 +57,16 @@ export const catalogueLiterature: Array<{
   ["sati-bihula","Sati Bihula","सती बिहुला","Buchru Paswan, editor","2013","Folk epic","A Sahitya Akademi publication of the Sati Bihula folk-epic tradition."]
 ].map(([slug,title,titleMai,author,period,form,summary]) => ({
   slug,title,titleMai,author,period,
-  form: form as "Prose" | "Essay" | "Folk epic",
+  titleDeva: titleMai,
+  transliteration: title,
+  author,
+  authorDeva: "",
+  authorBio: "Bibliographic editor/author information as listed in the Sahitya Akademi catalogue; a full biographical profile is a separate editorial task.",
+  era: period,
+  form: form === "Prose" ? "कथा" as const : form === "Folk epic" ? "कथा" as const : "शास्त्रीय" as const,
+  snippet: summary,
+  body: [],
+  note: "Bibliographic catalogue record. The archive does not invent plot summaries, quotations or interpretation without consulting the edition.",
   language: "Maithili" as const,
   summary,
   source: {
