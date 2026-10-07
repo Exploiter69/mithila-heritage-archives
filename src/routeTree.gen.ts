@@ -13,12 +13,21 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as ArtRouteImport } from './routes/art'
 import { Route as AuthorsRouteImport } from './routes/authors'
+import { Route as GraphRouteImport } from './routes/graph'
 import { Route as HeritageRouteImport } from './routes/heritage'
 import { Route as LanguageRouteImport } from './routes/language'
 import { Route as LiteratureRouteImport } from './routes/literature'
+import { Route as MediaRouteImport } from './routes/media'
 import { Route as MusicRouteImport } from './routes/music'
 import { Route as ProverbsRouteImport } from './routes/proverbs'
+import { Route as ResearchRouteImport } from './routes/research'
+import { Route as SearchRouteImport } from './routes/search'
+import { Route as SourcesRouteImport } from './routes/sources'
+import { Route as ApiArchiveRouteImport } from './routes/api/archive'
+import { Route as ApiSearchRouteImport } from './routes/api/search'
+import { Route as ApiArchiveTypeRouteImport } from './routes/api/archive.$type'
 import { Route as ArchiveTypeSlugRouteImport } from './routes/archive/$type.$slug'
+import { Route as ApiRecordsTypeSlugRouteImport } from './routes/api/records.$type.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,6 +49,11 @@ const AuthorsRoute = AuthorsRouteImport.update({
   path: '/authors',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GraphRoute = GraphRouteImport.update({
+  id: '/graph',
+  path: '/graph',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HeritageRoute = HeritageRouteImport.update({
   id: '/heritage',
   path: '/heritage',
@@ -55,6 +69,11 @@ const LiteratureRoute = LiteratureRouteImport.update({
   path: '/literature',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MediaRoute = MediaRouteImport.update({
+  id: '/media',
+  path: '/media',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MusicRoute = MusicRouteImport.update({
   id: '/music',
   path: '/music',
@@ -65,9 +84,44 @@ const ProverbsRoute = ProverbsRouteImport.update({
   path: '/proverbs',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResearchRoute = ResearchRouteImport.update({
+  id: '/research',
+  path: '/research',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SourcesRoute = SourcesRouteImport.update({
+  id: '/sources',
+  path: '/sources',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiArchiveRoute = ApiArchiveRouteImport.update({
+  id: '/api/archive',
+  path: '/api/archive',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiSearchRoute = ApiSearchRouteImport.update({
+  id: '/api/search',
+  path: '/api/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiArchiveTypeRoute = ApiArchiveTypeRouteImport.update({
+  id: '/$type',
+  path: '/$type',
+  getParentRoute: () => ApiArchiveRoute,
+} as any)
 const ArchiveTypeSlugRoute = ArchiveTypeSlugRouteImport.update({
   id: '/archive/$type/$slug',
   path: '/archive/$type/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiRecordsTypeSlugRoute = ApiRecordsTypeSlugRouteImport.update({
+  id: '/api/records/$type/$slug',
+  path: '/api/records/$type/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -76,24 +130,42 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/art': typeof ArtRoute
   '/authors': typeof AuthorsRoute
+  '/graph': typeof GraphRoute
   '/heritage': typeof HeritageRoute
   '/language': typeof LanguageRoute
   '/literature': typeof LiteratureRoute
+  '/media': typeof MediaRoute
   '/music': typeof MusicRoute
   '/proverbs': typeof ProverbsRoute
+  '/research': typeof ResearchRoute
+  '/search': typeof SearchRoute
+  '/sources': typeof SourcesRoute
+  '/api/archive': typeof ApiArchiveRouteWithChildren
+  '/api/search': typeof ApiSearchRoute
+  '/api/archive/$type': typeof ApiArchiveTypeRoute
   '/archive/$type/$slug': typeof ArchiveTypeSlugRoute
+  '/api/records/$type/$slug': typeof ApiRecordsTypeSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/art': typeof ArtRoute
   '/authors': typeof AuthorsRoute
+  '/graph': typeof GraphRoute
   '/heritage': typeof HeritageRoute
   '/language': typeof LanguageRoute
   '/literature': typeof LiteratureRoute
+  '/media': typeof MediaRoute
   '/music': typeof MusicRoute
   '/proverbs': typeof ProverbsRoute
+  '/research': typeof ResearchRoute
+  '/search': typeof SearchRoute
+  '/sources': typeof SourcesRoute
+  '/api/archive': typeof ApiArchiveRouteWithChildren
+  '/api/search': typeof ApiSearchRoute
+  '/api/archive/$type': typeof ApiArchiveTypeRoute
   '/archive/$type/$slug': typeof ArchiveTypeSlugRoute
+  '/api/records/$type/$slug': typeof ApiRecordsTypeSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -101,12 +173,21 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/art': typeof ArtRoute
   '/authors': typeof AuthorsRoute
+  '/graph': typeof GraphRoute
   '/heritage': typeof HeritageRoute
   '/language': typeof LanguageRoute
   '/literature': typeof LiteratureRoute
+  '/media': typeof MediaRoute
   '/music': typeof MusicRoute
   '/proverbs': typeof ProverbsRoute
+  '/research': typeof ResearchRoute
+  '/search': typeof SearchRoute
+  '/sources': typeof SourcesRoute
+  '/api/archive': typeof ApiArchiveRouteWithChildren
+  '/api/search': typeof ApiSearchRoute
+  '/api/archive/$type': typeof ApiArchiveTypeRoute
   '/archive/$type/$slug': typeof ArchiveTypeSlugRoute
+  '/api/records/$type/$slug': typeof ApiRecordsTypeSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -115,36 +196,63 @@ export interface FileRouteTypes {
     | '/about'
     | '/art'
     | '/authors'
+    | '/graph'
     | '/heritage'
     | '/language'
     | '/literature'
+    | '/media'
     | '/music'
     | '/proverbs'
+    | '/research'
+    | '/search'
+    | '/sources'
+    | '/api/archive'
+    | '/api/search'
+    | '/api/archive/$type'
     | '/archive/$type/$slug'
+    | '/api/records/$type/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
     | '/art'
     | '/authors'
+    | '/graph'
     | '/heritage'
     | '/language'
     | '/literature'
+    | '/media'
     | '/music'
     | '/proverbs'
+    | '/research'
+    | '/search'
+    | '/sources'
+    | '/api/archive'
+    | '/api/search'
+    | '/api/archive/$type'
     | '/archive/$type/$slug'
+    | '/api/records/$type/$slug'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/art'
     | '/authors'
+    | '/graph'
     | '/heritage'
     | '/language'
     | '/literature'
+    | '/media'
     | '/music'
     | '/proverbs'
+    | '/research'
+    | '/search'
+    | '/sources'
+    | '/api/archive'
+    | '/api/search'
+    | '/api/archive/$type'
     | '/archive/$type/$slug'
+    | '/api/records/$type/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -152,12 +260,20 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   ArtRoute: typeof ArtRoute
   AuthorsRoute: typeof AuthorsRoute
+  GraphRoute: typeof GraphRoute
   HeritageRoute: typeof HeritageRoute
   LanguageRoute: typeof LanguageRoute
   LiteratureRoute: typeof LiteratureRoute
+  MediaRoute: typeof MediaRoute
   MusicRoute: typeof MusicRoute
   ProverbsRoute: typeof ProverbsRoute
+  ResearchRoute: typeof ResearchRoute
+  SearchRoute: typeof SearchRoute
+  SourcesRoute: typeof SourcesRoute
+  ApiArchiveRoute: typeof ApiArchiveRouteWithChildren
+  ApiSearchRoute: typeof ApiSearchRoute
   ArchiveTypeSlugRoute: typeof ArchiveTypeSlugRoute
+  ApiRecordsTypeSlugRoute: typeof ApiRecordsTypeSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -190,6 +306,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthorsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/graph': {
+      id: '/graph'
+      path: '/graph'
+      fullPath: '/graph'
+      preLoaderRoute: typeof GraphRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/heritage': {
       id: '/heritage'
       path: '/heritage'
@@ -211,6 +334,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LiteratureRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/media': {
+      id: '/media'
+      path: '/media'
+      fullPath: '/media'
+      preLoaderRoute: typeof MediaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/music': {
       id: '/music'
       path: '/music'
@@ -225,6 +355,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProverbsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/research': {
+      id: '/research'
+      path: '/research'
+      fullPath: '/research'
+      preLoaderRoute: typeof ResearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sources': {
+      id: '/sources'
+      path: '/sources'
+      fullPath: '/sources'
+      preLoaderRoute: typeof SourcesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/archive': {
+      id: '/api/archive'
+      path: '/api/archive'
+      fullPath: '/api/archive'
+      preLoaderRoute: typeof ApiArchiveRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/search': {
+      id: '/api/search'
+      path: '/api/search'
+      fullPath: '/api/search'
+      preLoaderRoute: typeof ApiSearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/archive/$type': {
+      id: '/api/archive/$type'
+      path: '/$type'
+      fullPath: '/api/archive/$type'
+      preLoaderRoute: typeof ApiArchiveTypeRouteImport
+      parentRoute: typeof ApiArchiveRoute
+    }
     '/archive/$type/$slug': {
       id: '/archive/$type/$slug'
       path: '/archive/$type/$slug'
@@ -232,20 +404,47 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ArchiveTypeSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/records/$type/$slug': {
+      id: '/api/records/$type/$slug'
+      path: '/api/records/$type/$slug'
+      fullPath: '/api/records/$type/$slug'
+      preLoaderRoute: typeof ApiRecordsTypeSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
+
+interface ApiArchiveRouteChildren {
+  ApiArchiveTypeRoute: typeof ApiArchiveTypeRoute
+}
+
+const ApiArchiveRouteChildren: ApiArchiveRouteChildren = {
+  ApiArchiveTypeRoute: ApiArchiveTypeRoute,
+}
+
+const ApiArchiveRouteWithChildren = ApiArchiveRoute._addFileChildren(
+  ApiArchiveRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ArtRoute: ArtRoute,
   AuthorsRoute: AuthorsRoute,
+  GraphRoute: GraphRoute,
   HeritageRoute: HeritageRoute,
   LanguageRoute: LanguageRoute,
   LiteratureRoute: LiteratureRoute,
+  MediaRoute: MediaRoute,
   MusicRoute: MusicRoute,
   ProverbsRoute: ProverbsRoute,
+  ResearchRoute: ResearchRoute,
+  SearchRoute: SearchRoute,
+  SourcesRoute: SourcesRoute,
+  ApiArchiveRoute: ApiArchiveRouteWithChildren,
+  ApiSearchRoute: ApiSearchRoute,
   ArchiveTypeSlugRoute: ArchiveTypeSlugRoute,
+  ApiRecordsTypeSlugRoute: ApiRecordsTypeSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
