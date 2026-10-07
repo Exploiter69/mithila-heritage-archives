@@ -75,5 +75,8 @@ jobs:
           bun run test:http-smoke
           kill $(cat /tmp/mithila-vite.pid) || true
 
+      - name: Chromium accessibility and performance audit
+        run: bun run test:browser-audit
+
       - name: Lint
         run: bun run lint
