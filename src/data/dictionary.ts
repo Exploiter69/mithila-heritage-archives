@@ -253,3 +253,46 @@ const everydayMaithiliExpansion: DictionaryEntry[] = [
 });
 
 dictionaryEntries.push(...everydayMaithiliExpansion);
+
+
+const expandedWordClassCorpus: DictionaryEntry[] = [
+  ["ghar-dwaar","घर-दुआर","ghar-duār","/ɡʱər duːaːr/","Noun","घर-द्वार","household and dwelling; the home and its entrance"],
+  ["aangan","आँगन","āṅgan","/aːŋɡən/","Noun","आँगन","courtyard; open domestic space"],
+  ["osaar","ओसार","osaar","/oˈsaːr/","Noun","बरामदा","covered verandah or raised household frontage"],
+  ["pokhar","पोखरि","pokhari","/poˈkʰəri/","Noun","तालाब","pond or village tank"],
+  ["maachh","माछ","māchh","/maːtʃʰ/","Noun","मछली","fish"],
+  ["dhaan","धान","dhān","/dʱaːn/","Noun","धान","paddy; rice plant"],
+  ["gachh","गाछ","gāchh","/ɡaːtʃʰ/","Noun","पेड़","tree"],
+  ["pahun","पाहुन","pāhun","/paːɦun/","Noun","अतिथि; दामाद","guest; in some kinship contexts son-in-law"],
+  ["naihar","नैहर","naihar","/nɛːɦər/","Noun","मायका","a married woman's natal home"],
+  ["madhur","मधुर","madhur","/məˈdʱur/","Adjective","मधुर","sweet; melodious; pleasant in speech or sound"],
+  ["sunnar","सुन्नर","sunnar","/ˈsunnər/","Adjective","सुन्दर","beautiful; handsome; well made"],
+  ["nik","निक","nik","/nik/","Adjective","अच्छा; बढ़िया","good; fine; agreeable"],
+  ["baṛ","बड़","baṛ","/bəɽ/","Adjective","बड़ा","big; great; important"],
+  ["chhot","छोट","chhoṭ","/tʃʰoːʈ/","Adjective","छोटा","small; young; minor"],
+  ["purān","पुरान","purān","/puˈraːn/","Adjective","पुराना","old; earlier"],
+  ["nav","नव","nav","/nəv/","Adjective","नया","new; fresh"],
+  ["jaeb","जायब","jāeb","/dʒaːeb/","Verb","जाना","to go"],
+  ["aeb","एब","aeb","/eːb/","Verb","आना","to come"],
+  ["dekhb","देखब","dekhb","/deːkʰəb/","Verb","देखना","to see; look at"],
+  ["sunb","सुनब","sunb","/sunəb/","Verb","सुनना","to hear; listen"],
+  ["bolb","बोलब","bolb","/boːləb/","Verb","बोलना","to speak; say"],
+  ["khaeb","खायब","khaeb","/kʰaːeb/","Verb","खाना","to eat"],
+  ["peeb","पीयब","peeb","/piːjəb/","Verb","पीना","to drink"],
+  ["baithb","बैसब","baithb","/bɛːsəb/","Verb","बैठना","to sit"],
+  ["uṭhb","उठब","uṭhb","/uʈʰəb/","Verb","उठना","to rise; get up"],
+  ["karb","करब","karb","/kərəb/","Verb","करना","to do; make"],
+  ["rahib","रहब","rahib","/rəhəb/","Verb","रहना","to stay; remain"],
+  ["aankhik-dekhal","आँखिक देखल आ कानक सुनल","ā̃khik dekhal ā kānak sunal","/ãːkʰik dekʰəl/","Idiom / Proverb","आँखों देखा और कानों सुना","what one has seen and heard personally; a marker of first-hand knowledge"],
+  ["jekra-nahi-aabai","जकरा नहि आबय, ओकरा आँगन टेढ़","jakarā nahi ābaya, okarā ā̃gan ṭeṛh","/dʒəkəraː nəhiː aːbəj/","Idiom / Proverb","नाच न जाने आँगन टेढ़ा","someone blames circumstances for their own lack of ability"],
+  ["aam-gachh","आमक गाछ आमे फड़त","āmak gāchh āme faṛat","/aːmək ɡaːtʃʰ/","Idiom / Proverb","आम का पेड़ आम ही फलता है","people or things tend to produce according to their nature"],
+  ["jaka-lathi","जकर लाठी तकर भैंस","jakar lāṭhī takar bhaĩs","/dʒəkər laːʈʰiː/","Idiom / Proverb","जिसकी लाठी उसकी भैंस","power can determine possession in an unjust dispute"],
+  ["bin-barkha","बिनु बरखा खेत सुन","binu barkhā khet sun","/binuː bərkʰaː/","Idiom / Proverb","बिना वर्षा खेत सूना","necessary conditions are essential for useful work"],
+  ["besi-bajanihar","बेसी बाजनिहार कम करैत अछि","besī bājanihār kam karait achhi","/beːsiː baːdʒənihaːr/","Idiom / Proverb","बहुत बोलने वाला कम करता है","a warning against excessive talk and little action"],
+].map(([slug,headword,transliteration,phonetic,wordClass,hindi,english])=>({
+  slug,headword,transliteration,phonetic,wordClass: wordClass as WordClass,hindi,english,
+  examples:[{deva: headword + " — उदाहरणक प्रयोग संपादकीय रूप सँ देल गेल अछि।",translit: transliteration + " — udāharanak prayog sampādakīya rūp sã del gel achhi.",english:"Editorial usage example; not a verbatim corpus quotation."}],
+  note:"Expanded lexical corpus entry; usage sentence is editorial and should be replaced or supplemented with a located attestation during corpus verification.",
+  source:{citation:"Maithili reference-dictionary and grammar research seed; see Digital Dictionaries of South Asia and Grierson.",url:"https://dsal.uchicago.edu/dictionaries/dictionaries.html",status:"needs-review" as const}
+}));
+dictionaryEntries.push(...expandedWordClassCorpus);
