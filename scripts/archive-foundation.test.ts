@@ -216,11 +216,14 @@ if (audioMedia[0]) {
 }
 
 const stableDate = new Date("2026-01-01T00:00:00.000Z");
+const wordOfDay = getArchiveWordOfTheDay(stableDate);
 assert.equal(
-  getArchiveWordOfTheDay(stableDate).slug,
+  wordOfDay.slug,
   getArchiveWordOfTheDay(stableDate).slug,
   "word of the day must be deterministic for a fixed date",
 );
+assert.ok(Array.isArray(wordOfDay.examples));
+assert.ok(wordOfDay.examples.length > 0);
 
 expectInvalid((data) => {
   data.records.push({ ...data.records[0]! });
