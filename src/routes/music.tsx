@@ -11,7 +11,7 @@ import {
   SourceNote,
 } from "@/components/archive-ui";
 import { usePlayer } from "@/components/player";
-import { ARCHIVE_STREAM_ATTRIBUTION_TEXT, getArchiveContent, getArchiveMusicCategories, type Song } from "@/data/archive-read";
+import { ARCHIVE_STREAM_ATTRIBUTION_TEXT, getArchiveSongs, getArchiveMusicCategories } from "@/data/archive-read";
 
 const TITLE = "Maithili Music — Sohar, Baṭgamanī & Chhath Songs — Mithila Digital Archive";
 const DESC =
@@ -36,7 +36,7 @@ function MusicPage() {
   const [openLyrics, setOpenLyrics] = useState<string | null>(null);
   const { play, playing, isCurrent } = usePlayer();
 
-  const songs = getArchiveContent<Song>("song");
+  const songs = getArchiveSongs();
   const results = songs.filter((s) => cat === "All" || s.category === cat);
 
   return (
