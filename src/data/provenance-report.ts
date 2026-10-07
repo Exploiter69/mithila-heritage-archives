@@ -32,6 +32,7 @@ export interface ProvenanceAuditReport {
   assertionsWithCheckedAt: number;
   assertionsWithReviewer: number;
   sourceCapturesWithUrl: number;
+  findingsByCode: Record<ProvenanceGapCode, number>;
   findings: ProvenanceAuditFinding[];
 }
 
@@ -96,6 +97,11 @@ function buildFindings(): ProvenanceAuditFinding[] {
 
 export function getProvenanceAuditReport(): ProvenanceAuditReport {
   const assertions = canonicalArchive.provenanceV2;
+  const findings = buildFindings();
+  const findingsByCode = Object.fromEntries(
+    (["missing-url", "missing-locator", "missing-review", "missing-claim-scope", "vague-citation"] as ProvenanceGapCode[])
+      .map((code) => [code, findings.filter((finding) => finding.codes.includes(code)).length]),
+  ) as Record<ProvenanceGapCode, number>;
 
   return {
     records: canonicalArchive.records.length,
@@ -119,7 +125,8 @@ export function getProvenanceAuditReport(): ProvenanceAuditReport {
     sourceCapturesWithUrl: canonicalArchive.sources.filter(
       (source) => source.url,
     ).length,
-    findings: buildFindings(),
+    findingsByCode,
+    findings,
   };
 }
 
@@ -152,6 +159,9 @@ export function formatProvenanceAuditReport(
     `- Assertions with named reviewer: ${report.assertionsWithReviewer}`,
     `- Source captures with URL: ${report.sourceCapturesWithUrl}`,
     `- Sources with any editorial gap: ${new Set(report.findings.map((item) => item.sourceId)).size}`,
+    "",
+    "## Gap categories",
+    ...Object.entries(report.findingsByCode).map(([code, count]) => `- ${code}: ${count}`),
     `- Total editorial gap findings: ${report.findings.length}`,
     "",
     "## Findings",
