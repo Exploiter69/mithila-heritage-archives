@@ -1,5 +1,6 @@
 import { canonicalArchive } from "./archive-foundation";
 import { auditArchiveMedia } from "./archive-media";
+import { getPublicArchiveEnvelope } from "./archive-export";
 import { auditArchiveQuality } from "./archive-quality";
 import { validateArchive } from "./validate-archive";
 
@@ -17,6 +18,7 @@ export function runArchiveQa(): ArchiveQaReport {
   const validation = validateArchive(canonicalArchive);
   const quality = auditArchiveQuality(canonicalArchive);
   const media = auditArchiveMedia();
+  const exported = getPublicArchiveEnvelope();
   const errors =
     (validation.valid ? 0 : validation.errors.length) +
     quality.errors.length +
@@ -38,6 +40,7 @@ export function runArchiveQa(): ArchiveQaReport {
       "media preservation audit",
       "relationship endpoint audit",
       "public-record export contract",
+    `export contains ${exported.recordCount} published records`,
     ],
   };
 }
