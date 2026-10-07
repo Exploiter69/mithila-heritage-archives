@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { EntryCard, PageHeader, Section } from "@/components/archive-ui";
 import { canonicalArchive } from "@/data/archive-foundation";
 import { graphNeighbors, titleFor } from "@/data/archive-experience";
+import { findShortestRecordPath } from "@/data/research-infrastructure";
 import { archiveRecordTitle } from "@/components/archive-record-page";
 
 export const Route = createFileRoute("/graph")({
@@ -15,9 +16,12 @@ export const Route = createFileRoute("/graph")({
 
 function GraphPage() {
   const [slug, setSlug] = useState("vidyapati");
+  const [targetSlug, setTargetSlug] = useState("");
   const records = canonicalArchive.records;
   const selected = records.find((r) => r.slug === slug) ?? records[0];
   const neighbors = useMemo(() => selected ? graphNeighbors(selected) : [], [selected]);
+  const target = records.find((r) => r.slug === targetSlug);
+  const paths = useMemo(() => selected && target ? findShortestRecordPath(selected.id, target.id) : [], [selected, target]);
 
   return (
     <>
@@ -51,6 +55,18 @@ function GraphPage() {
                 ))}
               </div>
               {neighbors.length === 0 && <p className="text-sm text-muted-foreground">No explicit relationships are currently asserted for this record.</p>}
+            </div>
+          </div>
+        </div>
+        <div className="mt-8 rounded-sm border border-border p-6">
+          <h2 className="text-xl">Shortest documented paths</h2>
+          <p className="mt-2 text-sm text-muted-foreground">Paths use only explicit archive relations and treat them as navigable edges. The archive does not infer a path from keywords.</p>
+          <div className="mt-4 grid gap-4 md:grid-cols-2">
+            <label className="text-sm"><span className="label-eyebrow text-muted-foreground">From</span><select value={selected?.slug ?? ""} onChange={(e) => setSlug(e.target.value)} className="mt-2 w-full rounded-sm border border-input bg-background px-3 py-2">{records.map((r) => <option key={r.id} value={r.slug}>{titleFor(r)}</option>)}</select></label>
+            <label className="text-sm"><span className="label-eyebrow text-muted-foreground">To</span><select value={targetSlug} onChange={(e) => setTargetSlug(e.target.value)} className="mt-2 w-full rounded-sm border border-input bg-background px-3 py-2"><option value="">Choose target</option>{records.map((r) => <option key={r.id} value={r.slug}>{titleFor(r)}</option>)}</select></label>
+          </div>
+          {target && <div className="mt-5 space-y-3">{paths.length === 0 ? <p className="text-sm text-muted-foreground">No documented path exists between these records.</p> : paths.map((path, pathIndex) => <ol key={path.map((r) => r.id).join("/")} className="flex flex-wrap items-center gap-2 text-sm" aria-label={\`Shortest path \${pathIndex + 1}\`}>{path.map((r, nodeIndex) => <li key={r.id} className="flex items-center gap-2"><Link to="/archive/$type/$slug" params={{ type: r.type, slug: r.slug }} className="rounded-sm border border-border px-3 py-1.5 hover:border-gold">{archiveRecordTitle(r)}</Link>{nodeIndex < path.length - 1 && <span aria-hidden="true">→</span>}</li>)}</ol>)}</div>}
+        </div>
             </div>
           </div>
         </div>}
