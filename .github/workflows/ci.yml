@@ -78,6 +78,11 @@ jobs:
           bun run test:http-smoke
           kill $(cat /tmp/mithila-vite.pid) || true
 
+      - name: Install Chromium
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y chromium
+
       - name: Chromium accessibility and performance audit
         run: bun run test:browser-audit
 
