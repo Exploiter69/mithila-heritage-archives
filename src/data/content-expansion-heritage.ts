@@ -3,7 +3,7 @@ import type { HeritageEntry } from "./heritage";
 export const expandedHeritage: HeritageEntry[] = [
   {
     slug: "jitiya-jivitputrika",
-    name: "Jitiya / Jīvितputrikā Vrat",
+    name: "Jitiya / Jīvitputrikā Vrat",
     nameDeva: "जितिया / जीवित्पुत्रिका व्रत",
     kind: "Festival",
     place: "Mithila and wider Bihar; also observed in Nepal",
