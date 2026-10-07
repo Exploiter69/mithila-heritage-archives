@@ -28,6 +28,9 @@ jobs:
       - name: Typecheck
         run: bun run typecheck
 
+      - name: Generated route tree is committed
+        run: git diff --exit-code -- src/routeTree.gen.ts
+
       - name: Archive validation
         run: bun run archive:validate
 
@@ -60,6 +63,17 @@ jobs:
 
       - name: Production build
         run: bun run build
+
+      - name: Localhost HTTP runtime smoke
+        run: |
+          bun run dev -- --host 127.0.0.1 --port 4173 > /tmp/mithila-vite.log 2>&1 &
+          echo $! > /tmp/mithila-vite.pid
+          for i in {1..30}; do
+            if curl -fsS http://127.0.0.1:4173/ >/dev/null; then break; fi
+            sleep 1
+          done
+          bun run test:http-smoke
+          kill $(cat /tmp/mithila-vite.pid) || true
 
       - name: Lint
         run: bun run lint
