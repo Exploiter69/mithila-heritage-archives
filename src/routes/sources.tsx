@@ -42,6 +42,20 @@ function SourcesPage() {
                 {source.detail && <p className="mt-2 text-sm text-muted-foreground">{source.detail}</p>}
                 <p className="mt-3 font-sans text-xs text-muted-foreground">Source captures: {source.captureIds.length}</p>
                 {source.url && <a className="mt-3 inline-block text-sm text-terracotta hover:underline" href={source.url} target="_blank" rel="noopener noreferrer">Open source</a>}
+                <div className="mt-4">
+                  <p className="label-eyebrow text-muted-foreground">Used by</p>
+                  <ul className="mt-2 flex flex-wrap gap-2">
+                    {canonicalArchive.records
+                      .filter((record) => record.sourceIds.some((captureId) => source.captureIds.includes(captureId)))
+                      .map((record) => (
+                        <li key={record.id}>
+                          <a href={`/archive/${record.type}/${record.slug}`} className="text-xs text-terracotta hover:underline">
+                            {record.slug}
+                          </a>
+                        </li>
+                      ))}
+                  </ul>
+                </div>
                 <p className="mt-3 text-xs text-muted-foreground">Identity: {source.id}</p>
               </EntryCard>
             </li>
