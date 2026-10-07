@@ -3,10 +3,10 @@ import assert from "node:assert/strict";
 import { sahityaAkademiMaithiliAwards } from "../src/data/content-expansion-literature";
 import { canonicalArchive } from "../src/data/archive-foundation";
 
-assert.equal(sahityaAkademiMaithiliAwards.length, 37);
+assert.equal(sahityaAkademiMaithiliAwards.length, 57);
 assert.deepEqual(
   sahityaAkademiMaithiliAwards.map((entry) => entry.awardYear),
-  Array.from({ length: 37 }, (_, index) => 1989 + index),
+  [1966, 1968, 1969, 1970, 1971, 1973, 1975, 1976, 1977, 1978, 1979, 1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, ...Array.from({ length: 37 }, (_, index) => 1989 + index)],
 );
 assert.equal(
   new Set(sahityaAkademiMaithiliAwards.map((entry) => entry.slug)).size,
@@ -25,4 +25,4 @@ for (const entry of sahityaAkademiMaithiliAwards) {
   assert.ok(record, `expanded award record missing from canonical archive: ${entry.slug}`);
   assert.equal(record?.contentStatus, "published");
 }
-console.log("Content expansion literature tests passed: 37 Sahitya Akademi Maithili award records.");
+console.log("Content expansion literature tests passed: 57 Sahitya Akademi Maithili award records.");
