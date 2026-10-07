@@ -7,6 +7,7 @@ import {
   getArchiveArtMotifs,
   getArchiveBibliography,
   getArchiveContent,
+  getArchiveDictionaryEntries,
   getArchiveDictionaryWordClasses,
   getArchiveEvidence,
   getArchiveImageMedia,
