@@ -36,7 +36,7 @@ function ResearchPage() {
             ["/api/search?q=Vidyapati", "API search", "A small query endpoint for research tools and scripts."],
             ["/about", "Methods", "Editorial boundaries, migration rules and provenance notes."],
             ["/", "Archive home", "Return to the public reading experience."],
-          ].map(([href, title, description]) => (
+          ] as const).map(([href, title, description]) => (
             <Link key={href} to={href}><EntryCard className="h-full hover:border-gold"><h2 className="text-xl">{title}</h2><p className="mt-2 text-sm leading-relaxed text-muted-foreground">{description}</p></EntryCard></Link>
           ))}
         </div>
