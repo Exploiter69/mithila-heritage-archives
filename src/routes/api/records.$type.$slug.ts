@@ -1,17 +1,40 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { getPublicRecord } from "@/data/archive-export";
+import { getArchiveImageMedia, getArchiveMedia } from "@/data/archive-read";
+import { buildIiifManifest, buildPreservationManifest, getCitationBundle } from "@/data/research-infrastructure";
 import { archiveRecordTypes, type ArchiveRecordType } from "@/data/types";
 
 export const Route = createFileRoute("/api/records/$type/$slug")({
   server: {
     handlers: {
-      GET: async ({ params }) => {
+      GET: async ({ params, request }) => {
         if (!(archiveRecordTypes as readonly string[]).includes(params.type)) {
           return Response.json({ error: "Unknown archive record type" }, { status: 404 });
         }
         const record = getPublicRecord(params.type as ArchiveRecordType, params.slug);
         if (!record) return Response.json({ error: "Record not found" }, { status: 404 });
-        return Response.json(record, {
+        const url = new URL(request.url);
+        const format = url.searchParams.get("format");
+        if (format === "citation") {
+          return Response.json({ apiVersion: "2.0", recordId: record.id, ...getCitationBundle(record, url.origin) });
+        }
+        if (format === "iiif") {
+          const image = getArchiveImageMedia(record)[0];
+          if (!image) return Response.json({ error: "Record has no image media", recordId: record.id }, { status: 404 });
+          return Response.json(buildIiifManifest(record, image, url.origin), {
+            headers: { "Content-Type": "application/ld+json;profile=http://iiif.io/api/presentation/3/context.json", "Cache-Control": "public, max-age=3600, s-maxage=86400" },
+          });
+        }
+        if (format === "preservation") {
+          const media = getArchiveMedia(record);
+          return Response.json({
+            apiVersion: "2.0",
+            recordId: record.id,
+            media: media.map((item) => buildPreservationManifest(record, item)),
+          }, { headers: { "Cache-Control": "public, max-age=300, s-maxage=3600" } });
+        }
+        const version = url.searchParams.get("version");
+        return Response.json(version === "2" ? { apiVersion: "2.0", record, citations: getCitationBundle(record, url.origin) } : record, {
           headers: { "Cache-Control": "public, max-age=300, s-maxage=3600" },
         });
       },
