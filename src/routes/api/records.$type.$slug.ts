@@ -23,7 +23,7 @@ export const Route = createFileRoute("/api/records/$type/$slug")({
         if (format === "iiif") {
           const image = getArchiveImageMedia(canonicalRecord)[0];
           if (!image) return Response.json({ error: "Record has no image media", recordId: record.id }, { status: 404 });
-          return Response.json(buildIiifManifest(canonicalRecord, image, url.origin), {
+          return Response.json(buildIiifManifest(canonicalRecord, { ...image, payload: { caption: image.payload.caption } }, url.origin), {
             headers: { "Content-Type": "application/ld+json;profile=http://iiif.io/api/presentation/3/context.json", "Cache-Control": "public, max-age=3600, s-maxage=86400" },
           });
         }
