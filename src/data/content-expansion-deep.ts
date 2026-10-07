@@ -22,7 +22,7 @@ export const awardRecipientAuthors: Author[] = Array.from(
   bio: `The Sahitya Akademi register lists ${award.author} as the author of ${award.title}, which received the Maithili award in ${award.awardYear}. This record intentionally does not infer dates, birthplace or a longer biography from the award listing alone.`,
   works: [award.title],
   source: award.source,
-}));
+});
 
 export const catalogueLiterature: Array<{
   slug: string;
@@ -75,7 +75,7 @@ export const catalogueLiterature: Array<{
     status: "verified" as const,
     url: "https://www.sahitya-akademi.gov.in/publications/maithili-catalogue_h.jsp",
   },
-}));
+});
 
 export const folkCultureExpansion: HeritageEntry[] = [
   ["madhushravani","Madhushravani","मधुश्रावणी","Festival","Mithila, Bihar and Nepal Tarai","Śrāvaṇa / newly married women","A women-centred summer ritual associated with newly married couples and a sustained repertoire of Maithili songs.","IGNCA documentation describes Madhusravani as a major occasion for newly married couples, with rituals and songs performed by women and friends of the bride.","https://ignca.gov.in/janapada-sampada/"],
@@ -98,7 +98,7 @@ export const folkCultureExpansion: HeritageEntry[] = [
   return {
   slug,name,nameDeva,kind: kind as "Festival" | "Site",place,period,summary,context:[context],
   source:{citation:"Institutional or catalogue documentation consulted for Mithila cultural research.",url,status:"verified" as const},
-}));
+});
 
 export const artExpansion: ArtEntry[] = [
   ["mithila-painting-tradition","Mithila Painting","Mithila painting","Madhubani and wider Mithila; adjoining Nepal Tarai","Mud walls, floors, handmade paper, cloth, canvas","A women-led folk painting tradition using natural and modern pigments, with themes from mythology, nature, ritual and village life.","https://handicrafts.nic.in/crafts/All_Crafts/Craft_Categories/Miscellaneous/Folk_Painting/Mithila_painting/MithilaPaintingWebPage.html"],
@@ -120,7 +120,7 @@ export const artExpansion: ArtEntry[] = [
   return {
   slug,title,tradition,region,materials,description,
   source:{citation:"Office of the Development Commissioner (Handicrafts), Government of India; and Nepal Tourism Board where noted.",url,status:"verified" as const},
-}));
+});
 
 export const musicExpansion: MusicEntry[] = [
   ["sohar","Sohar","सोहर","Life-cycle song","Birth and sixth-day rites","Maithili birth-song repertoire associated with childbirth and early life-cycle observances.","https://ignca.gov.in/classification-of-maithili-"],
@@ -140,7 +140,7 @@ export const musicExpansion: MusicEntry[] = [
   return {
   slug,title,titleMai,genre,occasion,description,
   source:{citation:"IGNCA classification and documentation of Maithili folksongs; Nepal Tourism Board for Chhath.",url,status:"verified" as const},
-}));
+});
 
 export const heritageExpansion: HeritageEntry[] = [
   ["janaki-mandir","Janaki Mandir","जानकी मन्दिर","Site","Janakpurdham, Dhanusha, Nepal","19th–20th century temple complex","A major Mithila pilgrimage landmark dedicated to Sita/Janaki, combining local and Mughal-influenced architectural forms.","Nepal Tourism Board records the temple as a three-storey, sixty-room complex and a major pilgrimage site; the exact construction date varies across official NTB pages and is retained as an editorial discrepancy rather than silently resolved.","https://ntb.gov.np/janaki-mandir--janakpur--dhanusha"],
@@ -156,4 +156,4 @@ export const heritageExpansion: HeritageEntry[] = [
 ].map(([slug,name,nameDeva,kind,place,period,summary,context,url]) => ({
   slug,name,nameDeva,kind: kind as "Site" | "Festival",place,period,summary,context:[context],
   source:{citation:"Nepal Tourism Board or Bihar Tourism institutional heritage documentation.",url,status:"verified" as const},
-}));
+});
