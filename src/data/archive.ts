@@ -184,7 +184,68 @@ export const literature: LiteratureWork[] = [
       detail: "Entry compiled from published bibliographies; text not yet consulted directly.",
       status: "needs-review",
     },
+  },,
+  {
+    slug: "manimanjari-natika", title: "Maṇimañjarī Nāṭikā", titleMai: "मणिमञ्जरी नाटिका",
+    author: "Vidyāpati Ṭhākur", period: "15th century CE", form: "Drama", language: "Maithili / Sanskrit",
+    summary: "A short dramatic work attributed to Vidyāpati and preserved in the Sahitya Akademi bibliography as a nāṭikā, representing the early bilingual dramatic tradition of Mithila.",
+    source: { citation: "Sahitya Akademi, Vidyapati bibliography — Manimanjari Natikā, ed. Ramanath Jha.", url: "https://sahitya-akademi.gov.in/pdf/Vidyapati.pdf", status: "verified" },
   },
+  {
+    slug: "kirtipatka", title: "Kīrtipatākā", titleMai: "कीर्तिपताका", author: "Vidyāpati Ṭhākur", period: "15th century CE",
+    form: "Narrative verse", language: "Avahaṭṭha",
+    summary: "A historical-poetic work attributed to Vidyāpati and preserved in the Sahitya Akademi bibliography alongside Kīrtilatā, representing the narrative side of his late-medieval corpus.",
+    source: { citation: "Sahitya Akademi, Vidyapati bibliography — Kīrtipatākā, ed. Jayakant Mishra.", url: "https://sahitya-akademi.gov.in/pdf/Vidyapati.pdf", status: "verified" },
+  },
+  {
+    slug: "agastyayaini", title: "Agastyayāinī", titleMai: "अगस्त्यायिनी", author: "Mārkaṇḍeya Pravāsī", period: "20th century CE",
+    form: "Narrative verse", language: "Maithili",
+    summary: "An epic poem in Maithili, recognised with the Sahitya Akademi Award in 1981, representing the modern continuation of long-form narrative poetry.",
+    source: { citation: "Sahitya Akademi Awards — Maithili, 1981: Agastyayaini.", url: "https://www.sahitya-akademi.gov.in/awards/akademi%20samman_suchi.jsp", status: "verified" },
+  },
+  {
+    slug: "radha-viraha", title: "Rādhā Viraha", titleMai: "राधा विरह", author: "Kāśīkānta Miśra 'Madhup'", period: "20th century CE",
+    form: "Narrative verse", language: "Maithili",
+    summary: "An epic-poetry work centred on Rādhā's separation, recognised with the Sahitya Akademi Award in 1970 and classified by the Akademi as epic poetry.",
+    source: { citation: "Sahitya Akademi Awards — Maithili, 1970: Radha Viraha.", url: "https://www.sahitya-akademi.gov.in/awards/akademi%20samman_suchi.jsp", status: "verified" },
+  },
+  {
+    slug: "du-patra", title: "Du Patra", titleMai: "दू पत्र", author: "Upendranāth Jhā", period: "20th century CE",
+    form: "Prose", language: "Maithili",
+    summary: "A Maithili novel recognised with the Sahitya Akademi Award in 1969, providing an early modern anchor for the prose-fiction corpus.",
+    source: { citation: "Sahitya Akademi Awards — Maithili, 1969: Du Patra.", url: "https://www.sahitya-akademi.gov.in/awards/akademi%20samman_suchi.jsp", status: "verified" },
+  },
+  {
+    slug: "naika-banijara", title: "Naika Banijara", titleMai: "नाइका बनिजारा", author: "Braj Kishore Verma 'Manipadma'", period: "20th century CE",
+    form: "Prose", language: "Maithili",
+    summary: "A Maithili novel recognised with the Sahitya Akademi Award in 1973, useful for tracing the development of modern Maithili fiction.",
+    source: { citation: "Sahitya Akademi Awards — Maithili, 1973: Naika Banijara.", url: "https://www.sahitya-akademi.gov.in/awards/akademi%20samman_suchi.jsp", status: "verified" },
+  },
+  {
+    slug: "mantraputra", title: "Mantraputra", titleMai: "मन्त्रपुत्र", author: "Māyanand Miśra", period: "20th century CE",
+    form: "Prose", language: "Maithili",
+    summary: "A Maithili novel recognised with the Sahitya Akademi Award in 1988; the official register identifies it specifically as a novel.",
+    source: { citation: "Sahitya Akademi Awards — Maithili, 1988: Mantraputra.", url: "https://www.sahitya-akademi.gov.in/awards/akademi%20samman_suchi.jsp", status: "verified" },
+  },
+  {
+    slug: "mithila-baibhav", title: "Mithilā-Baibhav", titleMai: "मिथिला-वैभव", author: "Yaśodhar Jhā", period: "20th century CE",
+    form: "Prose", language: "Maithili",
+    summary: "A philosophical treatise recognised in the first Sahitya Akademi Award for Maithili in 1966, showing that modern Maithili prose developed beyond fiction into intellectual writing.",
+    source: { citation: "Sahitya Akademi Awards — Maithili, 1966: Mithila-Baibhav.", url: "https://www.sahitya-akademi.gov.in/awards/akademi%20samman_suchi.jsp", status: "verified" },
+  },
+  {
+    slug: "vidyapati-git-shati", title: "Vidyāpati Gīt Śatī", titleMai: "विद्यापति गीत शती", author: "Vidyāpati Ṭhākur", period: "Medieval corpus; modern anthology",
+    form: "Padāvalī", language: "Maithili",
+    summary: "An anthology of one hundred Vidyāpati songs, edited by Umanath Jha, providing a focused editorial gateway into the Padāvalī lyric corpus.",
+    source: { citation: "Sahitya Akademi, Maithili catalogue — Vidyapati Git Shati, ed. Umanath Jha.", url: "https://www.sahitya-akademi.gov.in/publications/maithali.pdf", status: "verified" },
+  },
+  {
+    slug: "vidyapati-geet-sanchaya", title: "Vidyāpati Geet Sanchaya", titleMai: "विद्यापति गीत संचय", author: "Vidyāpati Ṭhākur", period: "Medieval corpus; modern anthology",
+    form: "Padāvalī", language: "Maithili",
+    summary: "A 380-page anthology of Vidyāpati songs compiled and edited by Ramdeo Jha and Mohan Bhardwaj, providing a substantial bibliographic gateway to the Padāvalī corpus.",
+    source: { citation: "Sahitya Akademi, Maithili catalogue — Vidyapati Geet Sanchaya.", url: "https://www.sahitya-akademi.gov.in/publications/maithali.pdf", status: "verified" },
+  },
+
 ];
 
 export const authors: Author[] = [
