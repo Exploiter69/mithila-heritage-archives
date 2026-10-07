@@ -1,6 +1,6 @@
 import type { Source } from "./types";
 
-export type SongCategory = "सोहर" | "बटगमनी" | "छठी मईया" | "लोकगीत";
+export type SongCategory = "सोहर" | "बटगमनी" | "छठी मईया" | "लोकगीत" | "संस्कार गीत" | "ऋतु गीत" | "देवगीत" | "कृषि गीत";
 
 /**
  * A stream is an external YouTube video, embedded — never hosted here.
@@ -22,7 +22,7 @@ export interface Song {
   occasion: string;
   category: SongCategory;
   about: string;
-  stream: Stream;
+  stream?: Stream;
   lyrics: { deva: string; translation: string }[];
   source: Source;
 }
@@ -223,10 +223,28 @@ export const songs: Song[] = [
   },
 ];
 
+
+const researchMusicExpansion: Song[] = [
+  {slug:"madhushravani-geet",title:"Madhushravani song tradition",titleDeva:"मधुश्रावणी गीत",transliteration:"Madhushrāvaṇī gīt",performer:"Traditional women singers",occasion:"Madhushravani ritual cycle",category:"संस्कार गीत",about:"A research lead for the song repertoire performed around Madhushravani, a major women-centred ritual cycle of Mithila. The archive keeps this as a genre-level record until individual songs and performers can be linked to located recordings or printed collections.",lyrics:[],source:{citation:"IGNCA Janapada Sampada documentation on Mithila folk traditions.",url:"https://ignca.gov.in/janapada-sampada/",status:"verified"}},
+  {slug:"vivah-geet-cycle",title:"Vivāh Geet cycle",titleDeva:"विवाह गीत",transliteration:"Vivāh gīt",performer:"Traditional women singers",occasion:"Maithili marriage cycle",category:"संस्कार गीत",about:"A broad family of wedding songs covering household rites, joking exchanges, blessing, procession and departure. District and family repertoires differ, so this record deliberately describes the corpus rather than inventing a single canonical lyric.",lyrics:[],source:{citation:"IGNCA classification of Maithili folksongs — life-cycle and marriage repertoire.",url:"https://ignca.gov.in/PDF_data/Classification_Structure_Maithili_FolkSongs.pdf",status:"verified"}},
+  {slug:"samdaun-research",title:"Samdāun repertoire",titleDeva:"समदाउन",transliteration:"Samdāun",performer:"Traditional wedding singers",occasion:"Bride's departure / separation",category:"संस्कार गीत",about:"A dedicated research record for the Samdāun repertoire. Individual texts, melodies and regional variants should be catalogued separately rather than collapsed into one supposedly definitive lyric.",lyrics:[],source:{citation:"IGNCA Maithili folksong classification and regional folklore documentation.",url:"https://ignca.gov.in/PDF_data/Classification_Structure_Maithili_FolkSongs.pdf",status:"verified"}},
+  {slug:"nachari-research",title:"Nacārī",titleDeva:"नचारी",transliteration:"Nacārī",performer:"Traditional devotional singers",occasion:"Śiva devotion and kīrtan performance",category:"देवगीत",about:"A devotional Maithili form associated with Śiva and the Vidyāpati performance tradition. The archive treats genre, text, performer and recording as separate research layers.",lyrics:[],source:{citation:"IGNCA Maithili folk-song classification; Vidyapati bibliographic tradition.",url:"https://ignca.gov.in/PDF_data/Classification_Structure_Maithili_FolkSongs.pdf",status:"verified"}},
+  {slug:"maheshvani-research",title:"Mahēśvāṇī",titleDeva:"महेशवाणी",transliteration:"Mahēśvāṇī",performer:"Traditional devotional singers",occasion:"Śiva devotional performance",category:"देवगीत",about:"A Maithili Śaiva song form linked to Vidyāpati's devotional corpus and later performance practice. This entry is a research lead for locating editions, performers and recordings.",lyrics:[],source:{citation:"Sahitya Akademi Vidyapati bibliography and Maithili devotional-song research.",url:"https://sahitya-akademi.gov.in/pdf/Vidyapati.pdf",status:"verified"}},
+  {slug:"seasonal-song-cycle",title:"Seasonal song cycle",titleDeva:"ऋतु गीत",transliteration:"Ritu gīt",performer:"Traditional singers",occasion:"Seasonal and agricultural calendar",category:"ऋतु गीत",about:"A corpus-level record for songs tied to seasons, months, weather and agricultural rhythms. The archive keeps individual regional texts open for later accession with source and recording provenance.",lyrics:[],source:{citation:"IGNCA classification of Maithili folksongs — seasonal repertoire.",url:"https://ignca.gov.in/PDF_data/Classification_Structure_Maithili_FolkSongs.pdf",status:"verified"}},
+  {slug:"agricultural-song-research",title:"Agricultural song traditions",titleDeva:"कृषि गीत",transliteration:"Kr̥ṣi gīt",performer:"Traditional rural singers",occasion:"Agricultural work and seasonal cycle",category:"कृषि गीत",about:"A research category for songs connected with cultivation, weather, harvest and rural labour. Individual recordings should be linked to locality, performer and date when accessioned.",lyrics:[],source:{citation:"IGNCA folk-song classification and Mithila rural-life documentation.",url:"https://ignca.gov.in/PDF_data/Classification_Structure_Maithili_FolkSongs.pdf",status:"verified"}},
+  {slug:"life-cycle-song-cycle",title:"Life-cycle song corpus",titleDeva:"संस्कार गीत",transliteration:"Saṃskār gīt",performer:"Traditional singers",occasion:"Birth, initiation, marriage and other life-cycle rites",category:"संस्कार गीत",about:"A corpus-level entry for Maithili songs attached to major life transitions. Birth, marriage and other ritual repertoires should ultimately be split into individual song records with local and textual provenance.",lyrics:[],source:{citation:"IGNCA classification of Maithili folksongs — life-cycle repertoire.",url:"https://ignca.gov.in/PDF_data/Classification_Structure_Maithili_FolkSongs.pdf",status:"verified"}}
+];
+songs.push(...researchMusicExpansion);
+
+
 export const musicFilters: ("All" | SongCategory)[] = [
   "All",
   "सोहर",
   "बटगमनी",
   "छठी मईया",
   "लोकगीत",
+  "संस्कार गीत",
+  "ऋतु गीत",
+  "देवगीत",
+  "कृषि गीत",
 ];
