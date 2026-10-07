@@ -13,19 +13,22 @@ export function CommonsImageFigure({
   subject,
   className,
   showMotifs = true,
+  loading = "lazy",
 }: {
   image: CommonsImage;
   subject: string;
   className?: string;
   showMotifs?: boolean;
+  loading?: "lazy" | "eager";
 }) {
   return (
     <figure className={cn("overflow-hidden rounded-sm border border-border bg-secondary/40", className)}>
       <img
         src={image.url}
         alt={`${subject} — ${image.caption}`}
-        loading="lazy"
+        loading={loading}
         decoding="async"
+        fetchPriority={loading === "eager" ? "high" : "auto"}
         className="aspect-4/3 w-full object-cover"
       />
 
