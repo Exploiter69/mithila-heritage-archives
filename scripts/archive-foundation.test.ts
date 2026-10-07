@@ -29,14 +29,14 @@ import {
 import { validateArchive } from "../src/data/validate-archive";
 import type { CanonicalArchiveData } from "../src/data/types";
 
-const EXPANDED_RECORDS = 650;
+const EXPANDED_RECORDS = 693;
 
 const EXPECTED = {
   records: EXPANDED_RECORDS,
   representations: EXPANDED_RECORDS + 1,
-  sources: 133 + (EXPANDED_RECORDS - 127),
-  provenance: 128 + (EXPANDED_RECORDS - 127),
-  media: 19,
+  sources: 699,
+  provenance: 694,
+  media: 30,
   relations: 69,
 } as const;
 
