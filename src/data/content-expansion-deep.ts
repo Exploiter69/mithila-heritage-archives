@@ -55,7 +55,7 @@ export const catalogueLiterature: Array<{
   ["dina-bhadri-lokgatha","Dinabhadri Lokgatha","दीनाभद्री लोकगाथा","Mahendra Narayan Ram and Phulo Paswan, editors","2007","Folk epic","A Sahitya Akademi publication documenting the Dinabhadri folk epic."],
   ["salhes-lokgatha","Salhes Lokgatha","सलहेस लोकगाथा","Mahendra Narayan Ram and Phulo Paswan, editors","2007","Folk epic","A Sahitya Akademi publication documenting the Salhes folk-epic tradition."],
   ["sati-bihula","Sati Bihula","सती बिहुला","Buchru Paswan, editor","2013","Folk epic","A Sahitya Akademi publication of the Sati Bihula folk-epic tradition."]
-].map(([slug,title,titleMai,author,period,form,summary]) => ({
+].map((row) => {\n  const [slug, title, titleMai, author, period, form, summary] = row as [string, string, string, string, string, string, string];\n  return ({
   slug,title,titleMai,author,period,
   titleDeva: titleMai,
   transliteration: title,
@@ -92,7 +92,7 @@ export const folkCultureExpansion: HeritageEntry[] = [
   ["ritual-floor-art","Ritual floor painting / Aripan","अरिपन","Festival","Mithila","Festivals, marriage and household rites","Geometric and ritual floor designs made with rice paste and associated with auspicious household occasions.","Government handicrafts documentation describes aripan as a traditional floor painting made during festivals, marriages and births.","https://handicrafts.nic.in/pdf/THCI-Book.pdf"],
   ["kohbar-ritual","Kohbar marriage-chamber tradition","कोहबर","Festival","Mithila","Marriage","The decorated marriage chamber and its associated painting and song repertoire.","IGNCA's Mithila painting study describes the kohbar as a sanctified marriage space decorated with mythological, floral and animal imagery.","https://ignca.gov.in/PDF_data/Mithila_Paintings.pdf"],
   ["foodways-makhana","Makhana foodway","मखाना","Festival","Mithila","Ritual and household foodways","Foxnut is an important Mithila foodway and appears in contemporary festival and household descriptions, especially around Kojagara.","The archive records Makhana as a foodway research topic; specific historical claims about ritual antiquity require culinary and ethnographic sources.","https://ntb.gov.np/en/janakpur"],
-].map(([slug,name,nameDeva,kind,place,period,summary,context,url]) => ({
+].map((row) => {\n  const [slug, name, nameDeva, kind, place, period, summary, context, url] = row as [string, string, string, string, string, string, string, string, string];\n  return ({
   slug,name,nameDeva,kind: kind as "Festival" | "Site",place,period,summary,context:[context],
   source:{citation:"Institutional or catalogue documentation consulted for Mithila cultural research.",url,status:"verified" as const},
 }));
@@ -112,7 +112,7 @@ export const artExpansion: ArtEntry[] = [
   ["ranti-cluster","Ranti painting cluster","Regional craft","Ranti, Madhubani","Mithila folk painting","Ranti appears in the established geography of Madhubani painting research; the archive keeps village-level school attribution open to further source checking.","https://handicrafts.nic.in/crafts/All_Crafts/Craft_Categories/Miscellaneous/Folk_Painting/Madhubani_Painting/Madhubani_Paintingwebpage.html"],
   ["mithila-art-nepal-tarai","Mithila art in Nepal Tarai","Regional variation","Nepal Tarai / Madhesh","Walls, paper and contemporary craft surfaces","Nepal Tourism Board describes Mithila painting as practiced in both Nepal and India, with women decorating homes during festivals and auspicious ceremonies.","https://ntb.gov.np/en/mithila-art"],
   ["contemporary-mithila-social-themes","Contemporary social-theme painting","Contemporary practice","Mithila and Madhubani","Paper, canvas and commercial craft surfaces","The Government handicrafts portal notes contemporary Madhubani artists using the form to address social issues alongside traditional themes.","https://handicrafts.nic.in/crafts/All_Crafts/Craft_Categories/Miscellaneous/Folk_Painting/Madhubani_Painting/Madhubani_Paintingwebpage.html"],
-].map(([slug,title,tradition,region,materials,description,url]) => ({
+].map((row) => {\n  const [slug, title, tradition, region, materials, description, url] = row as [string, string, string, string, string, string, string];\n  return ({
   slug,title,tradition,region,materials,description,
   source:{citation:"Office of the Development Commissioner (Handicrafts), Government of India; and Nepal Tourism Board where noted.",url,status:"verified" as const},
 }));
@@ -130,7 +130,7 @@ export const musicExpansion: MusicEntry[] = [
   ["madhushravani-geet","Madhushravani Geet","मधुश्रावणी गीत","Ritual song","Madhushravani","Women-led song repertoire associated with the Madhusravani ritual for newly married couples.","https://ignca.gov.in/janapada-sampada/"],
   ["folk-epic-singing","Folk-epic singing","लोकगाथा गायन","Folk epic","Community performance","Performance of long-form Maithili folk narratives and epics, requiring performer-level documentation and recording provenance.","https://www.sahitya-akademi.gov.in/publications/maithili-catalogue_h.jsp"],
   ["women-folk-song","Women's folk-song repertoire","महिला लोकगीत","Folk song","Ritual and life-cycle","A broad performance ecology in which women are major singers and transmitters of Maithili ritual knowledge.","https://ignca.gov.in/janapada-sampada/"],
-].map(([slug,title,titleMai,genre,occasion,description,url]) => ({
+].map((row) => {\n  const [slug, title, titleMai, genre, occasion, description, url] = row as [string, string, string, string, string, string, string];\n  return ({
   slug,title,titleMai,genre,occasion,description,
   source:{citation:"IGNCA classification and documentation of Maithili folksongs; Nepal Tourism Board for Chhath.",url,status:"verified" as const},
 }));
