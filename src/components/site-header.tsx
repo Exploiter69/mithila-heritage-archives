@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Menu } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { ARCHIVE_LOCALES, type ArchiveLocale } from "@/data/research-infrastructure";
 
 import { GlobalSearch, SearchTrigger } from "@/components/global-search";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -36,6 +37,18 @@ export const SECONDARY_NAV = [
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState(false);
+  const [locale, setLocale] = useState<ArchiveLocale>("en");
+  useEffect(() => {
+    const stored = window.localStorage.getItem("mithila-archive-locale") as ArchiveLocale | null;
+    const next = stored && ARCHIVE_LOCALES.includes(stored) ? stored : "en";
+    setLocale(next);
+    document.documentElement.lang = next;
+  }, []);
+  function changeLocale(next: ArchiveLocale) {
+    setLocale(next);
+    window.localStorage.setItem("mithila-archive-locale", next);
+    document.documentElement.lang = next;
+  }
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/92 backdrop-blur-sm">
@@ -66,6 +79,10 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <label className="sr-only" htmlFor="archive-locale">Interface language</label>
+          <select id="archive-locale" value={locale} onChange={(event) => changeLocale(event.target.value as ArchiveLocale)} className="hidden h-8 rounded-sm border border-border bg-background px-2 text-xs text-muted-foreground sm:block" aria-label="Interface language">
+            <option value="mai">मैथिली</option><option value="hi">हिन्दी</option><option value="en">English</option>
+          </select>
           <ThemeToggle />
           <SearchTrigger onClick={() => setSearch(true)} />
 
