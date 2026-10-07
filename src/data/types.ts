@@ -100,7 +100,8 @@ export interface MigrationRepresentation<TPayload = unknown> {
       | "dictionary.ts"
       | "content-expansion-literature.ts"
       | "content-expansion-heritage.ts"
-      | "content-expansion-deep.ts";
+      | "content-expansion-deep.ts"
+      | "content-expansion-language.ts";
     exportName: string;
   };
   /** Original payload retained without editorial rewriting. */
