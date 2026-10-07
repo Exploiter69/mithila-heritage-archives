@@ -8,6 +8,7 @@ import {
   SourceNote,
 } from "@/components/archive-ui";
 import { CommonsImageFigure } from "@/components/commons-image";
+import { getRelatedRecords } from "@/data/archive-platform";
 import {
   getArchiveAudioMedia,
   getArchiveEvidence,
@@ -476,6 +477,29 @@ export function ArchiveRecordPage({
             ))}
           </div>
         </section>
+
+        {getRelatedRecords(record).length > 0 && (
+          <section className="mt-12 border-t border-border pt-8" aria-labelledby="related-heading">
+            <h2 id="related-heading" className="text-2xl font-normal tracking-tight text-foreground">
+              Related records
+            </h2>
+            <ul className="mt-5 grid gap-4 md:grid-cols-2">
+              {getRelatedRecords(record).map(({ relation, target }) => (
+                <li key={relation.id}>
+                  <Link
+                    to="/archive/$type/$slug"
+                    params={{ type: target.type, slug: target.slug }}
+                    className="block rounded-sm border border-border bg-secondary/40 p-4 transition-colors hover:border-gold"
+                  >
+                    <span className="label-eyebrow text-terracotta">{relation.predicate}</span>
+                    <span className="mt-2 block text-lg text-foreground">{archiveRecordTitle(target)}</span>
+                    {relation.note && <span className="mt-2 block text-sm leading-relaxed text-muted-foreground">{relation.note}</span>}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
         {getArchiveMedia(record).length > 0 && (
           <section
