@@ -470,9 +470,19 @@ export const art: ArtEntry[] = [
     materials: "Rice-flour paste (pithār) applied by fingertip",
     description:
       "Geometric and lotus-based diagrams drawn on swept earth or floor at thresholds and courtyards for specific rites — marriage, upanayana, Tusārī, Madhusrāvaṇī. Each occasion has its own permitted design; the form is impermanent by intention and redrawn each time.",
+    image: {
+      url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Aripan.jpg",
+      filePage: "https://commons.wikimedia.org/wiki/File:Aripan.jpg",
+      fileTitle: "Aripan.jpg",
+      credit: "Sntshkumar750 (Wikimedia Commons)",
+      license: "CC BY-SA 4.0",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0",
+      caption: "Aripan floor drawing at a Maithil ceremonial marwa in Basuki Bihari, Mithila."
+    },
     source: {
-      citation: "Ritual manuals in circulation in Mithila households; ethnographic notes, Madhubani.",
-      status: "community",
+      citation: "Wikimedia Commons, File:Aripan.jpg; Asia InCH, Aripan Floor Painting of Bihar.",
+      detail: "The Commons file is a directly relevant documentary photograph; the Asia InCH record independently documents the ritual practice and technique.",
+      status: "verified",
     },
   },
   {
