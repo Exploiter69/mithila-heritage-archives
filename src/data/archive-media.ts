@@ -3,7 +3,7 @@ import type { MediaRecord } from "./types";
 
 export interface MediaQualityFinding {
   severity: "error" | "warning";
-  code: "orphan-media" | "missing-caption" | "missing-license" | "invalid-youtube-locator" | "locator-id-mismatch";
+  code: "orphan-media" | "missing-caption" | "missing-license" | "invalid-youtube-locator" | "locator-id-mismatch" | "media-not-owned-by-record" | "missing-source-url" | "missing-display-url";
   mediaId: string;
   recordId: string;
   message: string;
@@ -20,6 +20,19 @@ export function auditArchiveMedia(media: MediaRecord[] = canonicalArchive.media)
   const recordIds = new Set(canonicalArchive.records.map((record) => record.id));
   const findings: MediaQualityFinding[] = [];
 
+  const mediaById = new Map(media.map((item) => [item.id, item]));
+
+  for (const record of canonicalArchive.records) {
+    for (const mediaId of record.mediaIds) {
+      const item = mediaById.get(mediaId);
+      if (!item) {
+        findings.push({ severity: "error", code: "media-not-owned-by-record", mediaId, recordId: record.id, message: "Record references a media item that is not present in the canonical media register." });
+      } else if (item.recordId !== record.id) {
+        findings.push({ severity: "error", code: "media-not-owned-by-record", mediaId, recordId: record.id, message: "Record references media owned by a different record." });
+      }
+    }
+  }
+
   for (const item of media) {
     if (!recordIds.has(item.recordId)) {
       findings.push({ severity: "error", code: "orphan-media", mediaId: item.id, recordId: item.recordId, message: "Media references a record that does not exist." });
@@ -27,6 +40,8 @@ export function auditArchiveMedia(media: MediaRecord[] = canonicalArchive.media)
     }
 
     if (item.kind === "image") {
+      if (!item.displayUrl.trim()) findings.push({ severity: "error", code: "missing-display-url", mediaId: item.id, recordId: item.recordId, message: "Image media has no display URL." });
+      if (!item.sourceUrl.trim()) findings.push({ severity: "error", code: "missing-source-url", mediaId: item.id, recordId: item.recordId, message: "Image media has no source file-page URL." });
       if (!item.payload.caption.trim()) findings.push({ severity: "error", code: "missing-caption", mediaId: item.id, recordId: item.recordId, message: "Image media has no accessible caption." });
       if (!item.payload.licenseUrl.trim()) findings.push({ severity: "error", code: "missing-license", mediaId: item.id, recordId: item.recordId, message: "Image media has no license URL." });
       continue;
