@@ -223,8 +223,8 @@ The original legacy status is also retained on migrated source records as
 
 The current canonical foundation validates to:
 
-- **122 canonical records**
-- **123 migration representations**
+- **127 canonical records**
+- **128 migration representations**
 - **71 source records**
 - **66 provenance assertions**
 - **15 media records**
