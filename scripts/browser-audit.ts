@@ -232,16 +232,15 @@ async function main() {
 
     const results: AuditResult[] = [];
 
-    // The audit manages a Vite dev server in CI/local runs. The first navigation can
-    // include one-time dependency/module transformation work that is not representative
-    // of a rendered page's performance. Warm every public route once before collecting
-    // measurements so LCP/DCL failures reflect the page rather than dev-server startup.
-    await cdp.command("Emulation.setDeviceMetricsOverride", {
-      width: 1366, height: 768, deviceScaleFactor: 1, mobile: false,
-    });
+    // Warm Vite's route/module transforms outside the browser. This avoids counting
+    // one-time dev-server compilation in the browser's LCP/DCL measurements while
+    // keeping the measured navigation a real browser navigation.
     for (const route of routes) {
-      await cdp.command("Page.navigate", { url: new URL(route, BASE_URL).toString() });
-      await waitForPageReady();
+      const response = await fetch(new URL(route, BASE_URL));
+      if (!response.ok) {
+        throw new Error(`Warm-up request failed for ${route}: HTTP ${response.status}`);
+      }
+      await response.arrayBuffer();
     }
 
     async function waitForPageReady(timeoutMs = 15_000) {
