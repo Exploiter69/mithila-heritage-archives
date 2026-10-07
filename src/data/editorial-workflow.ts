@@ -60,7 +60,7 @@ export function getEditorialQueue(): EditorialQueueItem[] {
     }
     if (record.type === "author") {
       const content = record.content as Record<string, unknown>;
-      if (typeof content.bio !== "string" || !content.bio.trim()) {
+      if (typeof content['bio'] !== "string" || !content['bio'].trim()) {
         queue.push({
           kind: "biography-review",
           recordId: record.id,
