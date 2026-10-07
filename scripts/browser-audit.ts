@@ -200,12 +200,12 @@ async function main() {
           new PerformanceObserver((list) => {
             for (const entry of list.getEntries()) window.__mithilaAudit.lcp = Math.max(window.__mithilaAudit.lcp, entry.startTime || 0);
           }).observe({ type: "largest-contentful-paint", buffered: true });
-        } catch {}
+        } catch (error) { void error; }
         try {
           new PerformanceObserver((list) => {
             for (const entry of list.getEntries()) if (!entry.hadRecentInput) window.__mithilaAudit.cls += entry.value || 0;
           }).observe({ type: "layout-shift", buffered: true });
-        } catch {}
+        } catch (error) { void error; }
         try {
           new PerformanceObserver((list) => {
             for (const entry of list.getEntries()) window.__mithilaAudit.inp = Math.max(window.__mithilaAudit.inp, entry.duration || 0);
