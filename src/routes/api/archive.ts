@@ -12,7 +12,7 @@ export const Route = createFileRoute("/api/archive")({
           return Response.json({
             apiVersion: "2.0",
             dataset: getResearchDataset({ limit: 1000 }),
-            counts: getPublicArchiveEnvelope().counts,
+            counts: {\n              records: getPublicArchiveEnvelope().recordCount,\n              sources: getPublicArchiveEnvelope().sourceCount,\n              media: getPublicArchiveEnvelope().mediaCount,\n              relations: getPublicArchiveEnvelope().relationCount,\n            },
           }, { headers: { "Cache-Control": "public, max-age=300, s-maxage=3600" } });
         }
         return Response.json(getPublicArchiveEnvelope(), {
