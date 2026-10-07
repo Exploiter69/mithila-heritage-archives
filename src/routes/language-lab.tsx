@@ -67,8 +67,8 @@ function LanguageLabPage() {
             onChange={handleClassChange}
             className="rounded-sm border border-input bg-background px-3 py-2"
           >
-            {classes.map((wordClass) => (
-              <option key={wordClass} value={wordClass}>
+            {classes.map((wordClass, index) => (
+              <option key={`language-class-${index}-${wordClass}`} value={wordClass}>
                 {wordClass}
               </option>
             ))}
@@ -79,7 +79,7 @@ function LanguageLabPage() {
         </p>
         <div className="mt-5 grid gap-4 md:grid-cols-2">
           {results.slice(0, 100).map((word, index) => (
-            <EntryCard key={word.slug + "-" + index}>
+            <EntryCard key={`language-entry-${index}-${word.slug}`}>
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <h2 className="deva text-2xl">{word.headword}</h2>
