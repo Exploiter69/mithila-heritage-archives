@@ -202,11 +202,11 @@ function addMedia(record: ArchiveRecord, media: MediaRecord) {
 }
 
 function commonsMedia(record: ArchiveRecord, image: CommonsImage): MediaRecord {
-  return { id: `media:${record.id}:image`, kind: "image", recordId: record.id, displayUrl: image.url, sourceUrl: image.filePage, licenseUrl: image.licenseUrl, provider: "wikimedia-commons", payload: image };
+  return { id: `media:${record.id}:image`, kind: "image", recordId: record.id, displayUrl: image.url, sourceUrl: image.filePage, licenseUrl: image.licenseUrl, provider: "wikimedia-commons", preservation: "external-reference", payload: image };
 }
 
 function streamMedia(record: ArchiveRecord, stream: Stream): MediaRecord {
-  return { id: `media:${record.id}:audio-stream`, kind: "audio-stream", recordId: record.id, provider: "youtube", externalId: stream.youtubeId, locator: { kind: "deterministic-playback", url: `https://www.youtube.com/watch?v=${stream.youtubeId}`, derivedFrom: "youtubeId" }, payload: stream };
+  return { id: `media:${record.id}:audio-stream`, kind: "audio-stream", recordId: record.id, provider: "youtube", externalId: stream.youtubeId, preservation: "external-reference", locator: { kind: "deterministic-playback", url: `https://www.youtube.com/watch?v=${stream.youtubeId}`, derivedFrom: "youtubeId" }, payload: stream };
 }
 
 const legacyVarna = legacyLiterature.find((entry) => entry.slug === "varna-ratnakara");
