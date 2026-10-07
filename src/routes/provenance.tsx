@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { PageHeader, Section, EntryCard } from "@/components/archive-ui";
 import { canonicalArchive } from "@/data/archive-foundation";
 import { getProvenanceAuditReport, type ProvenanceGapCode } from "@/data/provenance-report";
+import { getEditorialQueue } from "@/data/editorial-workflow";
 
 export const Route = createFileRoute("/provenance")({
   head: () => ({ meta: [
@@ -19,6 +20,7 @@ const GAP_FILTERS: Array<["all" | ProvenanceGapCode, string]> = [
 
 function ProvenancePage() {
   const report = getProvenanceAuditReport();
+  const editorialQueue = getEditorialQueue();
   const assertions = canonicalArchive.provenanceV2;
   const [query, setQuery] = useState("");
   const [gap, setGap] = useState<"all" | ProvenanceGapCode>("all");
@@ -63,6 +65,23 @@ function ProvenancePage() {
             <div><p className="text-xs text-muted-foreground">Reviewed</p><p className="text-2xl">{withReview}</p></div>
             <div><p className="text-xs text-muted-foreground">Findings</p><p className="text-2xl">{findings.length}</p></div>
           </div>
+        </div>
+
+        <div className="mt-8 rounded-sm border border-border p-6">
+          <h2 className="text-xl">Editorial queue</h2>
+          <p className="mt-2 text-sm text-muted-foreground">{editorialQueue.length} actionable review items are currently generated from provenance, media, content-status and relationship audits.</p>
+          <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {Array.from(new Set(editorialQueue.map((item) => item.kind))).map((kind) => (
+              <div key={kind}><p className="text-xs capitalize text-muted-foreground">{kind.replaceAll("-", " ")}</p><p className="text-2xl">{editorialQueue.filter((item) => item.kind === kind).length}</p></div>
+            ))}
+          </div>
+          <ul className="mt-5 space-y-2">
+            {editorialQueue.filter((item) => item.priority === "high").slice(0, 20).map((item) => (
+              <li key={item.kind + "/" + item.recordId + "/" + (item.codes?.join(",") ?? "")} className="border-l-2 border-terracotta pl-4 text-sm">
+                <span className="font-medium">{item.slug}</span> · {item.kind.replaceAll("-", " ")} — {item.reason}
+              </li>
+            ))}
+          </ul>
         </div>
 
         <div className="mt-8 space-y-3">
