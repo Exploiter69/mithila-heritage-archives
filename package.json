@@ -17,6 +17,7 @@
     "test": "bun run test:archive && bun run test:archive-records && bun run test:runtime",
     "test:archive-records": "bun scripts/archive-record-routes.test.ts",
     "test:runtime": "bun scripts/runtime-contract.test.ts",
+    "test:http-smoke": "bun scripts/http-smoke.ts",
     "provenance-report": "bun src/data/provenance-report-cli.ts",
     "archive:quality": "bun src/data/archive-quality-cli.ts",
     "archive:media": "bun src/data/archive-media-cli.ts",
