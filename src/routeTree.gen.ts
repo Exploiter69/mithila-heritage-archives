@@ -667,18 +667,18 @@ const ApiArchiveRouteWithChildren = ApiArchiveRoute._addFileChildren(
 )
 
 const rootRouteChildren: RootRouteChildren = {
-  AtlasRoute: AtlasRoute
-  ArtAtlasRoute: ArtAtlasRoute
-  ExploreRoute: ExploreRoute
-  LanguageLabRoute: LanguageLabRoute
-  LearnRoute: LearnRoute
-  LiteraturePortalRoute: LiteraturePortalRoute
-  MusicArchiveRoute: MusicArchiveRoute
-  PeopleRoute: PeopleRoute
-  ProvenanceRoute: ProvenanceRoute
-  SourcesExplorerRoute: SourcesExplorerRoute
-  StatsRoute: StatsRoute
-  TimelineRoute: TimelineRoute
+  AtlasRoute: AtlasRoute,
+  ArtAtlasRoute: ArtAtlasRoute,
+  ExploreRoute: ExploreRoute,
+  LanguageLabRoute: LanguageLabRoute,
+  LearnRoute: LearnRoute,
+  LiteraturePortalRoute: LiteraturePortalRoute,
+  MusicArchiveRoute: MusicArchiveRoute,
+  PeopleRoute: PeopleRoute,
+  ProvenanceRoute: ProvenanceRoute,
+  SourcesExplorerRoute: SourcesExplorerRoute,
+  StatsRoute: StatsRoute,
+  TimelineRoute: TimelineRoute,
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ArtRoute: ArtRoute,
