@@ -482,6 +482,7 @@ export const art: ArtEntry[] = [
     source: {
       citation: "Wikimedia Commons, File:Aripan.jpg; Asia InCH, Aripan Floor Painting of Bihar.",
       detail: "The Commons file is a directly relevant documentary photograph; the Asia InCH record independently documents the ritual practice and technique.",
+      url: "https://asiainch.org/craft/aripan-floor-painting-of-bihar/",
       status: "verified",
     },
   },
