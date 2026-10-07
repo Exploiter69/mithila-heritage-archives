@@ -19,7 +19,6 @@ import {
   type Song,
 } from "@/data/archive-read";
 import type { ArchiveRecord, ArchiveRecordType, CommonsImage, Source } from "@/data/types";
-import { getRelatedRecords } from "@/data/archive-platform";
 
 export const ARCHIVE_ROUTE_CONFIG: Record<
   ArchiveRecordType,
