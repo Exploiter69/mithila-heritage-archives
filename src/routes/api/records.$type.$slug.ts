@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { getPublicRecord } from "@/data/archive-export";
-import { getArchiveImageMedia, getArchiveMedia } from "@/data/archive-read";
+import { getArchiveImageMedia, getArchiveMedia, getArchiveRecordById } from "@/data/archive-read";
 import { buildIiifManifest, buildPreservationManifest, getCitationBundle } from "@/data/research-infrastructure";
 import { archiveRecordTypes, type ArchiveRecordType } from "@/data/types";
 
@@ -13,15 +13,15 @@ export const Route = createFileRoute("/api/records/$type/$slug")({
         }
         const record = getPublicRecord(params.type as ArchiveRecordType, params.slug);
         if (!record) return Response.json({ error: "Record not found" }, { status: 404 });
-        const url = new URL(request.url);
+        const canonicalRecord = getArchiveRecordById(record.id);\n        if (!canonicalRecord) return Response.json({ error: "Canonical record not found" }, { status: 500 });\n        const url = new URL(request.url);
         const format = url.searchParams.get("format");
         if (format === "citation") {
-          return Response.json({ apiVersion: "2.0", recordId: record.id, ...getCitationBundle(record, url.origin) });
+          return Response.json({ apiVersion: "2.0", recordId: record.id, ...getCitationBundle(canonicalRecord, url.origin) });
         }
         if (format === "iiif") {
           const image = getArchiveImageMedia(record)[0];
           if (!image) return Response.json({ error: "Record has no image media", recordId: record.id }, { status: 404 });
-          return Response.json(buildIiifManifest(record, image, url.origin), {
+          return Response.json(buildIiifManifest(canonicalRecord, image, url.origin), {
             headers: { "Content-Type": "application/ld+json;profile=http://iiif.io/api/presentation/3/context.json", "Cache-Control": "public, max-age=3600, s-maxage=86400" },
           });
         }
@@ -30,11 +30,11 @@ export const Route = createFileRoute("/api/records/$type/$slug")({
           return Response.json({
             apiVersion: "2.0",
             recordId: record.id,
-            media: media.map((item) => buildPreservationManifest(record, item)),
+            media: media.map((item) => buildPreservationManifest(canonicalRecord, item)),
           }, { headers: { "Cache-Control": "public, max-age=300, s-maxage=3600" } });
         }
         const version = url.searchParams.get("version");
-        return Response.json(version === "2" ? { apiVersion: "2.0", record, citations: getCitationBundle(record, url.origin) } : record, {
+        return Response.json(version === "2" ? { apiVersion: "2.0", record, citations: getCitationBundle(canonicalRecord, url.origin) } : record, {
           headers: { "Cache-Control": "public, max-age=300, s-maxage=3600" },
         });
       },
