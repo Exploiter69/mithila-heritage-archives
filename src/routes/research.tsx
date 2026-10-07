@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { EntryCard, PageHeader, Section, SectionTitle } from "@/components/archive-ui";
 import { getArchiveStats, getResearchFacets } from "@/data/archive-platform";
+import { getArchiveRecords } from "@/data/archive-read";
+import { archiveRecordTitle } from "@/components/archive-record-page";
 
 export const Route = createFileRoute("/research")({
   head: () => ({ meta: [
@@ -13,6 +15,18 @@ export const Route = createFileRoute("/research")({
 function ResearchPage() {
   const stats = getArchiveStats();
   const facets = getResearchFacets();
+  const chronology = getArchiveRecords()
+    .map((record) => {
+      const content = record.content as Record<string, unknown>;
+      const dateText = [content["era"], content["period"], content["lifespan"]]
+        .filter((value): value is string => typeof value === "string")
+        .join(" ");
+      const match = dateText.match(/\b(\d{4})\b/);
+      return match ? { record, year: Number(match[1]) } : null;
+    })
+    .filter((item): item is { record: (typeof getArchiveRecords())[number]; year: number } => item !== null)
+    .sort((a, b) => a.year - b.year || archiveRecordTitle(a.record).localeCompare(archiveRecordTitle(b.record)));
+
   const researchLinks = [
     ["/search", "Search", "Cross-collection search with collection and evidence filters."],
     ["/sources", "Bibliography", "Normalized source identities and their captured citation trail."],
@@ -42,6 +56,26 @@ function ResearchPage() {
             <Link key={href} to={href}><EntryCard className="h-full hover:border-gold"><h2 className="text-xl">{title}</h2><p className="mt-2 text-sm leading-relaxed text-muted-foreground">{description}</p></EntryCard></Link>
           ))}
         </div>
+      </Section>
+      <Section className="pt-0">
+        <SectionTitle eyebrow="Chronology" title="Recorded chronology" />
+        <p className="mb-5 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+          This timeline only uses explicit four-digit years already present in record metadata. It does not infer dates from prose or manufacture precision where the archive has none.
+        </p>
+        <ol className="grid gap-3 md:grid-cols-2">
+          {chronology.map(({ record, year }) => (
+            <li key={record.id}>
+              <Link
+                to="/archive/$type/$slug"
+                params={{ type: record.type, slug: record.slug }}
+                className="flex gap-4 rounded-sm border border-border bg-secondary/40 p-4 transition-colors hover:border-gold"
+              >
+                <span className="font-sans text-sm text-terracotta">{year}</span>
+                <span className="text-foreground">{archiveRecordTitle(record)}</span>
+              </Link>
+            </li>
+          ))}
+        </ol>
       </Section>
       <Section className="pt-0">
         <SectionTitle eyebrow="Coverage" title="What is in the corpus" />
