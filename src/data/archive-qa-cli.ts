@@ -4,5 +4,7 @@ const report = runArchiveQa();
 console.log(`Archive QA: ${report.records} records, ${report.sources} sources, ${report.relations} relations, ${report.media} media`);
 console.log(`Errors: ${report.errors}`);
 console.log(`Warnings: ${report.warnings}`);
+console.log(`Provenance gap findings: ${report.provenanceGaps}`);
+console.log(`High-priority editorial items: ${report.editorialHighPriority}`);
 for (const check of report.checks) console.log(`- ${check}`);
 if (report.errors > 0) process.exit(1);
