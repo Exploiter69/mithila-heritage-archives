@@ -25,5 +25,13 @@ for (const entry of sahityaAkademiMaithiliAwards) {
   assert.ok(record, `expanded award record missing from canonical archive: ${entry.slug}`);
   assert.equal(record?.contentStatus, "published");
 }
-console.log("Content expansion literature tests passed: 57 Sahitya Akademi Maithili award records.");
-\nassert.equal(yuvaPuraskarMaithiliAwards.length, 15);\nassert.deepEqual(yuvaPuraskarMaithiliAwards.map((entry) => entry.awardYear), Array.from({ length: 15 }, (_, index) => 2011 + index));\nfor (const entry of yuvaPuraskarMaithiliAwards) {\n  assert.equal(entry.source.status, "verified");\n  assert.equal(entry.source.url, "https://sahitya-akademi.gov.in/awards/yuva_samman_suchi.jsp");\n  assert.ok(entry.note.includes("Bibliographic recognition record only"));\n  assert.ok(canonicalArchive.records.some((item) => item.type === "literature-work" && item.slug === entry.slug));\n}\n
+console.log("Content expansion literature tests passed: Sahitya Akademi Maithili and Yuva Puraskar award records.");
+
+assert.equal(yuvaPuraskarMaithiliAwards.length, 15);
+assert.deepEqual(yuvaPuraskarMaithiliAwards.map((entry) => entry.awardYear), Array.from({ length: 15 }, (_, index) => 2011 + index));
+for (const entry of yuvaPuraskarMaithiliAwards) {
+  assert.equal(entry.source.status, "verified");
+  assert.equal(entry.source.url, "https://sahitya-akademi.gov.in/awards/yuva_samman_suchi.jsp");
+  assert.ok(entry.note.includes("Bibliographic recognition record only"));
+  assert.ok(canonicalArchive.records.some((item) => item.type === "literature-work" && item.slug === entry.slug));
+}
