@@ -74,13 +74,50 @@ async function waitForJson(url: string, timeoutMs = 15_000) {
     try {
       const response = await fetch(url);
       if (response.ok) return await response.json();
-    } catch {}
+    } catch (error) {
+      void error;
+    }
     await sleep(250);
   }
   throw new Error(`Timed out waiting for ${url}`);
 }
 
-type CdpResponse = { id?: number; result?: any; error?: any; method?: string; params?: any };
+type CdpResponse = {
+  id?: number;
+  result?: { result?: { value?: unknown } };
+  error?: unknown;
+  method?: string;
+  params?: unknown;
+};
+
+type AuditEvaluation = {
+  href: string;
+  title: string;
+  lang: string;
+  hasMain: boolean;
+  hasSkipLink: boolean;
+  badImages: string[];
+  badButtons: string[];
+  badLinks: string[];
+  badInputs: string[];
+  duplicateIds: string[];
+  metrics: {
+    lcp: number;
+    cls: number;
+    inp: number;
+    ttfb: number;
+    domContentLoaded: number;
+    load: number;
+    transferSize: number;
+  };
+  errors: string[];
+};
+
+type AuditResult = AuditEvaluation & {
+  viewport: string;
+  route: string;
+  accessibility: { unnamedInteractive: number };
+};
 
 class Cdp {
   private ws: WebSocket;
@@ -173,11 +210,13 @@ async function main() {
           new PerformanceObserver((list) => {
             for (const entry of list.getEntries()) window.__mithilaAudit.inp = Math.max(window.__mithilaAudit.inp, entry.duration || 0);
           }).observe({ type: "event", buffered: true, durationThreshold: 16 });
-        } catch {}
+        } catch (error) {
+          void error;
+        }
       })();`,
     });
 
-    const results: any[] = [];
+    const results: AuditResult[] = [];
 
     async function waitForPageReady(timeoutMs = 15_000) {
       const started = Date.now();
@@ -237,18 +276,38 @@ async function main() {
           returnByValue: true,
         });
 
-        const evaluated = evaluation.result?.result?.value ?? {};
+        const evaluated = (evaluation.result?.result?.value ?? {}) as Partial<AuditEvaluation>;
         const unnamedInteractive =
           (evaluated.badButtons?.length ?? 0) +
           (evaluated.badLinks?.length ?? 0) +
           (evaluated.badInputs?.length ?? 0);
 
-        results.push({
+        const auditResult: AuditResult = {
+          href: evaluated.href ?? url,
+          title: evaluated.title ?? "",
+          lang: evaluated.lang ?? "",
+          hasMain: evaluated.hasMain ?? false,
+          hasSkipLink: evaluated.hasSkipLink ?? false,
+          badImages: evaluated.badImages ?? [],
+          badButtons: evaluated.badButtons ?? [],
+          badLinks: evaluated.badLinks ?? [],
+          badInputs: evaluated.badInputs ?? [],
+          duplicateIds: evaluated.duplicateIds ?? [],
+          metrics: evaluated.metrics ?? {
+            lcp: 0,
+            cls: 0,
+            inp: 0,
+            ttfb: 0,
+            domContentLoaded: 0,
+            load: 0,
+            transferSize: 0,
+          },
+          errors: evaluated.errors ?? [],
           viewport: viewport.name,
           route,
-          ...evaluated,
           accessibility: { unnamedInteractive },
-        });
+        };
+        results.push(auditResult);
       }
     }
 
