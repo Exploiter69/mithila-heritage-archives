@@ -193,4 +193,4 @@ const heritageImages: Record<string, CommonsImage> = {
  "saurath-sabha":{url:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Saurath Sabha-10.jpg",filePage:"https://commons.wikimedia.org/wiki/File:Saurath_Sabha-10.jpg",fileTitle:"Saurath Sabha-10.jpg",credit:"Wikimedia Commons contributor",license:"CC BY-SA 4.0",licenseUrl:"https://creativecommons.org/licenses/by-sa/4.0",caption:"Saurath Sabha gathering site."},
  "kapileshwar-nath":{url:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Kapileshwar Sthan at Kapil Ashram, Madhubani.jpg",filePage:"https://commons.wikimedia.org/wiki/File:Kapileshwar_Sthan_at_Kapil_Ashram,_Madhubani.jpg",fileTitle:"Kapileshwar Sthan at Kapil Ashram, Madhubani.jpg",credit:"Sntshkumar750",license:"CC BY-SA 4.0",licenseUrl:"https://creativecommons.org/licenses/by-sa/4.0",caption:"Kapileshwar Sthan at Kapil Ashram, Madhubani."},
 };
-for (const entry of heritage) if (!entry.image && heritageImages[entry.slug]) entry.image=heritageImages[entry.slug];
+for (const entry of heritage) { const image = heritageImages[entry.slug]; if (!entry.image && image) entry.image = image; }
