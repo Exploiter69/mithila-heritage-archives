@@ -29,6 +29,7 @@ export function CommonsImageFigure({
         loading={loading}
         decoding="async"
         fetchPriority={loading === "eager" ? "high" : "auto"}
+        sizes="(min-width: 1024px) 50vw, 100vw"
         className="aspect-4/3 w-full object-cover"
       />
 
