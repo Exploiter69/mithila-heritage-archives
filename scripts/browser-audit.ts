@@ -279,21 +279,13 @@ async function main() {
       await response.arrayBuffer();
     }
 
-    async function waitForPageReady(timeoutMs = 15_000) {
-      const started = Date.now();
-      while (Date.now() - started < timeoutMs) {
-        const ready = await cdp.command("Runtime.evaluate", {
-          expression: "document.readyState !== 'loading' && Boolean(document.querySelector('main#main-content'))",
-          returnByValue: true,
-          timeout: 5_000,
-        });
-        if (ready.result?.result?.value === true) {
-          await sleep(250);
-          return;
-        }
-        await sleep(100);
-      }
-      throw new Error("Timed out waiting for the rendered application shell.");
+    async function waitForPageReady() {
+      // Do not poll Runtime.evaluate while a Vite/TanStack navigation is still
+      // executing. In Chromium this can leave the CDP request pending for the
+      // full command timeout and make the audit fail before it can inspect the
+      // rendered page. The subsequent DOM evaluation remains the authoritative
+      // readiness/accessibility check.
+      await sleep(2_000);
     }
 
     for (const viewport of viewports) {
