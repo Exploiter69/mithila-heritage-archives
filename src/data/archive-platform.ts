@@ -2,6 +2,10 @@ import { canonicalArchive } from "./archive-foundation";
 import { searchArchive, getArchiveRecordById, getArchiveRecords } from "./archive-read";
 import type { ArchiveRecord, ArchiveRecordType, VerificationStatus } from "./types";
 
+export const RELATION_PREDICATE_LABELS: Record<import("./types").RelationPredicate, string> = {
+  "created-by": "created by", "has-work": "has work", "performed-at": "performed at", "depicts": "depicts", "about": "about", "related-to": "related to", "part-of": "part of", "example-of": "example of", "associated-with": "associated with",
+};
+
 export const TYPE_LABELS: Record<ArchiveRecordType, string> = {
   "literature-work": "Literature",
   author: "Author",
