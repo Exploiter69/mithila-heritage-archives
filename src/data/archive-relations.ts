@@ -39,7 +39,7 @@ function normalizeRelationText(value: string): string {
   return value
     .normalize("NFKC")
     .toLocaleLowerCase()
-    .replace(/[.,"'’‘“”()\[\]{}:;!?]/g, " ")
+    .replace(/[.,"\'’‘“”():;!?]/g, " ")
     .replace(/\\s+/g, " ")
     .trim();
 }
