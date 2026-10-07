@@ -25,7 +25,7 @@ import {
   catalogueLiterature,
   folkCultureExpansion,
   artExpansion,
-  musicExpansion,
+  musicExpansionCombined as musicExpansion,
   heritageExpansion,
 } from "./content-expansion-deep";
 import { languageResearchExpansion } from "./content-expansion-language";
