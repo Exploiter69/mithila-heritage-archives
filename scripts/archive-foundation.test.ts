@@ -30,7 +30,7 @@ const EXPECTED = {
   sources: 71,
   provenance: 66,
   media: 15,
-  relations: 13,
+  relations: 12,
 } as const;
 
 function cloneArchive(): CanonicalArchiveData {
