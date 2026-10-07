@@ -289,7 +289,7 @@ const expandedWordClassCorpus: DictionaryEntry[] = [
   ["jaka-lathi","जकर लाठी तकर भैंस","jakar lāṭhī takar bhaĩs","/dʒəkər laːʈʰiː/","Idiom / Proverb","जिसकी लाठी उसकी भैंस","power can determine possession in an unjust dispute"],
   ["bin-barkha","बिनु बरखा खेत सुन","binu barkhā khet sun","/binuː bərkʰaː/","Idiom / Proverb","बिना वर्षा खेत सूना","necessary conditions are essential for useful work"],
   ["besi-bajanihar","बेसी बाजनिहार कम करैत अछि","besī bājanihār kam karait achhi","/beːsiː baːdʒənihaːr/","Idiom / Proverb","बहुत बोलने वाला कम करता है","a warning against excessive talk and little action"],
-].map(([slug,headword,transliteration,phonetic,wordClass,hindi,english])=>({
+].map((row) => {\n  const [slug,headword,transliteration,phonetic,wordClass,hindi,english] = row as [string,string,string,string,string,string,string];\n  return ({
   slug,headword,transliteration,phonetic,wordClass: wordClass as WordClass,hindi,english,
   examples:[{deva: headword + " — उदाहरणक प्रयोग संपादकीय रूप सँ देल गेल अछि।",translit: transliteration + " — udāharanak prayog sampādakīya rūp sã del gel achhi.",english:"Editorial usage example; not a verbatim corpus quotation."}],
   note:"Expanded lexical corpus entry; usage sentence is editorial and should be replaced or supplemented with a located attestation during corpus verification.",
