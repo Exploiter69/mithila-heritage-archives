@@ -10,6 +10,8 @@ export type Source = {
   citation: string;
   detail?: string;
   status: "verified" | "community" | "needs-review";
+  /** Stable public source URL when the editor actually consulted and verified it. */
+  url?: string;
 };
 
 export type LiteratureWork = {
