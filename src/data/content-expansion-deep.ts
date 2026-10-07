@@ -161,4 +161,5 @@ export const heritageExpansion: HeritageEntry[] = [
   return {
   slug,name,nameDeva,kind: kind as "Site" | "Festival",place,period,summary,context:[context],
   source:{citation:"Nepal Tourism Board or Bihar Tourism institutional heritage documentation.",url,status:"verified" as const},
-  });
+  };
+});
