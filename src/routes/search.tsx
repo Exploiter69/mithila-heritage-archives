@@ -6,7 +6,7 @@ import type { ArchiveRecordType, VerificationStatus } from "@/data/types";
 
 export const Route = createFileRoute("/search")({
   validateSearch: (search: Record<string, unknown>) => ({
-    q: typeof search.q === "string" ? search.q : "",
+    q: typeof search["q"] === "string" ? search["q"] : "",
   }),
   head: () => ({
     meta: [
@@ -24,8 +24,8 @@ function SearchPage() {
   const [status, setStatus] = useState<VerificationStatus | "all">("all");
   const facets = getResearchFacets();
   const results = useMemo(() => searchArchiveAdvanced(query, {
-    types: type === "all" ? undefined : [type],
-    statuses: status === "all" ? undefined : [status],
+    ...(type === "all" ? {} : { types: [type] }),
+    ...(status === "all" ? {} : { statuses: [status] }),
     limit: 50,
   }), [query, type, status]);
 
