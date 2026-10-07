@@ -160,7 +160,7 @@ assert.equal(getArchiveRecords("author").length, 5);
 assert.equal(getArchiveContent("proverb").length, 6);
 assert.equal(getArchiveBibliography().length, 5);
 assert.equal(getArchiveLiteraryWorks().length, 62);
-assert.equal(getArchiveDictionaryEntries().length, 7);
+assert.equal(getArchiveDictionaryEntries().length, 27);
 assert.deepEqual(getArchiveLiteratureForms(), [
   "All",
   "Padāvalī",
