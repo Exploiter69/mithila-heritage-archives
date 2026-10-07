@@ -44,10 +44,9 @@ function firstYear(record: ArchiveRecord): string | undefined {
     .match(/\b(\d{4})\b/)?.[1];
 }
 
-export function toCslJson(record: ArchiveRecord, origin?: string) {
+export function toCslJson(record: ArchiveRecord, origin?: string, accessedAt?: string) {
   const content = record.content as Record<string, unknown>;
   const author = typeof content["author"] === "string" ? content["author"] : undefined;
-  const today = new Date();
   return {
     id: record.id,
     type: "webpage",
@@ -56,7 +55,7 @@ export function toCslJson(record: ArchiveRecord, origin?: string) {
     ...(firstYear(record) ? { issued: { "date-parts": [[Number(firstYear(record))]] } } : {}),
     URL: getRecordPermalink(record, origin),
     publisher: "Mithila Digital Archive",
-    accessed: { "date-parts": [[today.getUTCFullYear(), today.getUTCMonth() + 1, today.getUTCDate()]] },
+    ...(accessedAt ? { accessed: { "date-parts": [[Number(accessedAt.slice(0, 4)), Number(accessedAt.slice(5, 7)), Number(accessedAt.slice(8, 10))]] } } : {}),
   };
 }
 
@@ -75,8 +74,8 @@ export function toBibtex(record: ArchiveRecord, origin?: string): string {
   ].join("\n");
 }
 
-export function getCitationBundle(record: ArchiveRecord, origin?: string) {
-  return { cslJson: toCslJson(record, origin), bibtex: toBibtex(record, origin), permalink: getRecordPermalink(record, origin) };
+export function getCitationBundle(record: ArchiveRecord, origin?: string, accessedAt?: string) {
+  return { cslJson: toCslJson(record, origin, accessedAt), bibtex: toBibtex(record, origin), permalink: getRecordPermalink(record, origin) };
 }
 
 export interface IiifManifest {
@@ -139,7 +138,7 @@ export function buildIiifManifest(
 
 export interface PreservationManifest {
   schemaVersion: "1.0";
-  generatedAt: string;
+  generatedAt?: string;
   recordId: string;
   mediaId: string;
   preservation: "external-reference";
@@ -151,10 +150,10 @@ export interface PreservationManifest {
   verification: { mimeType: "not-captured"; dimensions: "not-captured"; duration: "not-applicable" | "not-captured" };
 }
 
-export function buildPreservationManifest(record: ArchiveRecord, media: (typeof canonicalArchive.media)[number]): PreservationManifest {
+export function buildPreservationManifest(record: ArchiveRecord, media: (typeof canonicalArchive.media)[number], generatedAt?: string): PreservationManifest {
   return {
     schemaVersion: "1.0",
-    generatedAt: new Date().toISOString(),
+    ...(generatedAt ? { generatedAt } : {}),
     recordId: record.id,
     mediaId: media.id,
     preservation: media.preservation,
@@ -165,36 +164,57 @@ export function buildPreservationManifest(record: ArchiveRecord, media: (typeof 
   };
 }
 
-export function findShortestRecordPath(fromId: string, toId: string): ArchiveRecord[][] {
-  if (fromId === toId) {
-    const record = canonicalArchive.records.find((item) => item.id === fromId);
-    return record ? [[record]] : [];
-  }
-  const queue: string[][] = [[fromId]];
-  const visited = new Set([fromId]);
+export function findShortestRecordPath(fromId: string, toId: string, maxPaths = 100): ArchiveRecord[][] {
+  if (maxPaths < 1) return [];
+  const byId = new Map(canonicalArchive.records.map((record) => [record.id, record]));
+  if (!byId.has(fromId) || !byId.has(toId)) return [];
+  if (fromId === toId) return [[byId.get(fromId)!]];
+
   const adjacency = new Map<string, string[]>();
   for (const relation of canonicalArchive.relations) {
-    adjacency.set(relation.fromRecordId, [...(adjacency.get(relation.fromRecordId) ?? []), relation.toRecordId]);
-    adjacency.set(relation.toRecordId, [...(adjacency.get(relation.toRecordId) ?? []), relation.fromRecordId]);
+    const forward = adjacency.get(relation.fromRecordId) ?? [];
+    if (!forward.includes(relation.toRecordId)) forward.push(relation.toRecordId);
+    adjacency.set(relation.fromRecordId, forward);
+    const reverse = adjacency.get(relation.toRecordId) ?? [];
+    if (!reverse.includes(relation.fromRecordId)) reverse.push(relation.fromRecordId);
+    adjacency.set(relation.toRecordId, reverse);
   }
-  const results: ArchiveRecord[][] = [];
-  let shortest = Infinity;
-  while (queue.length) {
-    const path = queue.shift()!;
-    if (path.length > shortest) continue;
-    const current = path[path.length - 1]!;
+  for (const neighbors of adjacency.values()) neighbors.sort();
+
+  const distance = new Map<string, number>([[fromId, 0]]);
+  const parents = new Map<string, string[]>();
+  const queue = [fromId];
+  for (let index = 0; index < queue.length; index += 1) {
+    const current = queue[index]!;
+    const currentDistance = distance.get(current)!;
     for (const next of adjacency.get(current) ?? []) {
-      if (path.includes(next)) continue;
-      const nextPath = [...path, next];
-      if (next === toId) {
-        shortest = nextPath.length;
-        const records = nextPath.map((id) => canonicalArchive.records.find((item) => item.id === id)).filter((item): item is ArchiveRecord => Boolean(item));
-        results.push(records);
-      } else if (!visited.has(next)) {
-        visited.add(next);
-        queue.push(nextPath);
+      const nextDistance = distance.get(next);
+      if (nextDistance === undefined) {
+        distance.set(next, currentDistance + 1);
+        parents.set(next, [current]);
+        queue.push(next);
+      } else if (nextDistance === currentDistance + 1) {
+        const existing = parents.get(next) ?? [];
+        if (!existing.includes(current)) existing.push(current);
+        parents.set(next, existing);
       }
     }
+  }
+
+  if (!distance.has(toId)) return [];
+  const results: ArchiveRecord[][] = [];
+  const reversePaths: string[][] = [];
+  const build = (current: string, path: string[]) => {
+    if (reversePaths.length >= maxPaths) return;
+    if (current === fromId) {
+      reversePaths.push([...path].reverse());
+      return;
+    }
+    for (const parent of parents.get(current) ?? []) build(parent, [...path, parent]);
+  };
+  build(toId, [toId]);
+  for (const path of reversePaths) {
+    results.push(path.map((id) => byId.get(id)!).filter(Boolean));
   }
   return results;
 }
