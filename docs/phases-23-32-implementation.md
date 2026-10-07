@@ -61,7 +61,7 @@ Implemented:
 - IIIF Presentation 3 manifest generation for archive image records;
 - deterministic manifest endpoint on record API via format=iiif;
 - source-provider attribution remains attached to the manifest;
-- image dimensions are explicitly conservative until source dimensions are captured.
+- manifests now require explicit verified width, height and MIME metadata from the caller; the API returns a clear 422 instead of fabricating dimensions or MIME type.
 
 ## Phase 30 — Production deployment & operations
 Implemented:
@@ -88,3 +88,13 @@ Implemented:
 
 ## Completion rule
 A phase is complete when its code/docs exist, canonical data remains valid, no unresolved evidence is silently promoted, and the full archive/runtime/browser test suite passes. Content expansion is intentionally deferred to the next project stage so platform correctness is established first.
+
+
+## Verification additions — October 2026
+- Knowledge graph exploration now includes source-counted relation semantics and exhaustive shortest-path enumeration with a bounded path cap.
+- Related-record generation derives only from explicit endpoint fields and deduplicates semantic edges.
+- The canonical archive includes the official 2011–2025 Maithili Yuva Puraskar literature corpus and its recipient people records.
+- Provenance, media, editorial and relationship audits feed one searchable review queue.
+- GitHub-native contribution proposals are schema-validated in CI before review.
+- CI installs a native Chrome package so the real CDP browser audit runs in the same environment as the quality gate.
+- Citation and preservation exports are deterministic unless a caller explicitly supplies a review/generation timestamp.
