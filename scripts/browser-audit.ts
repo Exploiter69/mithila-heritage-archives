@@ -45,6 +45,7 @@ async function startAppServer() {
       stdout: "ignore",
       stderr: "ignore",
       env: { ...process.env, HOST: "127.0.0.1", PORT: "4173" },
+      detached: true,
     },
   );
 
@@ -56,6 +57,19 @@ async function startAppServer() {
   }
 
   return proc;
+}
+
+async function stopAppServer(proc: ReturnType<typeof Bun.spawn> | null): Promise<void> {
+  if (!proc) return;
+  try {
+    // The dev server is detached so Vite's child process has its own process group.
+    // Kill the whole group during cleanup instead of leaving a listener behind.
+    Bun.spawnSync(["kill", "-TERM", `-${proc.pid}`]);
+  } catch {
+    proc.kill("SIGTERM");
+  }
+  await Promise.race([proc.exited, sleep(2_000)]);
+  if (!proc.killed) proc.kill("SIGKILL");
 }
 
 async function findChrome() {
@@ -347,7 +361,7 @@ async function main() {
     cdp.close();
   } finally {
     chromeProc.kill();
-    if (appServer) appServer.kill();
+    await stopAppServer(appServer);
   }
 }
 
