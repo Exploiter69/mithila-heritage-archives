@@ -9,7 +9,7 @@
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint .",
-    "typecheck": "bun run build:dev && tsc --noEmit",
+    "typecheck": "tsc --noEmit",
     "archive:validate": "bun src/data/validate-archive-cli.ts",
     "archive:provenance-report": "bun src/data/provenance-report-cli.ts",
     "format": "prettier --write .",
