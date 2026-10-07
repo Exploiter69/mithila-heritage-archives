@@ -24,7 +24,18 @@ export const Route = createFileRoute("/api/records/$type/$slug")({
           const image = getArchiveImageMedia(canonicalRecord)[0];
           if (!image) return Response.json({ error: "Record has no image media", recordId: record.id }, { status: 404 });
           const imagePayload = image.payload as { caption: string };
-          return Response.json(buildIiifManifest(canonicalRecord, { ...image, payload: imagePayload }, url.origin), {
+          const width = Number(url.searchParams.get("width"));
+          const height = Number(url.searchParams.get("height"));
+          const format = url.searchParams.get("mime") ?? "";
+          if (!Number.isInteger(width) || width <= 0 || !Number.isInteger(height) || height <= 0 || !format.startsWith("image/")) {
+            return Response.json({
+              error: "IIIF image metadata is required",
+              recordId: record.id,
+              requiredQuery: ["width", "height", "mime"],
+              reason: "The archive will not fabricate image dimensions or MIME type for an external media asset.",
+            }, { status: 422 });
+          }
+          return Response.json(buildIiifManifest(canonicalRecord, { ...image, payload: imagePayload }, url.origin, { width, height, format }), {
             headers: { "Content-Type": "application/ld+json;profile=http://iiif.io/api/presentation/3/context.json", "Cache-Control": "public, max-age=3600, s-maxage=86400" },
           });
         }
