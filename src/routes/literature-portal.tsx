@@ -1,8 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { PageHeader, Section, EntryCard } from "@/components/archive-ui";
-import { getArchiveLiteraryWorks, getArchiveLiteratureForms } from "@/data/archive-read";
-import { getArchiveRecordBySlug } from "@/data/archive-read";
+import { getArchiveAuthors, getArchiveLiteraryWorks, getArchiveLiteratureForms, getArchiveRecordBySlug } from "@/data/archive-read";
 
 export const Route = createFileRoute("/literature-portal")({
   head: () => ({ meta: [{ title: "Mithila Literature Portal — Mithila Digital Archive" }] }),
@@ -11,6 +10,7 @@ export const Route = createFileRoute("/literature-portal")({
 
 function LiteraturePortalPage() {
   const works = getArchiveLiteraryWorks();
+  const authors = getArchiveAuthors();
   const [form, setForm] = useState("All");
   const [query, setQuery] = useState("");
   const [period, setPeriod] = useState("All");
@@ -51,8 +51,11 @@ function LiteraturePortalPage() {
         <div className="mt-5 grid gap-5 md:grid-cols-2">
           {results.map((work) => {
             const record = getArchiveRecordBySlug("literature-work", work.slug);
-            const authorRecord = record && typeof work.author === "string"
-              ? getArchiveRecordBySlug("author", record.slug === "varna-ratnakara" ? "jyotirishvara" : work.author.toLocaleLowerCase().replace(/[^a-z0-9]+/g, "-"))
+            const authorMatch = typeof work.author === "string"
+              ? authors.find((author) => [author.name, author.nameMai].filter(Boolean).some((name) => name.toLocaleLowerCase() === work.author.toLocaleLowerCase()))
+              : undefined;
+            const authorRecord = authorMatch
+              ? getArchiveRecordBySlug("author", authorMatch.slug)
               : undefined;
             return (
               <EntryCard key={work.slug}>
