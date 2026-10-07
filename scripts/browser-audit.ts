@@ -5,7 +5,7 @@ const BASE_URL = process.env.BASE_URL ?? DEFAULT_BASE_URL;
 const MANAGE_APP_SERVER = process.env.BROWSER_AUDIT_MANAGE_SERVER !== "0" && BASE_URL === DEFAULT_BASE_URL;
 const routes = [
   "/", "/about", "/literature", "/language", "/authors", "/proverbs",
-  "/art", "/heritage", "/music", "/search", "/graph", "/sources", "/media", "/research",
+  "/art", "/heritage", "/music", "/search", "/graph", "/sources", "/media", "/research", "/explore", "/atlas", "/people", "/provenance", "/art-atlas", "/music-archive", "/timeline", "/learn", "/stats", "/sources-explorer", "/literature-portal", "/language-lab",
 ];
 const viewports = [
   { name: "desktop", width: 1366, height: 768, deviceScaleFactor: 1 },
