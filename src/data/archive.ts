@@ -77,6 +77,8 @@ export type MusicEntry = {
   genre: string;
   occasion: string;
   description: string;
+  performers?: string[];
+  recordingLeads?: Array<{ title: string; source: Source }>;
   source: Source;
 };
 
