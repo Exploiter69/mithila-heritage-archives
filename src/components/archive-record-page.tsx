@@ -413,6 +413,7 @@ export function ArchiveRecordPage({
               <CommonsImageFigure
                 image={imagePayload}
                 subject={title.titleDeva ?? title.title}
+                loading="eager"
               />
             </aside>
           )}
