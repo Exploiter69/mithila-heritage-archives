@@ -30,7 +30,7 @@ export const catalogueLiterature: Array<{
   titleMai: string;
   author: string;
   period: string;
-  form: "Prose" | "Essay" | "Folk epic";
+  form: "कथा" | "शास्त्रीय";
   language: "Maithili";
   summary: string;
   source: { citation: string; status: "verified"; url: string };
