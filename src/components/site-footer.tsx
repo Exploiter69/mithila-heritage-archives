@@ -31,6 +31,19 @@ export function SiteFooter() {
           </ul>
         </nav>
 
+        <nav aria-label="Footer research">
+          <p className="label-eyebrow text-muted-foreground">Research</p>
+          <ul className="mt-4 space-y-2">
+            {["/research", "/search", "/sources", "/graph", "/media"].map((path) => (
+              <li key={path}>
+                <Link to={path} className="font-sans text-sm text-foreground/80 transition-colors hover:text-terracotta">
+                  {path.slice(1).replace("-", " ")}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
         <nav aria-label="Footer secondary">
           <p className="label-eyebrow text-muted-foreground">More</p>
           <ul className="mt-4 space-y-2">
