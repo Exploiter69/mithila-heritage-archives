@@ -20,6 +20,14 @@ import { songs, type Stream } from "./music";
 import { buildArchiveRelations } from "./archive-relations";
 import { sahityaAkademiMaithiliAwards } from "./content-expansion-literature";
 import { expandedHeritage } from "./content-expansion-heritage";
+import {
+  awardRecipientAuthors,
+  catalogueLiterature,
+  folkCultureExpansion,
+  artExpansion,
+  musicExpansion,
+  heritageExpansion,
+} from "./content-expansion-deep";
 import type {
   ArchiveRecord,
   ArchiveRecordType,
@@ -219,6 +227,7 @@ if (!legacyVarna || !currentVarna) throw new Error("Expected both Varṇa Ratnā
 const adapted = [
   ...legacyLiterature.filter((entry) => entry.slug !== "varna-ratnakara").map((entry) => adaptRecord("literature-work", identityFor(`legacy-literature-${entry.slug}`), `representation:legacy-literature:${entry.slug}`, { module: "archive.ts", exportName: "literature" }, entry)),
   ...authors.map((entry) => adaptRecord("author", identityFor(`legacy-author-${entry.slug}`), `representation:legacy-author:${entry.slug}`, { module: "archive.ts", exportName: "authors" }, entry)),
+  ...awardRecipientAuthors.map((entry) => adaptRecord("author", { id: `rec-exp-author-${entry.slug}`, slug: entry.slug }, `representation:expanded-author:${entry.slug}`, { module: "content-expansion-deep.ts", exportName: "awardRecipientAuthors" }, entry)),
   ...legacyDictionary.map((entry) => adaptRecord("dictionary-entry", identityFor(`legacy-dictionary-${entry.headword}`), `representation:legacy-dictionary:${entry.headword}`, { module: "archive.ts", exportName: "dictionary" }, entry)),
   ...proverbs.map((entry, index) => {
     const identityKeys = [
@@ -242,10 +251,15 @@ const adapted = [
   ...legacyMusic.map((entry) => adaptRecord("music-entry", identityFor(`legacy-music-${entry.slug}`), `representation:legacy-music:${entry.slug}`, { module: "archive.ts", exportName: "music" }, entry)),
   ...literaryWorks.filter((entry) => entry.slug !== "varna-ratnakara").map((entry) => adaptRecord("literature-work", identityFor(`collection-literature-${entry.slug}`), `representation:collection-literature:${entry.slug}`, { module: "literature.ts", exportName: "literaryWorks" }, entry)),
   ...sahityaAkademiMaithiliAwards.map((entry) => adaptRecord("literature-work", { id: `rec-akademi-${entry.awardYear}-${entry.slug.slice(-18)}`, slug: entry.slug }, `representation:award-literature:${entry.slug}`, { module: "content-expansion-literature.ts", exportName: "sahityaAkademiMaithiliAwards" }, entry)),
+  ...catalogueLiterature.map((entry) => adaptRecord("literature-work", { id: `rec-exp-biblio-${entry.slug}`, slug: entry.slug }, `representation:expanded-literature:${entry.slug}`, { module: "content-expansion-deep.ts", exportName: "catalogueLiterature" }, entry)),
   ...songs.map((entry) => adaptRecord("song", identityFor(`collection-song-${entry.slug}`), `representation:collection-song:${entry.slug}`, { module: "music.ts", exportName: "songs" }, entry)),
   ...artStyles.map((entry) => adaptRecord("art-style", identityFor(`collection-art-${entry.slug}`), `representation:collection-art:${entry.slug}`, { module: "art.ts", exportName: "artStyles" }, entry)),
   ...heritage.map((entry) => adaptRecord("heritage-entry", identityFor(`collection-heritage-${entry.slug}`), `representation:collection-heritage:${entry.slug}`, { module: "heritage.ts", exportName: "heritage" }, entry)),
   ...expandedHeritage.map((entry) => adaptRecord("heritage-entry", { id: `rec-exp-heritage-${entry.slug}`, slug: entry.slug }, `representation:expanded-heritage:${entry.slug}`, { module: "content-expansion-heritage.ts", exportName: "expandedHeritage" }, entry)),
+  ...folkCultureExpansion.map((entry) => adaptRecord("heritage-entry", { id: `rec-exp-folk-${entry.slug}`, slug: entry.slug }, `representation:expanded-folk:${entry.slug}`, { module: "content-expansion-deep.ts", exportName: "folkCultureExpansion" }, entry)),
+  ...heritageExpansion.map((entry) => adaptRecord("heritage-entry", { id: `rec-exp-site-${entry.slug}`, slug: entry.slug }, `representation:expanded-site:${entry.slug}`, { module: "content-expansion-deep.ts", exportName: "heritageExpansion" }, entry)),
+  ...artExpansion.map((entry) => adaptRecord("art-entry", { id: `rec-exp-art-${entry.slug}`, slug: entry.slug }, `representation:expanded-art:${entry.slug}`, { module: "content-expansion-deep.ts", exportName: "artExpansion" }, entry)),
+  ...musicExpansion.map((entry) => adaptRecord("music-entry", { id: `rec-exp-music-${entry.slug}`, slug: entry.slug }, `representation:expanded-music:${entry.slug}`, { module: "content-expansion-deep.ts", exportName: "musicExpansion" }, entry)),
   ...dictionaryEntries.map((entry) => adaptRecord("dictionary-entry", identityFor(`collection-dictionary-${entry.slug}`), `representation:collection-dictionary:${entry.slug}`, { module: "dictionary.ts", exportName: "dictionaryEntries" }, entry)),
 ];
 
