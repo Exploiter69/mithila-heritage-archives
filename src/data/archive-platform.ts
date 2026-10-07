@@ -76,3 +76,30 @@ export function getArchiveStats() {
     recordTypes: new Set(records.map((record) => record.type)).size,
   };
 }
+
+export function interpretResearchQuery(query: string) {
+  const q = query.toLocaleLowerCase();
+  const result: { relatedSlug?: string; textHint?: string; requireSources?: boolean; types?: ArchiveRecordType[] } = {};
+  if (q.includes("associated with vidyapati") || q.includes("associated with vidyāpati") || q.includes("by vidyapati")) result.relatedSlug = "vidyapati";
+  if (q.includes("folk traditions from janakpur") || q.includes("from janakpur")) result.textHint = "janakpur";
+  if (q.includes("with sources") || q.includes("with source")) result.requireSources = true;
+  if (q.includes("literary works") || q.includes("literature")) result.types = ["literature-work"];
+  if (q.includes("marriage songs") || q.includes("wedding songs")) result.types = ["song","music-entry"];
+  return result;
+}
+
+export function applyResearchIntent(hits: ReturnType<typeof searchArchiveAdvanced>, query: string) {
+  const intent = interpretResearchQuery(query);
+  let filtered = hits;
+  if (intent.types?.length) filtered = filtered.filter(hit => intent.types!.includes(hit.record.type));
+  if (intent.requireSources) filtered = filtered.filter(hit => hit.record.sourceIds.length > 0);
+  if (intent.textHint) filtered = filtered.filter(hit => JSON.stringify(hit.record.content).toLocaleLowerCase().includes(intent.textHint!));
+  if (intent.relatedSlug) {
+    const anchor = getArchiveRecords().find(record => record.slug === intent.relatedSlug);
+    if (anchor) {
+      const relatedIds = new Set(getRelatedRecords(anchor).map(item => item.target.id));
+      filtered = filtered.filter(hit => hit.record.id === anchor.id || relatedIds.has(hit.record.id));
+    }
+  }
+  return filtered;
+}
