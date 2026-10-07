@@ -393,6 +393,12 @@ for (const record of records) {
 }
 
 const relations = buildArchiveRelations(records, enrichedSources);
+for (const relation of relations) {
+  const from = records.find((record) => record.id === relation.fromRecordId);
+  const to = records.find((record) => record.id === relation.toRecordId);
+  if (from && !from.relationIds.includes(relation.id)) from.relationIds.push(relation.id);
+  if (to && !to.relationIds.includes(relation.id)) to.relationIds.push(relation.id);
+}
 
 export const canonicalArchive: CanonicalArchiveData = {
   records,
