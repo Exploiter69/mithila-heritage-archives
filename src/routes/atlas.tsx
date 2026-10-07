@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useMemo, useState } from "react";
 
 import { PageHeader, Section } from "@/components/archive-ui";
 import { CULTURAL_ATLAS_POINTS } from "@/data/archive-experience";
@@ -21,6 +22,15 @@ function project(lat: number, lon: number) {
 }
 
 function AtlasPage() {
+  const [query, setQuery] = useState("");
+  const filteredPoints = useMemo(() => {
+    const needle = query.trim().toLocaleLowerCase();
+    if (!needle) return CULTURAL_ATLAS_POINTS;
+    return CULTURAL_ATLAS_POINTS.filter((point) =>
+      [point.title, point.deva, point.region, point.source].join(" ").toLocaleLowerCase().includes(needle),
+    );
+  }, [query]);
+
   return (
     <>
       <PageHeader
@@ -31,6 +41,10 @@ function AtlasPage() {
       />
 
       <Section>
+        <div className="mb-6 grid gap-3 md:grid-cols-[1fr_auto]">
+          <input aria-label="Search atlas locations" value={query} onChange={(event) => setQuery(event.currentTarget.value)} placeholder="Search places, regions or evidence…" className="rounded-sm border border-input bg-background px-3 py-2" />
+          <p className="self-center text-sm text-muted-foreground">{filteredPoints.length} mapped locations</p>
+        </div>
         <div className="grid gap-8 lg:grid-cols-[1.5fr_1fr]">
           <div className="space-y-4">
             <div className="overflow-hidden rounded-sm border border-border">
@@ -61,7 +75,7 @@ function AtlasPage() {
                 }}
               />
 
-              {CULTURAL_ATLAS_POINTS.map((point) => {
+              {filteredPoints.map((point) => {
                 const position = project(point.lat, point.lon);
 
                 return (
@@ -91,7 +105,7 @@ function AtlasPage() {
           </div>
 
           <div className="space-y-4">
-            {CULTURAL_ATLAS_POINTS.map((point) => (
+            {filteredPoints.map((point) => (
               <article
                 key={point.slug}
                 className="rounded-sm border border-border p-4"
@@ -119,7 +133,7 @@ function AtlasPage() {
                   {point.region}
                 </p>
                 <p className="mt-2 text-xs text-muted-foreground">
-                  {point.lat.toFixed(5)}, {point.lon.toFixed(5)}
+                  Coordinates: {point.lat.toFixed(5)}, {point.lon.toFixed(5)} · {point.exact ? "point location" : "regional approximation"}
                 </p>
                 <a
                   href={point.sourceUrl}
