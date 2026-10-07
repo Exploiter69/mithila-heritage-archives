@@ -363,6 +363,9 @@ export function validateArchive(data: CanonicalArchiveData): ArchiveValidationRe
     if (assertion.checkedAt && Number.isNaN(Date.parse(assertion.checkedAt))) {
       errors.push(`Provenance v2 ${assertion.id} has invalid checkedAt`);
     }
+    if (Boolean(assertion.checkedAt) !== Boolean(assertion.checkedBy)) {
+      errors.push(`Provenance v2 ${assertion.id} must provide checkedAt and checkedBy together`);
+    }
   }
 
   for (const assertion of provenance) {
@@ -411,8 +414,10 @@ export function validateArchive(data: CanonicalArchiveData): ArchiveValidationRe
   }
 
   /*
-   * Relations are graph edges. Both endpoint records must own the edge.
+   * Relations are graph edges. Both endpoint records must own the edge and
+   * their evidence must come from at least one endpoint declared source.
    */
+  const relationKeys = new Set<string>();
   for (const relation of relations) {
     if (
       !recordIds.has(relation.fromRecordId) ||
@@ -422,6 +427,12 @@ export function validateArchive(data: CanonicalArchiveData): ArchiveValidationRe
         `Relation ${relation.id} references a missing record`,
       );
     }
+
+    const relationKey = [relation.fromRecordId, relation.predicate, relation.toRecordId].join("|");
+    if (relationKeys.has(relationKey)) {
+      errors.push(`Duplicate relation semantics: ${relationKey}`);
+    }
+    relationKeys.add(relationKey);
 
     if (relation.fromRecordId === relation.toRecordId) {
       errors.push(
@@ -435,10 +446,18 @@ export function validateArchive(data: CanonicalArchiveData): ArchiveValidationRe
       );
     }
 
+    const endpointSourceIds = new Set([
+      ...(records.find((record) => record.id === relation.fromRecordId)?.sourceIds ?? []),
+      ...(records.find((record) => record.id === relation.toRecordId)?.sourceIds ?? []),
+    ]);
     for (const sourceId of relation.sourceIds) {
       if (!sourceIds.has(sourceId)) {
         errors.push(
           `Relation ${relation.id} references missing source ${sourceId}`,
+        );
+      } else if (!endpointSourceIds.has(sourceId)) {
+        errors.push(
+          `Relation ${relation.id} uses source ${sourceId} not declared by either endpoint`,
         );
       }
     }
