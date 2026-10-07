@@ -28,6 +28,9 @@ export const SECONDARY_NAV = [
   { to: "/language-lab", label: "Language Lab" },
   { to: "/art-atlas", label: "Art Atlas" },
   { to: "/music-archive", label: "Music Archive" },
+  { to: "/graph", label: "Knowledge Graph" },
+  { to: "/provenance", label: "Provenance" },
+  { to: "/sources-explorer", label: "Source Explorer" },
 ] as const;
 
 export function SiteHeader() {
