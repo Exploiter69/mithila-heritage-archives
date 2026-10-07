@@ -4,6 +4,8 @@
  * everywhere the record is rendered.
  */
 
+import type { CommonsImage } from "./types";
+
 export type Source = {
   citation: string;
   detail?: string;
