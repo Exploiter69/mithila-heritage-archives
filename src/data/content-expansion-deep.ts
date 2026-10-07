@@ -10,7 +10,9 @@ import { sahityaAkademiMaithiliAwards } from "./content-expansion-literature";
  * field, the record says so instead of guessing.
  */
 
-export const awardRecipientAuthors: Author[] = sahityaAkademiMaithiliAwards.map((award) => ({
+export const awardRecipientAuthors: Author[] = Array.from(
+  new Map(sahityaAkademiMaithiliAwards.map((award) => [award.author, award])).values(),
+).map((award) => ({
   slug: `award-recipient-${award.author.toLocaleLowerCase().replace(/[’‘']/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`,
   name: award.author,
   nameMai: "",
