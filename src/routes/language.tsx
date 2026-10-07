@@ -8,7 +8,7 @@ import {
   SearchField,
   SourceNote,
 } from "@/components/archive-ui";
-import { getArchiveContent, getArchiveDictionaryWordClasses, type DictionaryEntry } from "@/data/archive-read";
+import { getArchiveDictionaryEntries, getArchiveDictionaryWordClasses, type DictionaryEntry } from "@/data/archive-read";
 
 const TITLE = "Maithili Dictionary & Language — Mithila Digital Archive";
 const DESC =
@@ -30,7 +30,7 @@ export const Route = createFileRoute("/language")({
 
 function LanguagePage() {
   const [q, setQ] = useState("");
-  const dictionaryEntries = getArchiveContent<DictionaryEntry>("dictionary-entry");
+  const dictionaryEntries = getArchiveDictionaryEntries();
   const [cls, setCls] = useState<string>("All");
 
   const results = useMemo(() => {
