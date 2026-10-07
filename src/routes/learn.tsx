@@ -7,13 +7,14 @@ export const Route = createFileRoute("/learn")({
   component: LearnPage,
 });
 
-const destination: Record<string, string> = {
+const destination: Record<string, "/language" | "/literature" | "/art" | "/music" | "/heritage" | "/archive/author/vidyapati" | "/explore"> = {
   maithili: "/language",
   literature: "/literature",
   art: "/art",
   music: "/music",
   heritage: "/heritage",
   vidyapati: "/archive/author/vidyapati",
+  explore: "/explore",
 };
 
 function LearnPage() {
@@ -27,7 +28,7 @@ function LearnPage() {
               <p className="label-eyebrow text-terracotta">{module.title}</p>
               <h2 className="deva mt-2 text-2xl">{module.deva}</h2>
               <p className="mt-3 leading-relaxed text-muted-foreground">{module.text}</p>
-              <Link to={destination[module.slug] as never} className="mt-5 inline-block text-sm text-terracotta hover:underline">Continue →</Link>
+              <Link to={destination[module.slug] ?? "/explore"} className="mt-5 inline-block text-sm text-terracotta hover:underline">Continue →</Link>
             </EntryCard>
           ))}
         </div>
