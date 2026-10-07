@@ -119,6 +119,7 @@ function RootShell({ children }: { children: ReactNode }) {
         <HeadContent />
       </head>
       <body>
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-sm focus:bg-background focus:px-4 focus:py-2 focus:text-foreground focus:shadow-lg">Skip to content</a>
         {children}
         <Scripts />
       </body>
@@ -134,7 +135,7 @@ function RootComponent() {
       <PlayerProvider>
       <div className="flex min-h-screen flex-col">
         <SiteHeader />
-        <main className="flex-1">
+        <main id="main-content" className="flex-1" tabIndex={-1}>
           {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
           <Outlet />
         </main>
