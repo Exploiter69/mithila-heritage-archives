@@ -280,7 +280,7 @@ async function main() {
       const started = Date.now();
       while (Date.now() - started < timeoutMs) {
         const ready = await cdp.command("Runtime.evaluate", {
-          expression: "document.readyState === 'complete' && Boolean(document.querySelector('main#main-content'))",
+          expression: "document.readyState !== 'loading' && Boolean(document.querySelector('main#main-content'))",
           returnByValue: true,
           timeout: 5_000,
         });
