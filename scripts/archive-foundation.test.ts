@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 
 import { canonicalArchive } from "../src/data/archive-foundation";
+import { auditArchiveQuality } from "../src/data/archive-quality";
 import {
   ARCHIVE_STREAM_ATTRIBUTION_TEXT,
   getArchiveArtMotifs,
@@ -72,6 +73,16 @@ assert.deepEqual(
 
 const valid = validateArchive(canonicalArchive);
 assert.equal(valid.valid, true, valid.errors.join("\n"));
+const quality = auditArchiveQuality(canonicalArchive);
+assert.equal(quality.errors.length, 0, quality.errors.map((item) => `${item.code}: ${item.message}`).join("\n"));
+
+const invalidQualityArchive = cloneArchive();
+invalidQualityArchive.records[0]!.content = null;
+const invalidQuality = auditArchiveQuality(invalidQualityArchive);
+assert.ok(
+  invalidQuality.errors.some((item) => item.code === "content-not-object"),
+  "quality audit must catch malformed canonical content",
+);
 
 const recordIds = canonicalArchive.records.map((record) => record.id);
 assert.equal(new Set(recordIds).size, recordIds.length);
