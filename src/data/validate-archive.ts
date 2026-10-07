@@ -30,7 +30,7 @@ export function validateArchive(data: CanonicalArchiveData): ArchiveValidationRe
   if (!parsed.success) {
     errors.push(
       ...parsed.error.issues.map(
-        (issue) => `${issue.path.join(".")}: ${issue.message}`,
+        (issue) => { let value: unknown = data; for (const part of issue.path) { if (value && typeof value === "object" && part in value) value = (value as Record<string, unknown>)[part]; else { value = undefined; break; } } const rendered = typeof value === "string" ? " (value: " + JSON.stringify(value) + ")" : ""; return issue.path.join(".") + ": " + issue.message + rendered; },
       ),
     );
 
