@@ -31,9 +31,14 @@ function ResearchPage() {
   const researchLinks = [
     ["/search", "Search", "Cross-collection search with collection and evidence filters."],
     ["/sources", "Bibliography", "Normalized source identities and their captured citation trail."],
+    ["/sources-explorer", "Source Explorer", "Select a source and inspect every record that cites it."],
+    ["/provenance", "Claim provenance", "Audit claim IDs, locators and editorial review coverage."],
+    ["/graph", "Knowledge graph", "Explore explicit record-to-record relationships."],
+    ["/atlas", "Cultural atlas", "Open the source-backed geographic view."],
     ["/api/archive", "JSON API", "Machine-readable published records and relationships."],
     ["/api/search", "API search", "A small query endpoint for research tools and scripts."],
     ["/about", "Methods", "Editorial boundaries, migration rules and provenance notes."],
+    ["/stats", "Archive status", "Live corpus and evidence-status counts."],
     ["/", "Archive home", "Return to the public reading experience."],
   ] as const;
 
