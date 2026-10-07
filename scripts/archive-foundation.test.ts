@@ -69,7 +69,10 @@ function expectInvalid(
   assert.equal(result.valid, false, "mutated archive should be invalid");
   assert.ok(
     result.errors.some((error) => error.includes(expectedMessage)),
-    `expected an error containing: ${expectedMessage}\nActual errors:\n${result.errors.join("\n")}`,
+    `expected an error containing: ${expectedMessage}
+Actual errors:
+${result.errors.join("
+")}`,
   );
 }
 
@@ -87,9 +90,11 @@ assert.deepEqual(
 );
 
 const valid = validateArchive(canonicalArchive);
-assert.equal(valid.valid, true, valid.errors.join("\n"));
+assert.equal(valid.valid, true, valid.errors.join("
+"));
 const quality = auditArchiveQuality(canonicalArchive);
-assert.equal(quality.errors.length, 0, quality.errors.map((item) => `${item.code}: ${item.message}`).join("\n"));
+assert.equal(quality.errors.length, 0, quality.errors.map((item) => `${item.code}: ${item.message}`).join("
+"));
 
 const invalidQualityArchive = cloneArchive();
 invalidQualityArchive.records[0]!.content = null;
@@ -172,8 +177,11 @@ assert.ok(Array.isArray((featuredLiterature?.content as { body?: unknown }).body
 assert.equal(getArchiveRecords("author").length, 5 + awardRecipientAuthors.length);
 assert.equal(getArchiveContent("proverb").length, 6);
 assert.equal(getArchiveBibliography().length, 5);
-assert.equal(getArchiveLiteraryWorks().length, 62 + catalogueLiterature.length);\nassert.ok(catalogueLiterature.length >= 15);
-assert.equal(getArchiveDictionaryEntries().length, new Set([...dictionaryEntries, ...languageResearchExpansion].map((entry) => entry.slug)).size);\nassert.ok(languageResearchExpansion.length >= 100);\nassert.ok(getArchiveDictionaryEntries().length >= 100);
+assert.equal(getArchiveLiteraryWorks().length, 62 + catalogueLiterature.length);
+assert.ok(catalogueLiterature.length >= 15);
+assert.equal(getArchiveDictionaryEntries().length, new Set([...dictionaryEntries, ...languageResearchExpansion].map((entry) => entry.slug)).size);
+assert.ok(languageResearchExpansion.length >= 100);
+assert.ok(getArchiveDictionaryEntries().length >= 100);
 assert.deepEqual(getArchiveLiteratureForms(), [
   "All",
   "Padāvalī",
