@@ -3,6 +3,7 @@ import { Menu } from "lucide-react";
 import { useState } from "react";
 
 import { GlobalSearch, SearchTrigger } from "@/components/global-search";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
 export const NAV = [
@@ -52,6 +53,7 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <ThemeToggle />
           <SearchTrigger onClick={() => setSearch(true)} />
 
           <Sheet open={open} onOpenChange={setOpen}>
@@ -111,6 +113,7 @@ export function SiteHeader() {
               </nav>
             </SheetContent>
           </Sheet>
+          <Link to="/research" className="hidden font-sans text-[0.8rem] text-muted-foreground transition-colors hover:text-terracotta xl:inline">Research</Link>
         </div>
       </div>
 
