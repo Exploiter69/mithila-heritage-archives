@@ -94,6 +94,7 @@ const commonsImageMediaSchema = z.object({
   sourceUrl: urlSchema,
   licenseUrl: urlSchema,
   provider: z.literal("wikimedia-commons"),
+  preservation: z.literal("external-reference"),
   payload: commonsImageSchema,
 });
 
@@ -114,6 +115,7 @@ const youtubeAudioStreamMediaSchema = z.object({
   recordId: idSchema,
   provider: z.literal("youtube"),
   externalId: z.string().min(1),
+  preservation: z.literal("external-reference"),
   locator: z.object({
     kind: z.literal("deterministic-playback"),
     url: urlSchema,
