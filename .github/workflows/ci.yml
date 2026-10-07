@@ -64,6 +64,9 @@ jobs:
       - name: Production build
         run: bun run build
 
+      - name: Client performance budget
+        run: bun run test:performance-budget
+
       - name: Localhost HTTP runtime smoke
         run: |
           bun run dev -- --host 127.0.0.1 --port 4173 > /tmp/mithila-vite.log 2>&1 &
