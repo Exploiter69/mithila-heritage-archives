@@ -124,3 +124,54 @@ export const sahityaAkademiMaithiliAwards: AwardLiteratureRecord[] = [
 export const awardLiteratureByYear = [...sahityaAkademiMaithiliAwards].sort(
   (a, b) => a.awardYear - b.awardYear,
 );
+
+
+export const yuvaPuraskarMaithiliAwards: AwardLiteratureRecord[] = [
+  ["2011","Hathat Parivartan","Anand Kumar Jha","Play"],
+  ["2012","Etbe Taa Naih","Arunabh Saurabh","Poetry"],
+  ["2013","Ankura Rahal Sangharsh","Dilip Kumar Jha 'Lootan'","Poetry"],
+  ["2014","Visdanti Varmal Kalak Rati","Praveen Kashyap","Poetry"],
+  ["2015","Pratiwadi Ham","Narayan Jha","Poetry"],
+  ["2016","Je Kahi Nahi Saklahun","Deep Narayan 'Vidyarthi'","Poetry"],
+  ["2017","Dhartis Akash Dhari","Chandan Kumar Jha","Poetry"],
+  ["2018","Varnit Rasa","Umesh Paswan","Poetry"],
+  ["2019","Raag-Upraag","Amit Pathak","Poetry"],
+  ["2020","Gassa","Sonu Kuma Jha","Short Stories"],
+  ["2021","Anshu Bani Pasari Jaeb","Amit Mishra","Poetry"],
+  ["2022","Khurchanbhaik Kachhmachchhi","Navkrishna Aihik","Satire"],
+  ["2023","Kahbak Achhi Hamra","Sanskriti Mishra","Poetry"],
+  ["2024","Nadi Ghati Sabhyata","Rinki Jha Rishika","Poetry"],
+  ["2025","Banaras Aa Hum","Neha Jha Mani","Poetry"],
+].map((row) => {
+  const [year, title, author, category] = row as [string, string, string, string];
+  const slug = title.toLocaleLowerCase()
+    .replace(/[’‘']/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+  const form = category.toLocaleLowerCase().includes("poetry")
+    ? "कविता" as const
+    : category.toLocaleLowerCase().includes("stories") || category.toLocaleLowerCase().includes("play")
+      ? "कथा" as const
+      : "शास्त्रीय" as const;
+  return {
+    slug: "sahitya-akademi-yuva-" + year + "-" + slug,
+    title,
+    titleDeva: title,
+    transliteration: title,
+    author,
+    authorDeva: author,
+    authorBio: "Maithili Yuva Puraskar recipient listed in the Sahitya Akademi register; a full biographical profile is a separate editorial task.",
+    era: String(year),
+    form,
+    snippet: "Sahitya Akademi Yuva Puraskar for Maithili, " + year + ": " + category + ".",
+    body: [],
+    note: "Bibliographic recognition record only. The archive has not supplied a plot summary, quotation, or interpretation without consulting the work.",
+    awardYear: Number(year),
+    awardCategory: category,
+    source: {
+      citation: "Sahitya Akademi Yuva Puraskar — Maithili, " + year + ": " + title + " — " + author + ".",
+      url: "https://sahitya-akademi.gov.in/awards/yuva_samman_suchi.jsp",
+      status: "verified",
+    },
+  } satisfies AwardLiteratureRecord;
+});
