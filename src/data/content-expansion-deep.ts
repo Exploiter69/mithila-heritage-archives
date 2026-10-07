@@ -15,7 +15,7 @@ export const awardRecipientAuthors: Author[] = Array.from(
 ).map((award) => ({
   slug: `award-recipient-${award.author.toLocaleLowerCase().replace(/[’‘']/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`,
   name: award.author,
-  nameMai: "",
+  nameMai: award.author,
   lifespan: `Recipient of the Sahitya Akademi Award in Maithili (${award.awardYear}); lifespan not established by the award register.`,
   place: "Not established in the consulted award register.",
   role: "Maithili author / Sahitya Akademi Award recipient",
