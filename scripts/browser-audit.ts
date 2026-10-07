@@ -136,14 +136,30 @@ type AuditResult = AuditEvaluation & {
 class Cdp {
   private ws: WebSocket;
   private nextId = 1;
-  private pending = new Map<number, (value: CdpResponse) => void>();
+  private pending = new Map<number, { resolve: (value: CdpResponse) => void; reject: (error: Error) => void }>();
+  private commandTimeoutMs = Number(process.env.CDP_COMMAND_TIMEOUT_MS ?? 15_000);
 
   constructor(url: string) {
     this.ws = new WebSocket(url);
+    this.ws.onerror = () => {
+      const error = new Error("CDP websocket error");
+      for (const pending of this.pending.values()) pending.reject(error);
+      this.pending.clear();
+    };
+    this.ws.onclose = () => {
+      const error = new Error("CDP websocket closed");
+      for (const pending of this.pending.values()) pending.reject(error);
+      this.pending.clear();
+    };
     this.ws.onmessage = (event) => {
       const message = JSON.parse(String(event.data)) as CdpResponse;
-      if (message.id) this.pending.get(message.id)?.(message);
-      if (message.id) this.pending.delete(message.id);
+      if (message.id) {
+        const pending = this.pending.get(message.id);
+        if (pending) {
+          this.pending.delete(message.id);
+          pending.resolve(message);
+        }
+      }
     };
   }
 
@@ -164,11 +180,20 @@ class Cdp {
   command(method: string, params: Record<string, unknown> = {}) {
     const id = this.nextId++;
     return new Promise<CdpResponse>((resolve, reject) => {
-      this.pending.set(id, resolve);
-      this.ws.send(JSON.stringify({ id, method, params }));
+      this.pending.set(id, { resolve, reject });
+      try {
+        this.ws.send(JSON.stringify({ id, method, params }));
+      } catch (error) {
+        this.pending.delete(id);
+        reject(error instanceof Error ? error : new Error(String(error)));
+        return;
+      }
       setTimeout(() => {
-        if (this.pending.delete(id)) reject(new Error(`CDP timeout: ${method}`));
-      }, 15_000);
+        const pending = this.pending.get(id);
+        if (!pending) return;
+        this.pending.delete(id);
+        reject(new Error(`CDP timeout after ${this.commandTimeoutMs}ms: ${method}`));
+      }, this.commandTimeoutMs);
     });
   }
 
@@ -249,6 +274,7 @@ async function main() {
         const ready = await cdp.command("Runtime.evaluate", {
           expression: "document.readyState === 'complete' && Boolean(document.querySelector('main#main-content'))",
           returnByValue: true,
+          timeout: 5_000,
         });
         if (ready.result?.result?.value === true) {
           await sleep(250);
@@ -299,6 +325,7 @@ async function main() {
             };
           })()`,
           returnByValue: true,
+          timeout: 10_000,
         });
 
         const evaluated = (evaluation.result?.result?.value ?? {}) as Partial<AuditEvaluation>;
