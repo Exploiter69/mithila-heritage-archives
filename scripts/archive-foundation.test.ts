@@ -281,6 +281,20 @@ expectInvalid((data) => {
   );
 }, "is not listed by owning record");
 
+expectInvalid((data) => {
+  const source = data.sources[0]!;
+  data.bibliographicSources[0]!.captureIds.push(source.id);
+}, "belongs to multiple bibliographic sources");
+
+expectInvalid((data) => {
+  const assertion = data.provenanceV2[0]!;
+  const other = data.bibliographicSources.find(
+    (source) => source.id !== assertion.bibliographicSourceId,
+  );
+  assert.ok(other);
+  other!.captureIds.push(assertion.sourceCaptureIds[0]!);
+}, "belongs to multiple bibliographic sources");
+
 console.log(
   `Archive foundation tests passed: ${EXPECTED.records} records, ${EXPECTED.representations} representations, ${EXPECTED.sources} sources, ${EXPECTED.provenance} provenance assertions, ${EXPECTED.media} media records, ${EXPECTED.relations} relations.`,
 );
