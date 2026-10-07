@@ -1,6 +1,8 @@
 #!/usr/bin/env bun
 
-const BASE_URL = process.env.BASE_URL ?? "http://127.0.0.1:4173";
+const DEFAULT_BASE_URL = "http://127.0.0.1:4173";
+const BASE_URL = process.env.BASE_URL ?? DEFAULT_BASE_URL;
+const MANAGE_APP_SERVER = process.env.BROWSER_AUDIT_MANAGE_SERVER !== "0" && BASE_URL === DEFAULT_BASE_URL;
 const routes = [
   "/", "/about", "/literature", "/language", "/authors", "/proverbs",
   "/art", "/heritage", "/music", "/search", "/graph", "/sources", "/media", "/research",
@@ -11,6 +13,50 @@ const viewports = [
 ];
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+async function isServerReady(url: string) {
+  try {
+    const response = await fetch(url);
+    return response.ok;
+  } catch {
+    return false;
+  }
+}
+
+async function waitForUrl(url: string, timeoutMs = 30_000) {
+  const started = Date.now();
+  while (Date.now() - started < timeoutMs) {
+    if (await isServerReady(url)) return;
+    await sleep(250);
+  }
+  throw new Error(
+    "Timed out waiting for the application server at " + url + ". Run `bun run build` first or provide BASE_URL for an already-running server.",
+  );
+}
+
+async function startAppServer() {
+  if (!MANAGE_APP_SERVER || await isServerReady(new URL("/", BASE_URL).toString())) {
+    return null;
+  }
+
+  const proc = Bun.spawn(
+    ["bun", "run", "preview", "--", "--host", "127.0.0.1", "--port", "4173"],
+    {
+      stdout: "ignore",
+      stderr: "ignore",
+      env: { ...process.env, HOST: "127.0.0.1", PORT: "4173" },
+    },
+  );
+
+  try {
+    await waitForUrl(new URL("/", BASE_URL).toString());
+  } catch (error) {
+    proc.kill();
+    throw error;
+  }
+
+  return proc;
+}
 
 async function findChrome() {
   const proc = Bun.spawn(["sh", "-lc", "command -v google-chrome || command -v chromium || command -v chromium-browser"], {
@@ -81,6 +127,7 @@ class Cdp {
 }
 
 async function main() {
+  const appServer = await startAppServer();
   const chrome = await findChrome();
   const profile = `/tmp/mithila-chrome-${process.pid}`;
   const chromeProc = Bun.spawn([
@@ -212,6 +259,7 @@ async function main() {
     cdp.close();
   } finally {
     chromeProc.kill();
+    if (appServer) appServer.kill();
   }
 }
 
