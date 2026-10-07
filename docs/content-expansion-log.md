@@ -8,7 +8,7 @@
 - Coverage: award years **1966–2025 where an award is listed**.
 - Records added: **57**.
 - Existing canonical records before wave: 65.
-- Current canonical inventory after wave: **122 records**.
+- Current canonical inventory after wave: **127 records**.
 - Current literature records: **62** (5 existing collection works + 57 award records).
 - New records intentionally carry no invented plot summaries, quotations or literary interpretations.
 - Each record points directly to the official Sahitya Akademi award register.
