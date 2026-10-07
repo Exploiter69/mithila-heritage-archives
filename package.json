@@ -23,7 +23,8 @@
     "archive:media": "bun src/data/archive-media-cli.ts",
     "archive:qa": "bun src/data/archive-qa-cli.ts",
     "archive:export": "bun src/data/archive-export-cli.ts",
-    "archive:editorial": "bun src/data/editorial-workflow-cli.ts"
+    "archive:editorial": "bun src/data/editorial-workflow-cli.ts",
+    "test:browser-audit": "bun scripts/browser-audit.ts"
   },
   "overrides": {
     "rolldown": "1.2.1"
