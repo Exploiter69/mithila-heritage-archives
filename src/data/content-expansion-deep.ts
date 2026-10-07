@@ -165,6 +165,7 @@ export const institutionalMusicExpansion: MusicEntry[] = [
       { title: "Kirtan", source: { citation: "IGNCA CoIL-Net audio archive, Mithila Vaibhav.", url: "https://ignca.gov.in/coilnet/aud_0001.htm", status: "verified" } },
     ],
     source: { citation: "Indira Gandhi National Centre for the Arts, CoIL-Net Audio Recordings — Mithila Vaibhav.", url: "https://ignca.gov.in/coilnet/aud_0001.htm", status: "verified" },
+  },
   {
     slug: "vindhyavasini-devi-maithili-folk-singing",
     title: "Vindhyavasini Devi — Maithili folk-singing demonstration",
