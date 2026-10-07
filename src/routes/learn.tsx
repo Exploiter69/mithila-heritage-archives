@@ -7,7 +7,7 @@ export const Route = createFileRoute("/learn")({
   component: LearnPage,
 });
 
-const destination: Record<string, "/language" | "/literature" | "/art" | "/music" | "/heritage" | "/explore"> = {
+const destination: Record<string, "/language" | "/literature" | "/authors" | "/art" | "/music" | "/heritage" | "/explore"> = {
   maithili: "/language",
   literature: "/literature",
   art: "/art",
