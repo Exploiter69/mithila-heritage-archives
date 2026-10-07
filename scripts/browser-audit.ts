@@ -303,18 +303,6 @@ async function main() {
         await cdp.command("Page.navigate", { url });
         await waitForPageReady();
 
-        // Vite can transiently invalidate a dev module while the route graph is being warmed.
-        // Retry once for the specific dynamic-import fetch failure; persistent errors still fail the audit.
-        const dynamicImportFailed = await cdp.command("Runtime.evaluate", {
-          expression: "Boolean(window.__mithilaAudit?.errors?.some((error) => String(error).includes('Failed to fetch dynamically imported module')))",
-          returnByValue: true,
-          timeout: 5_000,
-        });
-        if (dynamicImportFailed.result?.result?.value === true) {
-          await cdp.command("Page.reload", { ignoreCache: false });
-          await waitForPageReady();
-        }
-
         const evaluation = await cdp.command("Runtime.evaluate", {
           expression: `(() => {
             const named = (el) => (el.getAttribute("aria-label") || el.getAttribute("title") || el.innerText || "").trim();
