@@ -1,0 +1,105 @@
+import type { Source } from "./types";
+
+export interface AwardLiteratureRecord {
+  slug: string;
+  title: string;
+  titleDeva: string;
+  transliteration: string;
+  author: string;
+  authorDeva: string;
+  authorBio: string;
+  era: string;
+  form: "कविता" | "कथा" | "शास्त्रीय";
+  snippet: string;
+  body: { deva: string; translit?: string; translation: string }[];
+  note: string;
+  awardYear: number;
+  awardCategory: string;
+  source: Source;
+}
+
+/**
+ * Bibliographic expansion seeded from Sahitya Akademi's official Maithili
+ * award register. These entries deliberately record recognition metadata only;
+ * no plot, biography, quotation, or literary interpretation is invented until
+ * an editor consults the work itself.
+ */
+export const sahityaAkademiMaithiliAwards: AwardLiteratureRecord[] = [
+  ["1989","Parasar","*Kanchinath Jha ‘Kiran’","Epic"],
+  ["1990","Prabhasak Katha","Prabhas Kumar Choudhuri","Short stories"],
+  ["1991","Pasijhaita Pathar","Ramdeo Jha","Play"],
+  ["1992","Vividha","Bhimanath Jha","Essays"],
+  ["1993","Samak Pauti","Govinda Jha","Short stories"],
+  ["1994","Uchitavakta","Gangesh Gunjan","Short stories"],
+  ["1995","Kavita Kusumanjali","Jayamanta Mishra","Poetry"],
+  ["1996","Aai Kaalhi Parsoo","Raj Mohan Jha","Short stories"],
+  ["1997","Dhwast Hoet Shanti Stoop","Keerti Narayan Mishra","Poetry"],
+  ["1998","Takait Achhi Chirai","Jeeva Kant","Poetry"],
+  ["1999","Gananayak","Saketanand","Short stories"],
+  ["2000","Katek Raas Baat","Ramanand Renu","Poetry"],
+  ["2001","Pratijna Pandav","Babuajee Jha ‘Ajnat’","Epic"],
+  ["2002","Sahasmukhi Chowk Par","Somdev","Poems"],
+  ["2003","Ritambhara","Niraja Renu (Khamakhy A Devi)","Short stories"],
+  ["2004","Shakuntala","Chandrabhanu Singh","Epic"],
+  ["2005","Chanan Ghan Gachchiya","Vivekanand Thakur","Poetry"],
+  ["2006","Kaath","Bibhuti Anand","Short stories"],
+  ["2007","Sarokar","Pradip Bihari","Short stories"],
+  ["2008","Katek Daaripar","Mantreshwar Jha","Memoirs"],
+  ["2009","Ganga-Putra","Man Mohan Jha","Short Stories"],
+  ["2010","Bhamati","Usha Kiran Khan","Novel"],
+  ["2011","Apaksha","Uday Chandra Jha ‘Vinod’","Poetry"],
+  ["2012","Kist-Kist Jeewan","Shefalika Verma","Autobiography"],
+  ["2013","Sangharsh Aa Sehanta","Sureshwar Jha","Memoirs"],
+  ["2014","Uchat","Asha Mishra","Novel"],
+  ["2015","Khissa","Man Mohan Jha","Short Stories"],
+  ["2016","Barki Kaki at Hotmail Dot Corn","Shyam Darihare","Short Stories"],
+  ["2017","Jahalk Diary","Udaya Narayana Singh ‘Nachiketa’","Poetry"],
+  ["2018","Parineeta","Bina Thakur","Short Stories"],
+  ["2019","Jingik Oriaon Karait","Kumar Manish Arvind","Poetry"],
+  ["2020","Gachh Roosal Achhi","Kamalkant Jha","Short Stories"],
+  ["2021","Pangu","Jagdish Prasad Mandal","Novel"],
+  ["2022","Pen-Drive Me Prithvi","Ajit Azad","Poetry"],
+  ["2023","Bodha Sanketan","Basukinath Jha","Essays"],
+  ["2024","Prabandh Sangrah","Mahendra Malangia","Essays"],
+  ["2025","Dhatri Paat San Gaam","Mahendra","Memoir"],
+].map(([year,title,author,category]) => {
+  const slug = title.toLocaleLowerCase()
+    .replace(/[’‘']/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+  const form =
+    category.toLocaleLowerCase().includes("poetry") ||
+    category.toLocaleLowerCase().includes("poems")
+      ? "कविता"
+      : category.toLocaleLowerCase().includes("novel") ||
+          category.toLocaleLowerCase().includes("stories") ||
+          category.toLocaleLowerCase().includes("memoir") ||
+          category.toLocaleLowerCase().includes("autobiography")
+        ? "कथा"
+        : "शास्त्रीय";
+  return {
+    slug: `sahitya-akademi-${year}-${slug}`,
+    title,
+    titleDeva: "",
+    transliteration: title,
+    author,
+    authorDeva: "",
+    authorBio: `Maithili author of the Sahitya Akademi Award-winning work listed for ${year}.`,
+    era: String(year),
+    form,
+    snippet: `Sahitya Akademi Award for Maithili, ${year}: ${category}.`,
+    body: [],
+    note: `Bibliographic recognition record only. The archive has not supplied a plot summary, quotation, or interpretive claim without consulting the work. Award category: ${category}.`,
+    awardYear: Number(year),
+    awardCategory: category,
+    source: {
+      citation: `Sahitya Akademi Awards — Maithili, ${year}: ${title} — ${author}.`,
+      url: "https://www.sahitya-akademi.gov.in/awards/akademi%20samman_suchi.jsp",
+      status: "verified",
+    },
+  } satisfies AwardLiteratureRecord;
+});
+
+export const awardLiteratureByYear = [...sahityaAkademiMaithiliAwards].sort(
+  (a, b) => a.awardYear - b.awardYear,
+);
