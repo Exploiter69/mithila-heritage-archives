@@ -5,7 +5,7 @@ import { useState } from "react";
 import { EntryCard, PageHeader, Section, SourceNote } from "@/components/archive-ui";
 import { FilterBar } from "@/components/archive-ui";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { getArchiveContent, getArchiveLiteratureForms, type LiteraryWork } from "@/data/archive-read";
+import { getArchiveLiteraryWorks, getArchiveLiteratureForms, type LiteraryWork } from "@/data/archive-read";
 
 const TITLE = "Maithili Literature — Mithila Digital Archive";
 const DESC =
@@ -30,7 +30,7 @@ function LiteraturePage() {
   const [reading, setReading] = useState<LiteraryWork | null>(null);
   const [size, setSize] = useState(1.25); // rem
 
-  const literaryWorks = getArchiveContent<LiteraryWork>("literature-work");
+  const literaryWorks = getArchiveLiteraryWorks();
   const results = literaryWorks.filter((w) => form === "All" || w.form === form);
 
   return (
