@@ -76,6 +76,33 @@ function deriveExplicitAuthorWorkRelations(records: ArchiveRecord[]): RelationSp
   });
 }
 
+
+
+function deriveExplicitArtStyleRelations(records: ArchiveRecord[]): RelationSpec[] {
+  const styles = records.filter((record) => record.type === "art-style");
+  const entries = records.filter((record) => record.type === "art-entry");
+  return entries.flatMap((entry) => {
+    const content = entry.content as Record<string, unknown>;
+    const candidates = [entry.slug.replace(/-style$/, ""), content["name"], content["title"], content["titleDeva"]]
+      .filter((value): value is string => typeof value === "string")
+      .map(normalizeRelationText);
+    const style = styles.find((candidate) => {
+      const styleContent = candidate.content as Record<string, unknown>;
+      const styleCandidates = [candidate.slug, styleContent["name"], styleContent["nameDeva"]]
+        .filter((value): value is string => typeof value === "string")
+        .map(normalizeRelationText);
+      return candidates.some((value) => styleCandidates.includes(value));
+    });
+    if (!style) return [];
+    return [{
+      from: entry.slug,
+      to: style.slug,
+      predicate: "example-of" as const,
+      note: "Relationship derived from the canonical art entry/style naming fields; both endpoint records retain their own source evidence.",
+    }];
+  });
+}
+
 export function buildArchiveRelations(
   records: ArchiveRecord[],
   sources: SourceRecord[],
@@ -86,6 +113,7 @@ export function buildArchiveRelations(
     ...RELATION_SPECS,
     ...AWARD_RELATION_SPECS,
     ...deriveExplicitAuthorWorkRelations(records),
+    ...deriveExplicitArtStyleRelations(records),
   ];
 
   const seen = new Set<string>();
