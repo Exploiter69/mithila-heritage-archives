@@ -1,4 +1,7 @@
 const base = process.env.ARCHIVE_SMOKE_BASE_URL ?? "http://127.0.0.1:4173";
+const manageServer =
+  process.env.ARCHIVE_SMOKE_MANAGE_SERVER !== "0" &&
+  base === "http://127.0.0.1:4173";
 
 const publicRoutes = [
   "/", "/about", "/literature", "/language", "/authors", "/proverbs", "/art",
@@ -13,25 +16,77 @@ const apiRoutes = [
   "/api/search?q=Vidyapati",
 ];
 
-for (const path of [...publicRoutes, ...apiRoutes]) {
-  const response = await fetch(base + path, { redirect: "follow" });
-  if (!response.ok) {
-    const body = await response.text();
-    throw new Error(path + " returned " + response.status + ": " + body.slice(0, 300));
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+async function isServerReady(url: string): Promise<boolean> {
+  try {
+    return (await fetch(url)).ok;
+  } catch (error) {
+    void error;
+    return false;
   }
-  const body = await response.text();
-  if (!body.trim()) throw new Error(path + " returned an empty response");
-  console.log(response.status, path);
 }
 
-const invalidRecord = await fetch(base + "/archive/not-a-type/not-a-record");
-if (invalidRecord.status !== 404) {
-  throw new Error("invalid canonical record route should return 404, got " + invalidRecord.status);
+async function waitForServer(url: string, timeoutMs = 30_000): Promise<void> {
+  const started = Date.now();
+  while (Date.now() - started < timeoutMs) {
+    if (await isServerReady(url)) return;
+    await sleep(250);
+  }
+  throw new Error(`Timed out waiting for HTTP server at ${url}`);
 }
 
-for (const path of ["/api/archive/not-a-type", "/api/records/not-a-type/nope"]) {
-  const response = await fetch(base + path);
-  if (response.status !== 404) throw new Error(path + " should return 404, got " + response.status);
+async function startServerIfNeeded(): Promise<ReturnType<typeof Bun.spawn> | null> {
+  if (!manageServer || await isServerReady(base + "/")) return null;
+
+  const proc = Bun.spawn(
+    ["bun", "run", "dev", "--", "--host", "127.0.0.1", "--port", "4173"],
+    {
+      stdout: "ignore",
+      stderr: "ignore",
+      env: { ...process.env, HOST: "127.0.0.1", PORT: "4173" },
+    },
+  );
+
+  try {
+    await waitForServer(base + "/");
+  } catch (error) {
+    proc.kill();
+    throw error;
+  }
+
+  return proc;
 }
 
-console.log("HTTP runtime smoke passed:", publicRoutes.length + apiRoutes.length, "routes plus invalid-route checks");
+const server = await startServerIfNeeded();
+
+try {
+  for (const path of [...publicRoutes, ...apiRoutes]) {
+    const response = await fetch(base + path, { redirect: "follow" });
+    if (!response.ok) {
+      const body = await response.text();
+      throw new Error(path + " returned " + response.status + ": " + body.slice(0, 300));
+    }
+    const body = await response.text();
+    if (!body.trim()) throw new Error(path + " returned an empty response");
+    console.log(response.status, path);
+  }
+
+  const invalidRecord = await fetch(base + "/archive/not-a-type/not-a-record");
+  if (invalidRecord.status !== 404) {
+    throw new Error("invalid canonical record route should return 404, got " + invalidRecord.status);
+  }
+
+  for (const path of ["/api/archive/not-a-type", "/api/records/not-a-type/nope"]) {
+    const response = await fetch(base + path);
+    if (response.status !== 404) throw new Error(path + " should return 404, got " + response.status);
+  }
+
+  console.log(
+    "HTTP runtime smoke passed:",
+    publicRoutes.length + apiRoutes.length,
+    "routes plus invalid-route checks",
+  );
+} finally {
+  if (server) server.kill();
+}
