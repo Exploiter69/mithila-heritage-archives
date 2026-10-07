@@ -51,9 +51,27 @@ The award register is the **indexing backbone**; the next goal is to turn these 
 - **Authors:** created author records for the unique recipients represented in the 57-entry Sahitya Akademi award corpus. Repeated award recipients are represented once and retain all awarded works through their source-derived work list.
 - **Folk culture:** added research records for life-cycle songs, Madhushravani, wedding repertoire, seasonal songs, women's oral transmission, folk tales/epics, aripan, kohbar ritual space and foodway research.
 - **Art:** added records for Mithila painting, Bharni, Kachni, Godhana, Kohbar, Aripan, natural pigments, women-led transmission, major modern artist leads, Jitwarpur/Ranti geography and Nepal Tarai practice.
-- **Music:** added genre/repertoire records for Sohar, Sanskar Geet, Vivah Geet, Batgamani, Samdaun, Nachari, Mahesvani, seasonal songs, Chhath, Madhushravani and folk-epic singing.
+- **Music:** added genre/repertoire records for Sohar, Sanskar Geet, Vivah Geet, Batgamani, Samdaun, Nachari, Mahesvani, seasonal songs, Chhath, Madhushravani and folk-epic singing, plus an IGNCA recording-lead index and an institutional performer record for Vindhyavasini Devi.
 - **Heritage:** added Janaki Mandir, Ganga Sagar, Dhanusha Sagar, Dhanushadham, Ram Mandir, Jaleshwar Mahadev, Shyama Mai Temple, Janakpur's pond landscape, the Nepal-Tarai cultural landscape and contemporary Janakpur Mithila-art infrastructure.
 
 ### Integrity boundary
 
 This wave is intentionally **not** described as a finished scholarly edition of every record. The lexical corpus is a research lead set until each headword has a page-located dictionary/corpus citation and native-speaker review. The literature bibliography is an indexing backbone until individual editions are consulted. Community and living-practice claims remain source-scoped rather than being presented as universal Mithila custom.
+
+
+## Current expansion inventory after Wave 4
+
+- Canonical records: **650**
+- Canonical representations: **651**
+- Sources: **656**
+- Provenance assertions: **651**
+- Media records: **19** (the new music work indexes existing institutional recordings; it does not copy or rehost copyrighted audio)
+- Relations: **12**
+- Language research corpus: **387** structured lexical leads in the expansion module, in addition to the existing dictionary seed; all are **needs-review** until page-located or field-attested usage is added.
+- Literature: 57 Sahitya Akademi award records + unique recipient author records + 20 catalogue/indexing records.
+- Folk culture: 15 research records.
+- Art: 14 research records.
+- Music: 14 research/recording records.
+- Heritage: 10 additional site/landscape records in the deep wave, alongside the earlier heritage expansion.
+
+The CI quality pipeline has been rerun after the expansion. Typecheck, archive validation, provenance report, quality audit, media audit, consolidated QA, editorial workflow, public export, archive tests, route tests, full regression, production build, performance budget, HTTP smoke, browser audit and lint all passed on the final verified wave commit.
