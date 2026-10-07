@@ -158,6 +158,59 @@ export function getArchiveContent<T>(type: ArchiveRecordType): T[] {
   return getArchiveRecords(type).map((record) => record.content as T);
 }
 
+function hasStringFields(content: unknown, fields: string[]): content is Record<string, unknown> {
+  if (!content || typeof content !== "object" || Array.isArray(content)) return false;
+  const value = content as Record<string, unknown>;
+  return fields.every((field) => typeof value[field] === "string" && value[field].trim().length > 0);
+}
+
+export function getArchiveAuthors(): Author[] {
+  return getArchiveRecords("author")
+    .map((record) => record.content as Partial<Author>)
+    .filter((content): content is Author =>
+      hasStringFields(content, ["slug", "name", "nameMai", "lifespan", "place", "role", "bio"]) &&
+      Array.isArray(content.works) && content.works.every((work) => typeof work === "string"),
+    );
+}
+
+export function getArchiveProverbs(): Proverb[] {
+  return getArchiveRecords("proverb")
+    .map((record) => record.content as Partial<Proverb>)
+    .filter((content): content is Proverb =>
+      hasStringFields(content, ["text", "transliteration", "literal", "meaning", "theme"]),
+    );
+}
+
+export function getArchiveArtStyles(): ArtStyle[] {
+  return getArchiveRecords("art-style")
+    .map((record) => record.content as Partial<ArtStyle>)
+    .filter((content): content is ArtStyle =>
+      hasStringFields(content, ["slug", "name", "nameDeva", "origin", "technique", "description"]) &&
+      Array.isArray(content.dyes) && content.dyes.every((item) => typeof item === "string") &&
+      Array.isArray(content.motifs) && content.motifs.every((item) => typeof item === "string") &&
+      Boolean(content.image && typeof content.image === "object"),
+    );
+}
+
+export function getArchiveSongs(): Song[] {
+  return getArchiveRecords("song")
+    .map((record) => record.content as Partial<Song>)
+    .filter((content): content is Song =>
+      hasStringFields(content, ["slug", "title", "titleDeva", "transliteration", "performer", "occasion", "category", "about"]) &&
+      Boolean(content.stream && typeof content.stream === "object") &&
+      Array.isArray(content.lyrics) && content.lyrics.every((line) => Boolean(line && typeof line === "object")),
+    );
+}
+
+export function getArchiveHeritageEntries(): HeritageEntry[] {
+  return getArchiveRecords("heritage-entry")
+    .map((record) => record.content as Partial<HeritageEntry>)
+    .filter((content): content is HeritageEntry =>
+      hasStringFields(content, ["slug", "name", "nameDeva", "kind", "place", "period", "summary"]) &&
+      Array.isArray(content.context) && content.context.every((item) => typeof item === "string"),
+    );
+}
+
 /**
  * Collection-facing typed reads intentionally select the current collection
  * payloads. The canonical graph also retains legacy payloads as published
