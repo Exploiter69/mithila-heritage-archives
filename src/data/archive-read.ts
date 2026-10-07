@@ -181,6 +181,41 @@ export function getArchiveProverbs(): Proverb[] {
     );
 }
 
+function isCommonsImage(value: unknown): value is ArtStyle["image"] {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return false;
+  const image = value as Record<string, unknown>;
+  return hasStringFields(image, ["url", "filePage", "fileTitle", "credit", "license", "licenseUrl", "caption"]);
+}
+
+function isSongStream(value: unknown): value is Song["stream"] {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return false;
+  const stream = value as Record<string, unknown>;
+  return hasStringFields(stream, ["youtubeId", "channel", "channelKind", "note"]);
+}
+
+function isLiteraryBody(value: unknown): value is LiteraryWork["body"] {
+  return Array.isArray(value) && value.every((line) => {
+    if (!line || typeof line !== "object" || Array.isArray(line)) return false;
+    const item = line as Record<string, unknown>;
+    return hasStringFields(item, ["deva", "translation"]) &&
+      (item.translit === undefined || typeof item.translit === "string");
+  });
+}
+
+function isDictionaryExamples(value: unknown): value is DictionaryEntry["examples"] {
+  return Array.isArray(value) && value.every((example) => {
+    if (!example || typeof example !== "object" || Array.isArray(example)) return false;
+    return hasStringFields(example, ["deva", "translit", "english"]);
+  });
+}
+
+function isSongLyrics(value: unknown): value is Song["lyrics"] {
+  return Array.isArray(value) && value.every((line) => {
+    if (!line || typeof line !== "object" || Array.isArray(line)) return false;
+    return hasStringFields(line, ["deva", "translation"]);
+  });
+}
+
 export function getArchiveArtStyles(): ArtStyle[] {
   return getArchiveRecords("art-style")
     .map((record) => record.content as Partial<ArtStyle>)
@@ -188,7 +223,7 @@ export function getArchiveArtStyles(): ArtStyle[] {
       hasStringFields(content, ["slug", "name", "nameDeva", "origin", "technique", "description"]) &&
       Array.isArray(content.dyes) && content.dyes.every((item) => typeof item === "string") &&
       Array.isArray(content.motifs) && content.motifs.every((item) => typeof item === "string") &&
-      Boolean(content.image && typeof content.image === "object"),
+      isCommonsImage(content.image),
     );
 }
 
@@ -197,8 +232,8 @@ export function getArchiveSongs(): Song[] {
     .map((record) => record.content as Partial<Song>)
     .filter((content): content is Song =>
       hasStringFields(content, ["slug", "title", "titleDeva", "transliteration", "performer", "occasion", "category", "about"]) &&
-      Boolean(content.stream && typeof content.stream === "object") &&
-      Array.isArray(content.lyrics) && content.lyrics.every((line) => Boolean(line && typeof line === "object")),
+      isSongStream(content.stream) &&
+      isSongLyrics(content.lyrics),
     );
 }
 
@@ -224,7 +259,7 @@ export function getArchiveLiteraryWorks(): LiteraryWork[] {
       (content): content is LiteraryWork =>
         typeof content.slug === "string" &&
         typeof content.titleDeva === "string" &&
-        Array.isArray(content.body),
+        isLiteraryBody(content.body),
     );
 }
 
@@ -235,7 +270,7 @@ export function getArchiveDictionaryEntries(): DictionaryEntry[] {
       (content): content is DictionaryEntry =>
         typeof content.slug === "string" &&
         typeof content.headword === "string" &&
-        Array.isArray(content.examples),
+        isDictionaryExamples(content.examples),
     );
 }
 
