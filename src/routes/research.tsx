@@ -13,6 +13,15 @@ export const Route = createFileRoute("/research")({
 function ResearchPage() {
   const stats = getArchiveStats();
   const facets = getResearchFacets();
+  const researchLinks = [
+    ["/search", "Search", "Cross-collection search with collection and evidence filters."],
+    ["/sources", "Bibliography", "Normalized source identities and their captured citation trail."],
+    ["/api/archive", "JSON API", "Machine-readable published records and relationships."],
+    ["/api/search?q=Vidyapati", "API search", "A small query endpoint for research tools and scripts."],
+    ["/about", "Methods", "Editorial boundaries, migration rules and provenance notes."],
+    ["/", "Archive home", "Return to the public reading experience."],
+  ] as const;
+
   return (
     <>
       <PageHeader eyebrow="Public research portal" title="Research" titleMai="अनुसंधान" intro="Use the archive as a source-oriented research dataset: browse canonical records, inspect provenance, follow relationships, search across scripts and consume stable JSON endpoints." />
@@ -29,14 +38,7 @@ function ResearchPage() {
       <Section className="pt-0">
         <SectionTitle eyebrow="Research surfaces" title="Explore the archive as data" />
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {[
-            ["/search", "Search", "Cross-collection search with collection and evidence filters."],
-            ["/sources", "Bibliography", "Normalized source identities and their captured citation trail."],
-            ["/api/archive", "JSON API", "Machine-readable published records and relationships."],
-            ["/api/search?q=Vidyapati", "API search", "A small query endpoint for research tools and scripts."],
-            ["/about", "Methods", "Editorial boundaries, migration rules and provenance notes."],
-            ["/", "Archive home", "Return to the public reading experience."],
-          ] as const).map(([href, title, description]) => (
+          {researchLinks.map(([href, title, description]) => (
             <Link key={href} to={href}><EntryCard className="h-full hover:border-gold"><h2 className="text-xl">{title}</h2><p className="mt-2 text-sm leading-relaxed text-muted-foreground">{description}</p></EntryCard></Link>
           ))}
         </div>
