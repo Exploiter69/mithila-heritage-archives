@@ -289,24 +289,35 @@ async function main() {
     }
 
     async function waitForPageReady() {
-      // Vite/TanStack navigation can briefly expose the server shell before the
-      // client document has committed its rendered route. Avoid polling Runtime
-      // during that transition; give the first navigation a deterministic settle
-      // window, then use one DOM probe. If the document is still the bare shell,
-      // reload once and give the browser another settle window. A second bare
-      // shell is a real audit failure and is left for the final assertions below.
-      await sleep(2_000);
+      // Do not use Runtime.evaluate as a readiness poll. During Vite/TanStack
+      // client transitions Chrome can temporarily stop servicing Runtime
+      // commands, which makes the audit fail because of the harness rather than
+      // because the page is broken. Use deterministic settling plus one
+      // best-effort DOM probe; if the probe itself times out, recover with a
+      // single reload and let the final audit evaluation make the authoritative
+      // DOM check.
+      await sleep(2_500);
 
-      const readiness = await cdp!.command("Runtime.evaluate", {
-        expression: "Boolean(document.querySelector('main#main-content'))",
-        returnByValue: true,
-        timeout: 5_000,
-      });
-      const ready = readiness.result?.result?.value === true;
-      if (ready) return;
+      try {
+        const readiness = await cdp!.command("Runtime.evaluate", {
+          expression: "Boolean(document.querySelector('main#main-content'))",
+          returnByValue: true,
+        });
+        const ready = readiness.result?.result?.value === true;
+        if (ready) return;
+      } catch {
+        // Runtime can be temporarily unavailable while the client navigation
+        // is committing. Treat this as a transient browser state, not a route
+        // failure.
+      }
 
-      await cdp!.command("Page.reload", { ignoreCache: false });
-      await sleep(2_000);
+      try {
+        await cdp!.command("Page.reload", { ignoreCache: false });
+      } catch {
+        // The final evaluation below is still authoritative if reload races
+        // with a navigation transition.
+      }
+      await sleep(2_500);
     }
 
     for (const viewport of viewports) {
