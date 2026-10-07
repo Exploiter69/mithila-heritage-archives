@@ -179,7 +179,7 @@ assert.deepEqual(getArchiveLiteratureForms(), [
   "कथा",
   "शास्त्रीय",
 ]);
-assert.deepEqual(getArchiveMusicCategories(), ["All", "लोकगीत", "छठी मईया", "सोहर", "बटगमनी"]);
+assert.deepEqual(getArchiveMusicCategories(), ["All", "लोकगीत", "छठी मईया", "सोहर", "बटगमनी", "संस्कार गीत", "देवगीत", "ऋतु गीत", "कृषि गीत"]);
 assert.deepEqual(getArchiveDictionaryWordClasses(), [
   "All",
   "Noun",
