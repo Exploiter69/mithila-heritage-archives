@@ -16,7 +16,8 @@
     "test:archive": "bun scripts/archive-foundation.test.ts",
     "test": "bun run test:archive && bun run test:archive-records",
     "test:archive-records": "bun scripts/archive-record-routes.test.ts",
-    "provenance-report": "bun src/data/provenance-report-cli.ts"
+    "provenance-report": "bun src/data/provenance-report-cli.ts",
+    "archive:quality": "bun src/data/archive-quality-cli.ts"
   },
   "overrides": {
     "rolldown": "1.2.1"
@@ -94,4 +95,4 @@
     "typescript-eslint": "^8.56.1",
     "vite": "8.1.5"
   }
-}
+}\n
