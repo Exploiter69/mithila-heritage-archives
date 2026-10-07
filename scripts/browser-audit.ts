@@ -147,9 +147,9 @@ async function main() {
             const badInputs = [...document.querySelectorAll("input,select,textarea")].filter((el) => {
               if (el.getAttribute("aria-label") || el.getAttribute("aria-labelledby")) return false;
               const id = el.id;
-              return !(id && document.querySelector(`label[for="${CSS.escape(id)}"]`));
+              return !(id && document.querySelector(`label[for="\${CSS.escape(id)}"]`));
             }).map((el) => el.outerHTML.slice(0, 200));
-            const duplicateIds = [...new Set([...document.querySelectorAll("[id]")].map((el) => el.id))].filter((id) => document.querySelectorAll(`#${CSS.escape(id)}`).length > 1);
+            const duplicateIds = [...new Set([...document.querySelectorAll("[id]")].map((el) => el.id))].filter((id) => document.querySelectorAll(`#\${CSS.escape(id)}`).length > 1);
             const nav = performance.getEntriesByType("navigation")[0];
             return {
               href: location.href,
