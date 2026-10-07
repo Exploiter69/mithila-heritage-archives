@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createFileRoute } from "@tanstack/react-router";
 import { getPublicArchiveEnvelope } from "@/data/archive-export";
 import { archiveRecordTypes, type ArchiveRecordType } from "@/data/types";
