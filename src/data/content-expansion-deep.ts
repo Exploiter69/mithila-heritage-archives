@@ -1,5 +1,6 @@
 import type { Author, ArtEntry, MusicEntry } from "./archive";
 import type { HeritageEntry } from "./heritage";
+import type { CommonsImage } from "./types";
 import { sahityaAkademiMaithiliAwards } from "./content-expansion-literature";
 
 /**
