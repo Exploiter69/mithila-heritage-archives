@@ -30,7 +30,7 @@ async function waitForUrl(url: string, timeoutMs = 30_000) {
     await sleep(250);
   }
   throw new Error(
-    "Timed out waiting for the application server at " + url + ". provide BASE_URL for an already-running server.",
+    "Timed out waiting for the application server at " + url + ". Set BASE_URL for an already-running server.",
   );
 }
 
@@ -194,7 +194,7 @@ async function main() {
             const badInputs = [...document.querySelectorAll("input,select,textarea")].filter((el) => {
               if (el.getAttribute("aria-label") || el.getAttribute("aria-labelledby")) return false;
               const id = el.id;
-              return !(id && document.querySelector('label[for="' + CSS.escape(id) + '"]'));
+              return !(el.closest("label") || (id && document.querySelector('label[for="' + CSS.escape(id) + '"]')));
             }).map((el) => el.outerHTML.slice(0, 200));
             const duplicateIds = [...new Set([...document.querySelectorAll("[id]")].map((el) => el.id))].filter((id) => document.querySelectorAll("#" + CSS.escape(id)).length > 1);
             const nav = performance.getEntriesByType("navigation")[0];
@@ -223,6 +223,7 @@ async function main() {
         const ax = await cdp.command("Accessibility.getFullAXTree");
         const axNodes = ax.result?.nodes ?? [];
         const unnamedInteractive = axNodes.filter((node: any) =>
+          !node.ignored &&
           ["button", "link", "textbox", "combobox", "checkbox", "radio"].includes(node.role?.value) &&
           !(node.name?.value || "").trim()
         ).length;
