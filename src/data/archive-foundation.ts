@@ -19,6 +19,7 @@ import { literaryWorks } from "./literature";
 import { songs, type Stream } from "./music";
 import { buildArchiveRelations } from "./archive-relations";
 import { sahityaAkademiMaithiliAwards } from "./content-expansion-literature";
+import { expandedHeritage } from "./content-expansion-heritage";
 import type {
   ArchiveRecord,
   ArchiveRecordType,
@@ -244,6 +245,7 @@ const adapted = [
   ...songs.map((entry) => adaptRecord("song", identityFor(`collection-song-${entry.slug}`), `representation:collection-song:${entry.slug}`, { module: "music.ts", exportName: "songs" }, entry)),
   ...artStyles.map((entry) => adaptRecord("art-style", identityFor(`collection-art-${entry.slug}`), `representation:collection-art:${entry.slug}`, { module: "art.ts", exportName: "artStyles" }, entry)),
   ...heritage.map((entry) => adaptRecord("heritage-entry", identityFor(`collection-heritage-${entry.slug}`), `representation:collection-heritage:${entry.slug}`, { module: "heritage.ts", exportName: "heritage" }, entry)),
+  ...expandedHeritage.map((entry) => adaptRecord("heritage-entry", { id: `rec-exp-heritage-${entry.slug}`, slug: entry.slug }, `representation:expanded-heritage:${entry.slug}`, { module: "content-expansion-heritage.ts", exportName: "expandedHeritage" }, entry)),
   ...dictionaryEntries.map((entry) => adaptRecord("dictionary-entry", identityFor(`collection-dictionary-${entry.slug}`), `representation:collection-dictionary:${entry.slug}`, { module: "dictionary.ts", exportName: "dictionaryEntries" }, entry)),
 ];
 
