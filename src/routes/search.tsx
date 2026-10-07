@@ -22,12 +22,16 @@ function SearchPage() {
   const [query, setQuery] = useState(q);
   const [type, setType] = useState<ArchiveRecordType | "all">("all");
   const [status, setStatus] = useState<VerificationStatus | "all">("all");
+  const [mediaOnly, setMediaOnly] = useState(false);
+  const [relatedOnly, setRelatedOnly] = useState(false);
   const facets = getResearchFacets();
   const results = useMemo(() => searchArchiveAdvanced(query, {
     ...(type === "all" ? {} : { types: [type] }),
     ...(status === "all" ? {} : { statuses: [status] }),
+    ...(mediaOnly ? { hasMedia: true } : {}),
+    ...(relatedOnly ? { hasRelations: true } : {}),
     limit: 50,
-  }), [query, type, status]);
+  }), [query, type, status, mediaOnly, relatedOnly]);
 
   return (
     <>
@@ -53,7 +57,19 @@ function SearchPage() {
             </select>
           </label>
         </div>
-        <p className="mt-6 font-sans text-sm text-muted-foreground">{query.trim() ? `${results.length} result${results.length === 1 ? "" : "s"}` : "Enter a query to search."}</p>
+        <div className="mt-4 flex flex-wrap gap-4 font-sans text-sm">
+          <label className="inline-flex items-center gap-2 text-muted-foreground">
+            <input type="checkbox" checked={mediaOnly} onChange={(event) => setMediaOnly(event.target.checked)} />
+            Has media
+          </label>
+          <label className="inline-flex items-center gap-2 text-muted-foreground">
+            <input type="checkbox" checked={relatedOnly} onChange={(event) => setRelatedOnly(event.target.checked)} />
+            Has relationships
+          </label>
+        </div>
+        <p className="mt-6 font-sans text-sm text-muted-foreground" aria-live="polite">
+          {query.trim() ? `${results.length} result${results.length === 1 ? "" : "s"}` : "Enter a query to search."}
+        </p>
         <ul className="mt-5 grid gap-4 md:grid-cols-2">
           {results.map((hit) => (
             <li key={hit.record.id}>
