@@ -62,6 +62,7 @@ export type ArtEntry = {
   region: string;
   materials: string;
   description: string;
+  image?: CommonsImage;
   source: Source;
 };
 
@@ -444,6 +445,15 @@ export const art: ArtEntry[] = [
     materials: "Rice paste, lampblack, ochre, indigo, turmeric; handmade paper since the 1960s",
     description:
       "Originally painted on the interior walls of the kohbar ghar — the nuptial chamber — by women of the household, with a fixed iconographic vocabulary of lotus, bamboo, fish and parrot standing for fertility and union. After the 1966–67 drought, paper became a commercial medium and named artists emerged, shifting a domestic ritual practice into a signed studio tradition without displacing it.",
+    image: {
+      url: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Mithila_Painting_at_Patna_Junction.jpg/1280px-Mithila_Painting_at_Patna_Junction.jpg",
+      filePage: "https://commons.wikimedia.org/wiki/File:Mithila_Painting_at_Patna_Junction.jpg",
+      fileTitle: "Mithila Painting at Patna Junction",
+      credit: "Sntshkumar750 (own work, Wikimedia Commons)",
+      license: "CC BY-SA 4.0",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0",
+      caption: "Mithila painting at Patna Junction, showing a figurative painted panel with floral borders."
+    },
     source: {
       citation:
         "All India Handicrafts Board records of the 1966–67 paper initiative; Mithila Art Institute documentation, Madhubani.",
@@ -471,6 +481,15 @@ export const art: ArtEntry[] = [
     materials: "Sikkī grass, natural and aniline dyes, munj core",
     description:
       "Coiled and stitched golden grass forms — pauti boxes, dolls, ceremonial containers — traditionally part of a bride's belongings. The craft is women-held and taught within families; dye palettes shifted markedly with market access in the late twentieth century.",
+    image: {
+      url: "https://upload.wikimedia.org/wikipedia/commons/f/f9/Sikki_Grass_Craft_by_artisan_Nazda_Khatun_of_Bihar_08.jpg",
+      filePage: "https://commons.wikimedia.org/wiki/File:Sikki_Grass_Craft_by_artisan_Nazda_Khatun_of_Bihar_08.jpg",
+      fileTitle: "Sikki Grass Craft by artisan Nazda Khatun of Bihar 08",
+      credit: "Goutam1962 (own work, Wikimedia Commons)",
+      license: "CC BY-SA 4.0",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0",
+      caption: "Sikki grass craft by artisan Nazda Khatun of Bihar, photographed at the India International Trade Fair."
+    },
     source: {
       citation: "Craft cluster surveys, Bihar; Upendra Maharathi Shilp Anusandhan Sansthan collections.",
       status: "verified",
@@ -484,6 +503,15 @@ export const art: ArtEntry[] = [
     materials: "Mud wall, cow-dung ground, mineral and vegetable pigment",
     description:
       "The room in which a newly married couple spends its first nights, and the surface on which the household's most elaborate painting is made. The central kohbar motif — a ringed lotus with a bamboo stalk — is read as a conjugal diagram rather than decoration.",
+    image: {
+      url: "https://upload.wikimedia.org/wikipedia/commons/3/31/34545016_kohbar_auspicious_marriage_diagram_dh93.jpg",
+      filePage: "https://commons.wikimedia.org/wiki/File:34545016_kohbar_auspicious_marriage_diagram_dh93.jpg",
+      fileTitle: "34545016 kohbar auspicious marriage diagram dh93",
+      credit: "AxomiyaDangoriya (own work, Wikimedia Commons)",
+      license: "CC BY-SA 4.0",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0",
+      caption: "Lajja Gauri depiction in a Kohbar Mithila painting."
+    },
     source: {
       citation: "Documented in Mithila painting scholarship; iconographic reading follows household informants.",
       status: "community",
