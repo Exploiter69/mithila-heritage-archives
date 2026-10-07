@@ -32,8 +32,9 @@ function slugifyCitation(value: string): string {
   return value.toLocaleLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
 
-export function getRecordPermalink(record: ArchiveRecord, origin = "https://mithila-heritage-archives.example"): string {
-  return new URL("/archive/" + record.type + "/" + record.slug, origin).toString();
+export function getRecordPermalink(record: ArchiveRecord, origin?: string): string {
+  const path = "/archive/" + record.type + "/" + record.slug;
+  return origin ? new URL(path, origin).toString() : path;
 }
 
 function firstYear(record: ArchiveRecord): string | undefined {
@@ -106,7 +107,7 @@ export interface IiifManifest {
 export function buildIiifManifest(
   record: ArchiveRecord,
   image: { displayUrl: string; sourceUrl: string; payload: { caption: string } },
-  origin = "https://mithila-heritage-archives.example",
+  origin: string,
 ): IiifManifest {
   const manifestId = new URL("/api/records/" + record.type + "/" + record.slug + "?format=iiif", origin).toString();
   const canvasId = manifestId + "#canvas-1";
