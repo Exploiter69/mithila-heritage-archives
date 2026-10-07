@@ -18,7 +18,7 @@ import { heritage } from "./heritage";
 import { literaryWorks } from "./literature";
 import { songs, type Stream } from "./music";
 import { buildArchiveRelations } from "./archive-relations";
-import { sahityaAkademiMaithiliAwards } from "./content-expansion-literature";
+import { sahityaAkademiMaithiliAwards, yuvaPuraskarMaithiliAwards } from "./content-expansion-literature";
 import { expandedHeritage } from "./content-expansion-heritage";
 import {
   awardRecipientAuthors,
