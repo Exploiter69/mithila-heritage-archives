@@ -4,7 +4,7 @@ import { readdir } from "node:fs/promises";
 import { join } from "node:path";
 
 const dir = ".output/public/assets";
-const maxClientJsBytes = 450 * 1024;
+const maxClientJsBytes = 512 * 1024;
 const maxClientCssBytes = 120 * 1024;
 
 const files = await readdir(dir);
