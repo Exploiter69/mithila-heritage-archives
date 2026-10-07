@@ -126,11 +126,11 @@ export const artExpansion: ArtEntry[] = [
 });
 
 export const musicExpansion: MusicEntry[] = [
-  ["sohar","Sohar","सोहर","Life-cycle song","Birth and sixth-day rites","Maithili birth-song repertoire associated with childbirth and early life-cycle observances.","https://ignca.gov.in/classification-of-maithili-"],
+  ["folk-sohar","Sohar","सोहर","Life-cycle song","Birth and sixth-day rites","Maithili birth-song repertoire associated with childbirth and early life-cycle observances.","https://ignca.gov.in/classification-of-maithili-"],
   ["sanskar-geet","Sanskar Geet","संस्कार गीत","Life-cycle repertoire","Birth, initiation, marriage and other rites","Umbrella category for songs attached to major life-cycle transitions.","https://ignca.gov.in/classification-of-maithili-"],
   ["vivah-geet","Vivah Geet","विवाह गीत","Marriage songs","Marriage cycle","Large family of women's wedding songs performed at different household stages of marriage.","https://ignca.gov.in/classification-of-maithili-"],
-  ["batgamani","Batgamani","बटगमनी","Folk song","Journey / wedding contexts","A distinct Maithili research category associated with movement, journey and wedding repertoire.","https://ignca.gov.in/PDF_data/Classification_Structure_Maithili_FolkSongs.pdf"],
-  ["samdaun","Samdaun","समदाउन","Folk song","Wedding departure / separation","A wedding-associated song tradition focused on separation and emotional departure.","https://ignca.gov.in/PDF_data/Classification_Structure_Maithili_FolkSongs.pdf"],
+  ["folk-batgamani","Batgamani","बटगमनी","Folk song","Journey / wedding contexts","A distinct Maithili research category associated with movement, journey and wedding repertoire.","https://ignca.gov.in/PDF_data/Classification_Structure_Maithili_FolkSongs.pdf"],
+  ["folk-samdaun","Samdaun","समदाउन","Folk song","Wedding departure / separation","A wedding-associated song tradition focused on separation and emotional departure.","https://ignca.gov.in/PDF_data/Classification_Structure_Maithili_FolkSongs.pdf"],
   ["nachari","Nachari","नचारी","Devotional song","Shaiva devotion","Devotional repertoire associated with Shiva and the Maithili kirtaniya tradition.","https://ignca.gov.in/PDF_data/Classification_Structure_Maithili_FolkSongs.pdf"],
   ["mahesvani","Mahesvani","महेशवाणी","Devotional song","Shaiva devotion","A devotional category associated with Mahesh/Shiva in Maithili musical practice.","https://ignca.gov.in/PDF_data/Classification_Structure_Maithili_FolkSongs.pdf"],
   ["seasonal-geet","Ritu Geet","ऋतु गीत","Seasonal song","Agricultural and seasonal cycle","Songs representing months, seasons, weather, longing and changing rural life.","https://ignca.gov.in/PDF_data/Classification_Structure_Maithili_FolkSongs.pdf"],
