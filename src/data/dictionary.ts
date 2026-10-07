@@ -227,7 +227,9 @@ const everydayMaithiliExpansion: DictionaryEntry[] = [
   ["maay","माए","māe","/maːeː/","Noun","माँ","mother"],
   ["baap","बाप","bāp","/baːp/","Noun","पिता","father"],
   ["baisak","बैसक","baisak","/bai̯sək/","Verb","बैठना","to sit; sit down"],
-].map((row) => {\n  const [slug, headword, transliteration, phonetic, wordClass, hindi, english] = row as [string, string, string, string, string, string, string];\n  return {
+].map((row) => {
+  const [slug, headword, transliteration, phonetic, wordClass, hindi, english] = row as [string, string, string, string, string, string, string];
+  return {
   slug,
   headword,
   transliteration,
