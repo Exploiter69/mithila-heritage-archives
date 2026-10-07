@@ -75,3 +75,16 @@ This wave is intentionally **not** described as a finished scholarly edition of 
 - Heritage: 10 additional site/landscape records in the deep wave, alongside the earlier heritage expansion.
 
 The CI quality pipeline has been rerun after the expansion. Typecheck, archive validation, provenance report, quality audit, media audit, consolidated QA, editorial workflow, public export, archive tests, route tests, full regression, production build, performance budget, HTTP smoke, browser audit and lint all passed on the final verified wave commit.
+
+
+## Wave 2 — Maithili Yuva Puraskar literature corpus
+
+**Status:** seeded in the canonical archive and covered by regression tests.
+
+- Source authority: Sahitya Akademi's official Yuva Puraskar register.
+- Coverage: Maithili award years 2011–2025.
+- Records added: **15 literature records** and **15 unique recipient people records**.
+- Each record preserves the official title, recipient, year, category and source URL without inventing plot, quotation or biography.
+- Recipient records are linked to their awarded work through explicit source-backed relationship generation.
+
+The same editorial rule applies: these entries are bibliographic recognition records until a separate research pass consults the underlying works and authoritative biographical sources.
