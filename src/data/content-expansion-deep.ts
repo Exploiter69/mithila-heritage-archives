@@ -1,7 +1,7 @@
 import type { Author, ArtEntry, MusicEntry } from "./archive";
 import type { HeritageEntry } from "./heritage";
 import type { CommonsImage } from "./types";
-import { sahityaAkademiMaithiliAwards } from "./content-expansion-literature";
+import { sahityaAkademiMaithiliAwards, yuvaPuraskarMaithiliAwards } from "./content-expansion-literature";
 
 /**
  * Deep content expansion wave.
@@ -12,14 +12,14 @@ import { sahityaAkademiMaithiliAwards } from "./content-expansion-literature";
  */
 
 export const awardRecipientAuthors: Author[] = Array.from(
-  new Map(sahityaAkademiMaithiliAwards.map((award) => [award.author, award])).values(),
+  new Map([...sahityaAkademiMaithiliAwards, ...yuvaPuraskarMaithiliAwards].map((award) => [award.author, award])).values(),
 ).map((award) => ({
   slug: `award-recipient-${award.author.toLocaleLowerCase().replace(/[’‘']/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`,
   name: award.author,
   nameMai: award.author,
-  lifespan: `Recipient of the Sahitya Akademi Award in Maithili (${award.awardYear}); lifespan not established by the award register.`,
+  lifespan: `Recipient of a Sahitya Akademi literary award in Maithili (${award.awardYear}); lifespan not established by the award register.`,
   place: "Not established in the consulted award register.",
-  role: "Maithili author / Sahitya Akademi Award recipient",
+  role: "Maithili author / Sahitya Akademi literary award recipient",
   bio: `The Sahitya Akademi register lists ${award.author} as the author of ${award.title}, which received the Maithili award in ${award.awardYear}. This record intentionally does not infer dates, birthplace or a longer biography from the award listing alone.`,
   works: [award.title],
   source: award.source,
