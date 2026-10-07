@@ -3,6 +3,7 @@ import { EntryCard, PageHeader, Section, SectionTitle } from "@/components/archi
 import { getArchiveStats, getResearchFacets } from "@/data/archive-platform";
 import { getArchiveRecords } from "@/data/archive-read";
 import { archiveRecordTitle } from "@/components/archive-record-page";
+import type { ArchiveRecord } from "@/data/types";
 
 export const Route = createFileRoute("/research")({
   head: () => ({ meta: [
@@ -24,7 +25,7 @@ function ResearchPage() {
       const match = dateText.match(/\b(\d{4})\b/);
       return match ? { record, year: Number(match[1]) } : null;
     })
-    .filter((item): item is { record: (typeof getArchiveRecords())[number]; year: number } => item !== null)
+    .filter((item): item is { record: ArchiveRecord; year: number } => item !== null)
     .sort((a, b) => a.year - b.year || archiveRecordTitle(a.record).localeCompare(archiveRecordTitle(b.record)));
 
   const researchLinks = [
