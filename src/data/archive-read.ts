@@ -607,7 +607,10 @@ export function getArchiveWordOfTheDay(date = new Date()): DictionaryEntry {
   const dictionaryEntries = getArchiveContent<DictionaryEntry>("dictionary-entry");
   const day = Math.floor(date.getTime() / 86_400_000);
   const nouns = dictionaryEntries.filter(
-    (entry) => entry.wordClass !== "Idiom / Proverb",
+    (entry) =>
+      entry.wordClass !== "Idiom / Proverb" &&
+      Array.isArray(entry.examples) &&
+      entry.examples.length > 0,
   );
   return nouns[day % nouns.length] ?? dictionaryEntries[0]!;
 }
