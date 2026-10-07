@@ -60,8 +60,8 @@ function deriveExplicitAuthorWorkRelations(records: ArchiveRecord[]): RelationSp
 
   return authors.flatMap((author) => {
     const content = author.content as Record<string, unknown>;
-    const worksListed = Array.isArray(content.works)
-      ? content.works.filter((item): item is string => typeof item === "string")
+    const worksListed = Array.isArray(content['works'])
+      ? content['works'].filter((item): item is string => typeof item === "string")
       : [];
     return worksListed.flatMap((workName) => {
       const work = byTitle.get(normalizeRelationText(workName));
