@@ -289,35 +289,12 @@ async function main() {
     }
 
     async function waitForPageReady() {
-      // Do not use Runtime.evaluate as a readiness poll. During Vite/TanStack
-      // client transitions Chrome can temporarily stop servicing Runtime
-      // commands, which makes the audit fail because of the harness rather than
-      // because the page is broken. Use deterministic settling plus one
-      // best-effort DOM probe; if the probe itself times out, recover with a
-      // single reload and let the final audit evaluation make the authoritative
-      // DOM check.
-      await sleep(2_500);
-
-      try {
-        const readiness = await cdp!.command("Runtime.evaluate", {
-          expression: "Boolean(document.querySelector('main#main-content'))",
-          returnByValue: true,
-        });
-        const ready = readiness.result?.result?.value === true;
-        if (ready) return;
-      } catch {
-        // Runtime can be temporarily unavailable while the client navigation
-        // is committing. Treat this as a transient browser state, not a route
-        // failure.
-      }
-
-      try {
-        await cdp!.command("Page.reload", { ignoreCache: false });
-      } catch {
-        // The final evaluation below is still authoritative if reload races
-        // with a navigation transition.
-      }
-      await sleep(2_500);
+      // Keep readiness handling independent from Runtime.evaluate. Vite/TanStack
+      // can temporarily stop servicing Runtime commands while a client
+      // navigation is committing, so probing Runtime here can deadlock the
+      // harness and produce a false CDP timeout. The authoritative DOM audit
+      // below runs after this deterministic settle window.
+      await sleep(5_000);
     }
 
     for (const viewport of viewports) {
