@@ -177,7 +177,7 @@ export const institutionalMusicExpansion: MusicEntry[] = [
     recordingLeads: [],
     source: { citation: "Sahitya Akademi, Loka folk-culture activity archive.", url: "https://sahitya-akademi.gov.in/literaray-activities/loka.jsp", status: "verified" },
   },
-]);
+];
 
 export const musicExpansionCombined: MusicEntry[] = [...musicExpansion, ...institutionalMusicExpansion];
 
