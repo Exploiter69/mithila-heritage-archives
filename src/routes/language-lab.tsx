@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState, type ChangeEvent } from "react";
 import { PageHeader, Section, EntryCard } from "@/components/archive-ui";
-import { getArchiveContent } from "@/data/archive-read";
+import { getArchiveContent, getArchiveRecordBySlug } from "@/data/archive-read";
 import type { DictionaryEntry } from "@/data/dictionary";
 
 export const Route = createFileRoute("/language-lab")({
@@ -95,8 +95,17 @@ function LanguageLabPage() {
               <p className="mt-1 leading-relaxed text-muted-foreground">
                 {word.english}
               </p>
-              <p className="mt-4 text-xs text-muted-foreground">
-                Evidence: {word.source.status}
+              {word.examples?.slice(0, 2).map((example, exampleIndex) => (
+                <div key={`${word.slug}-example-${exampleIndex}`} className="mt-4 border-l-2 border-gold pl-4">
+                  <p className="deva text-sm">{example.deva}</p>
+                  <p className="text-xs text-muted-foreground">{example.translit} · {example.english}</p>
+                </div>
+              ))}
+              {getArchiveRecordBySlug("dictionary-entry", word.slug) && (
+                <a href={`/archive/dictionary-entry/${word.slug}`} className="mt-4 inline-block text-sm text-terracotta hover:underline">Open lexical record →</a>
+              )}
+              <p className="mt-3 text-xs text-muted-foreground">
+                Evidence: {word.source.status} · {word.source.citation}
               </p>
             </EntryCard>
           ))}
