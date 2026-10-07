@@ -249,6 +249,7 @@ const everydayMaithiliExpansion: DictionaryEntry[] = [
     status: "needs-review",
     detail: "Lexeme retained as a research seed; exact sense, spelling and usage example require editorial verification against the underlying dictionary/corpus.",
   },
-}));
+  };
+});
 
 dictionaryEntries.push(...everydayMaithiliExpansion);
