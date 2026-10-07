@@ -10,6 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AtlasRouteImport } from './routes/atlas'
+import { Route as ArtAtlasRouteImport } from './routes/art-atlas'
+import { Route as ExploreRouteImport } from './routes/explore'
+import { Route as LanguageLabRouteImport } from './routes/language-lab'
+import { Route as LearnRouteImport } from './routes/learn'
+import { Route as LiteraturePortalRouteImport } from './routes/literature-portal'
+import { Route as MusicArchiveRouteImport } from './routes/music-archive'
+import { Route as PeopleRouteImport } from './routes/people'
+import { Route as ProvenanceRouteImport } from './routes/provenance'
+import { Route as SourcesExplorerRouteImport } from './routes/sources-explorer'
+import { Route as StatsRouteImport } from './routes/stats'
+import { Route as TimelineRouteImport } from './routes/timeline'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as ArtRouteImport } from './routes/art'
 import { Route as AuthorsRouteImport } from './routes/authors'
@@ -29,6 +41,66 @@ import { Route as ApiArchiveTypeRouteImport } from './routes/api/archive.$type'
 import { Route as ArchiveTypeSlugRouteImport } from './routes/archive/$type.$slug'
 import { Route as ApiRecordsTypeSlugRouteImport } from './routes/api/records.$type.$slug'
 
+const AtlasRoute = AtlasRouteImport.update({
+  id: '/atlas',
+  path: '/atlas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArtAtlasRoute = ArtAtlasRouteImport.update({
+  id: '/art-atlas',
+  path: '/art-atlas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExploreRoute = ExploreRouteImport.update({
+  id: '/explore',
+  path: '/explore',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LanguageLabRoute = LanguageLabRouteImport.update({
+  id: '/language-lab',
+  path: '/language-lab',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LearnRoute = LearnRouteImport.update({
+  id: '/learn',
+  path: '/learn',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LiteraturePortalRoute = LiteraturePortalRouteImport.update({
+  id: '/literature-portal',
+  path: '/literature-portal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MusicArchiveRoute = MusicArchiveRouteImport.update({
+  id: '/music-archive',
+  path: '/music-archive',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PeopleRoute = PeopleRouteImport.update({
+  id: '/people',
+  path: '/people',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProvenanceRoute = ProvenanceRouteImport.update({
+  id: '/provenance',
+  path: '/provenance',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SourcesExplorerRoute = SourcesExplorerRouteImport.update({
+  id: '/sources-explorer',
+  path: '/sources-explorer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StatsRoute = StatsRouteImport.update({
+  id: '/stats',
+  path: '/stats',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TimelineRoute = TimelineRouteImport.update({
+  id: '/timeline',
+  path: '/timeline',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -126,6 +198,18 @@ const ApiRecordsTypeSlugRoute = ApiRecordsTypeSlugRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
+  '/atlas': typeof AtlasRoute
+  '/art-atlas': typeof ArtAtlasRoute
+  '/explore': typeof ExploreRoute
+  '/language-lab': typeof LanguageLabRoute
+  '/learn': typeof LearnRoute
+  '/literature-portal': typeof LiteraturePortalRoute
+  '/music-archive': typeof MusicArchiveRoute
+  '/people': typeof PeopleRoute
+  '/provenance': typeof ProvenanceRoute
+  '/sources-explorer': typeof SourcesExplorerRoute
+  '/stats': typeof StatsRoute
+  '/timeline': typeof TimelineRoute
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/art': typeof ArtRoute
@@ -147,6 +231,18 @@ export interface FileRoutesByFullPath {
   '/api/records/$type/$slug': typeof ApiRecordsTypeSlugRoute
 }
 export interface FileRoutesByTo {
+  '/atlas': typeof AtlasRoute
+  '/art-atlas': typeof ArtAtlasRoute
+  '/explore': typeof ExploreRoute
+  '/language-lab': typeof LanguageLabRoute
+  '/learn': typeof LearnRoute
+  '/literature-portal': typeof LiteraturePortalRoute
+  '/music-archive': typeof MusicArchiveRoute
+  '/people': typeof PeopleRoute
+  '/provenance': typeof ProvenanceRoute
+  '/sources-explorer': typeof SourcesExplorerRoute
+  '/stats': typeof StatsRoute
+  '/timeline': typeof TimelineRoute
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/art': typeof ArtRoute
@@ -168,6 +264,18 @@ export interface FileRoutesByTo {
   '/api/records/$type/$slug': typeof ApiRecordsTypeSlugRoute
 }
 export interface FileRoutesById {
+  '/atlas': typeof AtlasRoute
+  '/art-atlas': typeof ArtAtlasRoute
+  '/explore': typeof ExploreRoute
+  '/language-lab': typeof LanguageLabRoute
+  '/learn': typeof LearnRoute
+  '/literature-portal': typeof LiteraturePortalRoute
+  '/music-archive': typeof MusicArchiveRoute
+  '/people': typeof PeopleRoute
+  '/provenance': typeof ProvenanceRoute
+  '/sources-explorer': typeof SourcesExplorerRoute
+  '/stats': typeof StatsRoute
+  '/timeline': typeof TimelineRoute
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
@@ -192,6 +300,18 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/atlas'
+    | '/art-atlas'
+    | '/explore'
+    | '/language-lab'
+    | '/learn'
+    | '/literature-portal'
+    | '/music-archive'
+    | '/people'
+    | '/provenance'
+    | '/sources-explorer'
+    | '/stats'
+    | '/timeline'
     | '/'
     | '/about'
     | '/art'
@@ -213,6 +333,18 @@ export interface FileRouteTypes {
     | '/api/records/$type/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/atlas'
+    | '/art-atlas'
+    | '/explore'
+    | '/language-lab'
+    | '/learn'
+    | '/literature-portal'
+    | '/music-archive'
+    | '/people'
+    | '/provenance'
+    | '/sources-explorer'
+    | '/stats'
+    | '/timeline'
     | '/'
     | '/about'
     | '/art'
@@ -233,6 +365,18 @@ export interface FileRouteTypes {
     | '/archive/$type/$slug'
     | '/api/records/$type/$slug'
   id:
+    | '/atlas'
+    | '/art-atlas'
+    | '/explore'
+    | '/language-lab'
+    | '/learn'
+    | '/literature-portal'
+    | '/music-archive'
+    | '/people'
+    | '/provenance'
+    | '/sources-explorer'
+    | '/stats'
+    | '/timeline'
     | '__root__'
     | '/'
     | '/about'
@@ -256,6 +400,18 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  AtlasRoute: typeof AtlasRoute
+  ArtAtlasRoute: typeof ArtAtlasRoute
+  ExploreRoute: typeof ExploreRoute
+  LanguageLabRoute: typeof LanguageLabRoute
+  LearnRoute: typeof LearnRoute
+  LiteraturePortalRoute: typeof LiteraturePortalRoute
+  MusicArchiveRoute: typeof MusicArchiveRoute
+  PeopleRoute: typeof PeopleRoute
+  ProvenanceRoute: typeof ProvenanceRoute
+  SourcesExplorerRoute: typeof SourcesExplorerRoute
+  StatsRoute: typeof StatsRoute
+  TimelineRoute: typeof TimelineRoute
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ArtRoute: typeof ArtRoute
@@ -278,6 +434,90 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/atlas': {
+      id: '/atlas'
+      path: '/atlas'
+      fullPath: '/atlas'
+      preLoaderRoute: typeof AtlasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/art-atlas': {
+      id: '/art-atlas'
+      path: '/art-atlas'
+      fullPath: '/art-atlas'
+      preLoaderRoute: typeof ArtAtlasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explore': {
+      id: '/explore'
+      path: '/explore'
+      fullPath: '/explore'
+      preLoaderRoute: typeof ExploreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/language-lab': {
+      id: '/language-lab'
+      path: '/language-lab'
+      fullPath: '/language-lab'
+      preLoaderRoute: typeof LanguageLabRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/learn': {
+      id: '/learn'
+      path: '/learn'
+      fullPath: '/learn'
+      preLoaderRoute: typeof LearnRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/literature-portal': {
+      id: '/literature-portal'
+      path: '/literature-portal'
+      fullPath: '/literature-portal'
+      preLoaderRoute: typeof LiteraturePortalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/music-archive': {
+      id: '/music-archive'
+      path: '/music-archive'
+      fullPath: '/music-archive'
+      preLoaderRoute: typeof MusicArchiveRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/people': {
+      id: '/people'
+      path: '/people'
+      fullPath: '/people'
+      preLoaderRoute: typeof PeopleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/provenance': {
+      id: '/provenance'
+      path: '/provenance'
+      fullPath: '/provenance'
+      preLoaderRoute: typeof ProvenanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sources-explorer': {
+      id: '/sources-explorer'
+      path: '/sources-explorer'
+      fullPath: '/sources-explorer'
+      preLoaderRoute: typeof SourcesExplorerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/stats': {
+      id: '/stats'
+      path: '/stats'
+      fullPath: '/stats'
+      preLoaderRoute: typeof StatsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/timeline': {
+      id: '/timeline'
+      path: '/timeline'
+      fullPath: '/timeline'
+      preLoaderRoute: typeof TimelineRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -427,6 +667,18 @@ const ApiArchiveRouteWithChildren = ApiArchiveRoute._addFileChildren(
 )
 
 const rootRouteChildren: RootRouteChildren = {
+  AtlasRoute: AtlasRoute
+  ArtAtlasRoute: ArtAtlasRoute
+  ExploreRoute: ExploreRoute
+  LanguageLabRoute: LanguageLabRoute
+  LearnRoute: LearnRoute
+  LiteraturePortalRoute: LiteraturePortalRoute
+  MusicArchiveRoute: MusicArchiveRoute
+  PeopleRoute: PeopleRoute
+  ProvenanceRoute: ProvenanceRoute
+  SourcesExplorerRoute: SourcesExplorerRoute
+  StatsRoute: StatsRoute
+  TimelineRoute: TimelineRoute
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ArtRoute: ArtRoute,
