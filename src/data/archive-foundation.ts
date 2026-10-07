@@ -290,7 +290,6 @@ function sourceUrlFor(source: SourceRecord): string | undefined {
     if (citation.includes(needle.toLocaleLowerCase())) return url;
   }
   return undefined;
-  return undefined;
 }
 
 const enrichedSources = sources.map((source) => {
