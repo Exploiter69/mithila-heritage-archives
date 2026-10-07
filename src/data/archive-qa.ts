@@ -1,6 +1,6 @@
 import { canonicalArchive } from "./archive-foundation";
 import { auditArchiveMedia } from "./archive-media";
-import { runArchiveQualityAudit } from "./archive-quality";
+import { auditArchiveQuality } from "./archive-quality";
 import { validateArchive } from "./validate-archive";
 
 export interface ArchiveQaReport {
@@ -15,7 +15,7 @@ export interface ArchiveQaReport {
 
 export function runArchiveQa(): ArchiveQaReport {
   const validation = validateArchive(canonicalArchive);
-  const quality = runArchiveQualityAudit(canonicalArchive);
+  const quality = auditArchiveQuality(canonicalArchive);
   const media = auditArchiveMedia();
   const errors =
     (validation.valid ? 0 : validation.errors.length) +
