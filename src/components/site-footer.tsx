@@ -34,7 +34,7 @@ export function SiteFooter() {
         <nav aria-label="Footer research">
           <p className="label-eyebrow text-muted-foreground">Research</p>
           <ul className="mt-4 space-y-2">
-            {[
+            {([
               ["/research", "Research"],
               ["/search", "Search"],
               ["/sources", "Sources"],
