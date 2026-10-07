@@ -14,7 +14,7 @@ const apiRoutes = [
 ];
 
 for (const path of [...publicRoutes, ...apiRoutes]) {
-  const response = await fetch(base + path, { redirect: "manual" });
+  const response = await fetch(base + path, { redirect: "follow" });
   if (!response.ok) {
     const body = await response.text();
     throw new Error(path + " returned " + response.status + ": " + body.slice(0, 300));
