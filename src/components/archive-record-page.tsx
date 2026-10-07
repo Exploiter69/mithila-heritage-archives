@@ -8,7 +8,7 @@ import {
   SourceNote,
 } from "@/components/archive-ui";
 import { CommonsImageFigure } from "@/components/commons-image";
-import { getRelatedRecords } from "@/data/archive-platform";
+import { getRelatedRecords, RELATION_PREDICATE_LABELS } from "@/data/archive-platform";
 import {
   getArchiveAudioMedia,
   getArchiveEvidence,
@@ -503,7 +503,7 @@ export function ArchiveRecordPage({
                     params={{ type: target.type, slug: target.slug }}
                     className="block rounded-sm border border-border bg-secondary/40 p-4 transition-colors hover:border-gold"
                   >
-                    <span className="label-eyebrow text-terracotta">{relation.predicate}</span>
+                    <span className="label-eyebrow text-terracotta">{RELATION_PREDICATE_LABELS[relation.predicate]} · {relation.sourceIds.length} source{relation.sourceIds.length === 1 ? "" : "s"}</span>
                     <span className="mt-2 block text-lg text-foreground">{archiveRecordTitle(target)}</span>
                     {relation.note && <span className="mt-2 block text-sm leading-relaxed text-muted-foreground">{relation.note}</span>}
                   </Link>
