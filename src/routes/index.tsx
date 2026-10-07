@@ -183,6 +183,13 @@ function HomePage() {
       </Section>
 
       <Section className="pt-0">
+        <SectionTitle eyebrow="Discover the archive" title="Go beyond the collections" />
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {[["/explore","Explore Mithila","Curated journeys"],["/atlas","Cultural Atlas","Places & landscapes"],["/graph","Knowledge Graph","Relationships"],["/research","Research Portal","Sources & evidence"]].map(([to,label,blurb])=><Link key={to} to={to} className="rounded-sm border border-border bg-secondary/40 p-5 hover:border-gold"><h3 className="text-lg">{label}</h3><p className="mt-2 text-sm text-muted-foreground">{blurb}</p></Link>)}
+        </div>
+      </Section>
+
+      <Section className="pt-0">
         <SectionTitle eyebrow="Collections" title="Enter the archive" />
         <ul className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {QUICK_CARDS.map((c) => (
