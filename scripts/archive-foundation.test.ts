@@ -13,6 +13,7 @@ import {
   getArchiveAudioMedia,
   getArchiveMedia,
   getArchiveLiteratureForms,
+  getArchiveLiteraryWorks,
   getArchiveMusicCategories,
   getArchiveProvenance,
   getArchiveRecordById,
