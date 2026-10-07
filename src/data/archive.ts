@@ -184,7 +184,7 @@ export const literature: LiteratureWork[] = [
       detail: "Entry compiled from published bibliographies; text not yet consulted directly.",
       status: "needs-review",
     },
-  },,
+  },
   {
     slug: "manimanjari-natika", title: "Maṇimañjarī Nāṭikā", titleMai: "मणिमञ्जरी नाटिका",
     author: "Vidyāpati Ṭhākur", period: "15th century CE", form: "Drama", language: "Maithili / Sanskrit",
