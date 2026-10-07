@@ -158,6 +158,34 @@ export function getArchiveContent<T>(type: ArchiveRecordType): T[] {
   return getArchiveRecords(type).map((record) => record.content as T);
 }
 
+/**
+ * Collection-facing typed reads intentionally select the current collection
+ * payloads. The canonical graph also retains legacy payloads as published
+ * migration records, but those payloads do not implement the newer collection
+ * interfaces (for example, legacy dictionary entries have no examples[]).
+ */
+export function getArchiveLiteraryWorks(): LiteraryWork[] {
+  return getArchiveRecords("literature-work")
+    .map((record) => record.content as Partial<LiteraryWork>)
+    .filter(
+      (content): content is LiteraryWork =>
+        typeof content.slug === "string" &&
+        typeof content.titleDeva === "string" &&
+        Array.isArray(content.body),
+    );
+}
+
+export function getArchiveDictionaryEntries(): DictionaryEntry[] {
+  return getArchiveRecords("dictionary-entry")
+    .map((record) => record.content as Partial<DictionaryEntry>)
+    .filter(
+      (content): content is DictionaryEntry =>
+        typeof content.slug === "string" &&
+        typeof content.headword === "string" &&
+        Array.isArray(content.examples),
+    );
+}
+
 export interface ArchiveSearchHit {
   record: ArchiveRecord;
   title: string;
