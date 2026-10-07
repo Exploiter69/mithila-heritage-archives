@@ -34,12 +34,16 @@ export function searchArchiveAdvanced(
     types?: ArchiveRecordType[];
     statuses?: VerificationStatus[];
     limit?: number;
+    hasMedia?: boolean;
+    hasRelations?: boolean;
   } = {},
 ) {
   const hits = searchArchive(query, { limit: 100 });
   return hits
     .filter((hit) => !options.types?.length || options.types.includes(hit.record.type))
     .filter((hit) => !options.statuses?.length || options.statuses.includes(hit.record.verificationStatus))
+    .filter((hit) => options.hasMedia === undefined || (hit.record.mediaIds.length > 0) === options.hasMedia)
+    .filter((hit) => options.hasRelations === undefined || (hit.record.relationIds.length > 0) === options.hasRelations)
     .slice(0, Math.max(1, options.limit ?? 50));
 }
 
@@ -67,6 +71,8 @@ export function getArchiveStats() {
     bibliographicSources: canonicalArchive.bibliographicSources.length,
     media: canonicalArchive.media.length,
     relations: canonicalArchive.relations.length,
+    recordsWithMedia: records.filter((record) => record.mediaIds.length > 0).length,
+    recordsWithRelations: records.filter((record) => record.relationIds.length > 0).length,
     recordTypes: new Set(records.map((record) => record.type)).size,
   };
 }
