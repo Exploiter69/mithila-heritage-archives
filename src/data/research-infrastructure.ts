@@ -108,6 +108,7 @@ export function buildIiifManifest(
   record: ArchiveRecord,
   image: { displayUrl: string; sourceUrl: string; payload: { caption: string } },
   origin: string,
+  metadata: { width: number; height: number; format: string },
 ): IiifManifest {
   const manifestId = new URL("/api/records/" + record.type + "/" + record.slug + "?format=iiif", origin).toString();
   const canvasId = manifestId + "#canvas-1";
@@ -119,8 +120,8 @@ export function buildIiifManifest(
     items: [{
       id: canvasId,
       type: "Canvas",
-      width: 2000,
-      height: 2000,
+      width: metadata.width,
+      height: metadata.height,
       items: [{
         id: canvasId + "/page",
         type: "AnnotationPage",
@@ -128,7 +129,7 @@ export function buildIiifManifest(
           id: canvasId + "/annotation",
           type: "Annotation",
           motivation: "painting",
-          body: { id: image.displayUrl, type: "Image", format: "image/jpeg", width: 2000, height: 2000 },
+          body: { id: image.displayUrl, type: "Image", format: metadata.format, width: metadata.width, height: metadata.height },
           target: canvasId,
         }],
       }],
