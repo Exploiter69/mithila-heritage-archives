@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { searchArchive, searchArchiveAdvanced } from "@/data/archive-read";
+import { searchArchive } from "@/data/archive-read";
+import { searchArchiveAdvanced } from "@/data/archive-platform";
 import type { ArchiveRecordType, VerificationStatus } from "@/data/types";
 
 export const Route = createFileRoute("/api/search")({
