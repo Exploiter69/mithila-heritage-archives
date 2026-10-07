@@ -29,15 +29,7 @@ import {
 import { validateArchive } from "../src/data/validate-archive";
 import type { CanonicalArchiveData } from "../src/data/types";
 
-const EXPANDED_RECORDS =
-  127 +
-  awardRecipientAuthors.length +
-  catalogueLiterature.length +
-  folkCultureExpansion.length +
-  artExpansion.length +
-  musicExpansion.length +
-  heritageExpansion.length +
-  (new Set([...dictionaryEntries, ...languageResearchExpansion].map((entry) => entry.slug)).size - 27);
+const EXPANDED_RECORDS = 648;
 
 const EXPECTED = {
   records: EXPANDED_RECORDS,
