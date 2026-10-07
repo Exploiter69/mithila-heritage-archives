@@ -32,6 +32,10 @@ const moduleSchema = z.enum([
   "art.ts",
   "heritage.ts",
   "dictionary.ts",
+  "content-expansion-literature.ts",
+  "content-expansion-heritage.ts",
+  "content-expansion-deep.ts",
+  "content-expansion-language.ts",
 ]);
 
 const migrationRepresentationSchema = z.object({
