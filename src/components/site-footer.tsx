@@ -40,7 +40,7 @@ export function SiteFooter() {
               ["/sources", "Sources"],
               ["/graph", "Graph"],
               ["/media", "Media"],
-            ].map(([to, label]) => (
+            ] as const).map(([to, label]) => (
               <li key={to}>
                 <Link to={to} className="font-sans text-sm text-foreground/80 transition-colors hover:text-terracotta">
                   {label}
