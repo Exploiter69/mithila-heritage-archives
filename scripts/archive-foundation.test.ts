@@ -87,11 +87,9 @@ assert.deepEqual(
 );
 
 const valid = validateArchive(canonicalArchive);
-assert.equal(valid.valid, true, valid.errors.join("
-"));
+assert.equal(valid.valid, true, valid.errors.join("\n"));
 const quality = auditArchiveQuality(canonicalArchive);
-assert.equal(quality.errors.length, 0, quality.errors.map((item) => `${item.code}: ${item.message}`).join("
-"));
+assert.equal(quality.errors.length, 0, quality.errors.map((item) => `${item.code}: ${item.message}`).join("\n"));
 
 const invalidQualityArchive = cloneArchive();
 invalidQualityArchive.records[0]!.content = null;
