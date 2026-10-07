@@ -202,3 +202,51 @@ export function wordOfTheDay(date = new Date()): DictionaryEntry {
   const nouns = dictionaryEntries.filter((e) => e.wordClass !== "Idiom / Proverb");
   return nouns[day % nouns.length] ?? dictionaryEntries[0]!;
 }
+
+
+// Wave 3 seed: everyday Maithili vocabulary. Definitions are deliberately
+// conservative; examples are editorial examples and are labelled as such.
+const everydayMaithiliExpansion: DictionaryEntry[] = [
+  ["ghar","घर","ghar","/ɡʱər/","Noun","घर","house; home"],
+  ["aangan","आँगन","āṅgan","/aːŋɡən/","Noun","आँगन","courtyard"],
+  ["duaar","दुआर","duār","/duːaːr/","Noun","द्वार, दरवाज़ा","doorway; entrance"],
+  ["paani","पानि","pāni","/paːni/","Noun","पानी","water"],
+  ["maati","माटि","māṭi","/maːʈi/","Noun","मिट्टी","earth; soil"],
+  ["khet","खेत","khet","/kʰeːt/","Noun","खेत","cultivated field"],
+  ["dhaan","धान","dhān","/dʱaːn/","Noun","धान","paddy; rice plant before milling"],
+  ["pokhar","पोखरि","pokhari","/pokʰəri/","Noun","तालाब","pond; village pond"],
+  ["gaachh","गाछ","gāchh","/ɡaːtʃʰ/","Noun","पेड़","tree"],
+  ["phool","फूल","phūl","/pʰuːl/","Noun","फूल","flower"],
+  ["paat","पात","pāt","/paːt/","Noun","पत्ता","leaf"],
+  ["baat","बाट","bāṭ","/baːʈ/","Noun","रास्ता","path; road; way"],
+  ["bhaat","भात","bhāt","/bʱaːt/","Noun","पका हुआ चावल","cooked rice"],
+  ["dahi","दहि","dahi","/d̪əɦi/","Noun","दही","curd; yogurt"],
+  ["doodh","दूध","dūdh","/duːdʱ/","Noun","दूध","milk"],
+  ["maachh","माछ","māchh","/maːtʃʰ/","Noun","मछली","fish"],
+  ["nena","नेना","nenā","/neːnaː/","Noun","बच्चा","child; little child"],
+  ["maay","माए","māe","/maːeː/","Noun","माँ","mother"],
+  ["baap","बाप","bāp","/baːp/","Noun","पिता","father"],
+  ["baisak","बैसक","baisak","/bai̯sək/","Verb","बैठना","to sit; sit down"],
+].map(([slug, headword, transliteration, phonetic, wordClass, hindi, english]) => ({
+  slug,
+  headword,
+  transliteration,
+  phonetic,
+  wordClass: wordClass as WordClass,
+  hindi,
+  english,
+  examples: [{
+    deva: headword + " शब्दक उदाहरण एतय संपादकीय रूप सँ देल गेल अछि।",
+    translit: transliteration + " sabdak udāharan etay sampādakīya rūp sã del gel achhi.",
+    english: "Editorial example; pending corpus-level verification.",
+  }],
+  note: "Lexical seed from historical/reference-dictionary coverage; the example sentence is editorial and requires native-speaker/corpus review before being treated as attested usage.",
+  source: {
+    citation: "Grierson, An Introduction to the Maithili Language (1881); bibliographic coverage also indexed by the Digital Dictionaries of South Asia, University of Chicago.",
+    url: "https://dsal.uchicago.edu/dictionaries/dictionaries.html",
+    status: "needs-review",
+    detail: "Lexeme retained as a research seed; exact sense, spelling and usage example require editorial verification against the underlying dictionary/corpus.",
+  },
+}));
+
+dictionaryEntries.push(...everydayMaithiliExpansion);
