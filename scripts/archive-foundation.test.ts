@@ -27,10 +27,10 @@ import { validateArchive } from "../src/data/validate-archive";
 import type { CanonicalArchiveData } from "../src/data/types";
 
 const EXPECTED = {
-  records: 122,
-  representations: 123,
-  sources: 128,
-  provenance: 123,
+  records: 127,
+  representations: 128,
+  sources: 133,
+  provenance: 128,
   media: 19,
   relations: 12,
 } as const;
