@@ -29,15 +29,15 @@ import {
 import { validateArchive } from "../src/data/validate-archive";
 import type { CanonicalArchiveData } from "../src/data/types";
 
-const EXPANDED_RECORDS = 693;
+const EXPANDED_RECORDS = 723;
 
 const EXPECTED = {
   records: EXPANDED_RECORDS,
   representations: EXPANDED_RECORDS + 1,
-  sources: 699,
-  provenance: 694,
+  sources: 729,
+  provenance: 724,
   media: 30,
-  relations: 69,
+  relations: 84,
 } as const;
 
 function cloneArchive(): CanonicalArchiveData {
