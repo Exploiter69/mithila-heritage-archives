@@ -171,7 +171,7 @@ assert.ok(Array.isArray((featuredLiterature?.content as { body?: unknown }).body
 assert.equal(getArchiveRecords("author").length, 5 + awardRecipientAuthors.length);
 assert.equal(getArchiveContent("proverb").length, 6);
 assert.equal(getArchiveBibliography().length, 5);
-assert.equal(getArchiveLiteraryWorks().length, 62);\nassert.ok(catalogueLiterature.length >= 15);
+assert.equal(getArchiveLiteraryWorks().length, 62 + catalogueLiterature.length);\nassert.ok(catalogueLiterature.length >= 15);
 assert.equal(getArchiveDictionaryEntries().length, new Set(dictionaryEntries.map((entry) => entry.slug)).size);\nassert.ok(getArchiveDictionaryEntries().length >= 100);
 assert.deepEqual(getArchiveLiteratureForms(), [
   "All",
