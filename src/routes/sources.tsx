@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { EntryCard, PageHeader, Section } from "@/components/archive-ui";
