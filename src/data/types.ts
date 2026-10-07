@@ -193,6 +193,7 @@ export interface CommonsImageMediaRecord {
   sourceUrl: string;
   licenseUrl: string;
   provider: "wikimedia-commons";
+  preservation: "external-reference";
   payload: CommonsImage;
 }
 
@@ -203,6 +204,7 @@ export interface YoutubeAudioStreamMediaRecord {
   recordId: string;
   provider: "youtube";
   externalId: string;
+  preservation: "external-reference";
   locator: DeterministicMediaLocator;
   payload: YoutubeStreamPayload;
 }
