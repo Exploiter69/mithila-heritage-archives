@@ -85,7 +85,8 @@ function MusicPage() {
                   <div className="mt-6 flex flex-wrap items-center gap-2">
                     {s.stream && <button
                       type="button"
-                      onClick={() =>
+                      onClick={() => {
+                        if (!s.stream) return;
                         play({
                           id: s.slug,
                           title: s.transliteration,
@@ -93,8 +94,8 @@ function MusicPage() {
                           artist: s.performer,
                           youtubeId: s.stream.youtubeId,
                           channel: s.stream.channel,
-                        })
-                      }
+                        });
+                      }}
                       aria-label={current && playing ? `Pause ${s.title}` : `Play ${s.title}`}
                       className="inline-flex items-center gap-2 rounded-sm bg-terracotta px-3.5 py-2 font-sans text-xs tracking-wide text-primary-foreground uppercase transition-opacity hover:opacity-90"
                     >
