@@ -34,7 +34,7 @@ export function auditArchiveMedia(media: MediaRecord[] = canonicalArchive.media)
 
     const expected = "https://www.youtube.com/watch?v=" + item.externalId;
     if (item.locator.url !== expected) findings.push({ severity: "error", code: "locator-id-mismatch", mediaId: item.id, recordId: item.recordId, message: "Audio playback URL does not match the recorded YouTube identifier." });
-    if (!/^https:\\/\\/(?:www\\.)?youtube\\.com\\/watch\\?v=[^&]+$/.test(item.locator.url)) findings.push({ severity: "error", code: "invalid-youtube-locator", mediaId: item.id, recordId: item.recordId, message: "Audio locator is not a canonical YouTube watch URL." });
+    if (!item.locator.url.startsWith("https://www.youtube.com/watch?v=")) findings.push({ severity: "error", code: "invalid-youtube-locator", mediaId: item.id, recordId: item.recordId, message: "Audio locator is not a canonical YouTube watch URL." });
   }
 
   return {
