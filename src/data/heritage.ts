@@ -183,3 +183,14 @@ export const heritage: HeritageEntry[] = [
     },
   },
 ];
+
+
+const heritageImages: Record<string, CommonsImage> = {
+ "jitiya-jivitputrika":{url:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Terai-MithilaWomenCelebratingJitiya@BangalamukhiPatan20181002 165836.jpg",filePage:"https://commons.wikimedia.org/wiki/File:Terai-MithilaWomenCelebratingJitiya@BangalamukhiPatan20181002_165836.jpg",fileTitle:"Terai-MithilaWomenCelebratingJitiya@BangalamukhiPatan20181002 165836.jpg",credit:"Setoghoda",license:"CC BY-SA 4.0",licenseUrl:"https://creativecommons.org/licenses/by-sa/4.0",caption:"Maithili women of Nepal observing Jitiya."},
+ "jur-sital":{url:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Maithili New Year or Jur Sital, thali - 20200414.jpg",filePage:"https://commons.wikimedia.org/wiki/File:Maithili_New_Year_or_Jur_Sital,_thali_-_20200414.jpg",fileTitle:"Maithili New Year or Jur Sital, thali - 20200414.jpg",credit:"Tulsi Bhagat",license:"CC BY-SA 4.0",licenseUrl:"https://creativecommons.org/licenses/by-sa/4.0",caption:"Jur Sital / Maithili New Year food presentation."},
+ "chaurchan":{url:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Chauth Chand, Chauchan Puja.jpg",filePage:"https://commons.wikimedia.org/wiki/File:Chauth_Chand,_Chauchan_Puja.jpg",fileTitle:"Chauth Chand, Chauchan Puja.jpg",credit:"PANKAJ DEO",license:"CC BY-SA 4.0",licenseUrl:"https://creativecommons.org/licenses/by-sa/4.0",caption:"Chaurchan / Chauth Chand observance in the Mithila region."},
+ "kojagara":{url:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Maithil Vivah.jpg",filePage:"https://commons.wikimedia.org/wiki/File:Maithil_Vivah.jpg",fileTitle:"Maithil Vivah.jpg",credit:"Wikimedia Commons contributor",license:"CC BY-SA 4.0",licenseUrl:"https://creativecommons.org/licenses/by-sa/4.0",caption:"Representative Maithili ceremonial scene; contextual image, not claimed as a Kojagara photograph."},
+ "saurath-sabha":{url:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Saurath Sabha-10.jpg",filePage:"https://commons.wikimedia.org/wiki/File:Saurath_Sabha-10.jpg",fileTitle:"Saurath Sabha-10.jpg",credit:"Wikimedia Commons contributor",license:"CC BY-SA 4.0",licenseUrl:"https://creativecommons.org/licenses/by-sa/4.0",caption:"Saurath Sabha gathering site."},
+ "kapileshwar-nath":{url:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Kapileshwar Sthan at Kapil Ashram, Madhubani.jpg",filePage:"https://commons.wikimedia.org/wiki/File:Kapileshwar_Sthan_at_Kapil_Ashram,_Madhubani.jpg",fileTitle:"Kapileshwar Sthan at Kapil Ashram, Madhubani.jpg",credit:"Sntshkumar750",license:"CC BY-SA 4.0",licenseUrl:"https://creativecommons.org/licenses/by-sa/4.0",caption:"Kapileshwar Sthan at Kapil Ashram, Madhubani."},
+};
+for (const entry of heritage) if (!entry.image && heritageImages[entry.slug]) entry.image=heritageImages[entry.slug];
