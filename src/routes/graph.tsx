@@ -1,38 +1,60 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useMemo, useState } from "react";
 import { EntryCard, PageHeader, Section } from "@/components/archive-ui";
 import { canonicalArchive } from "@/data/archive-foundation";
+import { graphNeighbors, titleFor } from "@/data/archive-experience";
 import { archiveRecordTitle } from "@/components/archive-record-page";
 
 export const Route = createFileRoute("/graph")({
   head: () => ({ meta: [
-    { title: "Archive Relationship Graph — Mithila Digital Archive" },
-    { name: "description", content: "Evidence-backed relationships between canonical Mithila archive records." },
+    { title: "Knowledge Graph Explorer — Mithila Digital Archive" },
+    { name: "description", content: "Explore explicit, source-backed relationships between Mithila archive records." },
   ]}),
   component: GraphPage,
 });
 
 function GraphPage() {
+  const [slug, setSlug] = useState("vidyapati");
+  const records = canonicalArchive.records;
+  const selected = records.find((r) => r.slug === slug) ?? records[0];
+  const neighbors = useMemo(() => selected ? graphNeighbors(selected) : [], [selected]);
+
   return (
     <>
-      <PageHeader eyebrow="Knowledge graph" title="Relationships" titleMai="सम्बन्ध" intro="These links are explicit archive assertions, not algorithmic guesses. Each relation retains the source captures of its endpoint records." />
+      <PageHeader eyebrow="Knowledge graph" title="Knowledge Graph Explorer" titleMai="सम्बन्धक जाल" intro="Explore one record at a time. Every edge shown here is an explicit archive assertion; no relationship is inferred from keyword similarity." />
       <Section>
-        <div className="space-y-4">
-          {canonicalArchive.relations.map((relation) => {
-            const from = canonicalArchive.records.find((record) => record.id === relation.fromRecordId);
-            const to = canonicalArchive.records.find((record) => record.id === relation.toRecordId);
-            if (!from || !to) return null;
-            return (
-              <EntryCard key={relation.id}>
-                <div className="grid gap-3 md:grid-cols-[1fr_auto_1fr] md:items-center">
-                  <Link to="/archive/$type/$slug" params={{ type: from.type, slug: from.slug }} className="text-lg hover:text-terracotta">{archiveRecordTitle(from)}</Link>
-                  <span className="label-eyebrow text-terracotta text-center">{relation.predicate}</span>
-                  <Link to="/archive/$type/$slug" params={{ type: to.type, slug: to.slug }} className="text-lg hover:text-terracotta md:text-right">{archiveRecordTitle(to)}</Link>
-                </div>
-                {relation.note && <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{relation.note}</p>}
-              </EntryCard>
-            );
-          })}
-        </div>
+        <label className="block max-w-2xl font-sans text-sm">
+          <span className="label-eyebrow text-muted-foreground">Choose a record</span>
+          <select value={selected?.slug ?? ""} onChange={(e) => setSlug(e.target.value)} className="mt-2 w-full rounded-sm border border-input bg-background px-3 py-2">
+            {records.filter((r) => r.relationIds.length > 0).map((r) => <option key={r.id} value={r.slug}>{titleFor(r)} — {r.type}</option>)}
+          </select>
+        </label>
+        {selected && <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_1.6fr]">
+          <EntryCard>
+            <p className="label-eyebrow text-terracotta">{selected.type}</p>
+            <h2 className="mt-2 text-2xl">{archiveRecordTitle(selected)}</h2>
+            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">Record ID: {selected.id}</p>
+            <Link to="/archive/$type/$slug" params={{ type: selected.type, slug: selected.slug }} className="mt-5 inline-block text-sm text-terracotta hover:underline">Open record →</Link>
+          </EntryCard>
+          <div className="relative rounded-sm border border-border bg-secondary/20 p-6">
+            <div className="flex min-h-72 flex-col items-center justify-center gap-4">
+              <Link to="/archive/$type/$slug" params={{ type: selected.type, slug: selected.slug }} className="rounded-full border-2 border-terracotta bg-background px-5 py-4 text-center shadow-sm hover:bg-secondary">
+                <span className="block text-lg">{archiveRecordTitle(selected)}</span>
+                <span className="label-eyebrow text-muted-foreground">central record</span>
+              </Link>
+              <div className="grid w-full gap-3 sm:grid-cols-2">
+                {neighbors.map(({ relation, target, typeLabel }) => (
+                  <Link key={relation.id} to="/archive/$type/$slug" params={{ type: target.type, slug: target.slug }} className="rounded-sm border border-border bg-background p-4 hover:border-gold">
+                    <span className="label-eyebrow text-terracotta">{relation.predicate} · {typeLabel}</span>
+                    <span className="mt-2 block text-base">{archiveRecordTitle(target)}</span>
+                  </Link>
+                ))}
+              </div>
+              {neighbors.length === 0 && <p className="text-sm text-muted-foreground">No explicit relationships are currently asserted for this record.</p>}
+            </div>
+          </div>
+        </div>}
+        <p className="mt-8 text-xs leading-relaxed text-muted-foreground">The visual layout is an accessible graph view: every node is a normal keyboard-focusable link, and the relationship list remains usable without a canvas or client-side graph engine.</p>
       </Section>
     </>
   );
