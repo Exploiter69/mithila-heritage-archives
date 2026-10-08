@@ -21,6 +21,7 @@ import {
   type Song,
 } from "@/data/archive-read";
 import type { ArchiveRecord, ArchiveRecordType, CommonsImage, Source } from "@/data/types";
+import type { RecordingStatus } from "@/data/music";
 
 export const ARCHIVE_ROUTE_CONFIG: Record<
   ArchiveRecordType,
@@ -374,6 +375,16 @@ function RecordBody({ record }: { record: ArchiveRecord }) {
               ["Category", song.category],
             ]}
           />
+          <div className="mt-6 rounded-sm border border-border bg-secondary/40 p-4">
+            <p className="label-eyebrow text-terracotta">Recording status</p>
+            <p className="mt-2 text-sm leading-relaxed text-foreground">
+              {song.recordingStatus === "verified-live"
+                ? "An external recording lead is currently attached."
+                : song.recordingStatus === "needs-recheck" || song.stream
+                  ? "An external recording lead exists, but it should be re-checked before being treated as a live link."
+                  : "No current external recording was located. The cultural record remains published independently of media availability."}
+            </p>
+          </div>
           <p className="mt-8 text-lg leading-relaxed text-foreground/90">{song.about}</p>
           {audio && (
             <a
