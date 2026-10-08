@@ -51,7 +51,7 @@ export function SiteHeader() {
   }
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-background/92 backdrop-blur-sm">
+    <header className="sticky top-0 z-40 border-b border-border bg-background/92 shadow-[0_1px_0_rgba(0,0,0,0.02)] backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 md:px-8">
         <Link to="/" className="flex items-baseline gap-2.5">
           <span className="deva text-lg leading-none text-terracotta">मि</span>
@@ -65,13 +65,13 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-5 lg:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
           {NAV.map((item) => (
             <Link
               key={item.to}
               to={item.to}
-              className="font-sans text-[0.8rem] text-muted-foreground transition-colors hover:text-terracotta"
-              activeProps={{ className: "text-terracotta" }}
+              className="rounded-sm px-2.5 py-2 font-sans text-[0.78rem] text-muted-foreground transition-colors hover:bg-secondary hover:text-terracotta"
+              activeProps={{ className: "bg-secondary text-terracotta" }}
             >
               {item.label}
             </Link>
@@ -143,7 +143,10 @@ export function SiteHeader() {
               </nav>
             </SheetContent>
           </Sheet>
-          <div className="hidden items-center gap-3 xl:flex"><Link to="/research" className="font-sans text-[0.8rem] text-muted-foreground transition-colors hover:text-terracotta">Research</Link><Link to="/graph" className="font-sans text-[0.8rem] text-muted-foreground transition-colors hover:text-terracotta">Graph</Link></div>
+          <div className="hidden items-center gap-1 xl:flex">
+            <Link to="/research" className="rounded-sm px-2.5 py-2 font-sans text-[0.78rem] text-muted-foreground transition-colors hover:bg-secondary hover:text-terracotta" activeProps={{ className: "bg-secondary text-terracotta" }}>Research</Link>
+            <Link to="/graph" className="rounded-sm px-2.5 py-2 font-sans text-[0.78rem] text-muted-foreground transition-colors hover:bg-secondary hover:text-terracotta" activeProps={{ className: "bg-secondary text-terracotta" }}>Graph</Link>
+          </div>
         </div>
       </div>
 
