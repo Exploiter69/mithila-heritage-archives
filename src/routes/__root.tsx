@@ -89,7 +89,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { property: "og:site_name", content: "Mithila Digital Archive" },
       { property: "og:type", content: "website" },
+      { property: "og:image", content: "/og-archive.svg" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "/og-archive.svg" },
     ],
     links: [
       {
