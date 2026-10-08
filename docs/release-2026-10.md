@@ -2,7 +2,7 @@
 
 Release date: 2026-10-08.
 
-This is the current public software/data snapshot of Mithila Heritage Archives.
+This is the current public software/data snapshot of Mithila Heritage Archives. The published catalogue contains 753 records, including 42 music song/tradition records.
 
 ## Distribution
 
@@ -28,3 +28,8 @@ Source-by-source human verification, precise edition/page locators and disputed-
 ## Reproducibility
 
 The Git commit that contains this release is the immutable source snapshot. The public API is a read-only projection of that canonical dataset.
+
+
+## Music collection note
+
+The 2026.10 snapshot includes a research-first music catalogue covering 42 song/tradition records. External recordings are playback leads only; unavailable or unverified links are not treated as preservation copies. Records without current recordings remain part of the published catalogue.
