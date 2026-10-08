@@ -7,7 +7,7 @@
   "apiVersion": "1.0",
   "researchApiVersion": "2.0",
   "sourceOfTruth": "canonical-static-archive",
-  "gitCommit": "0e69d5461c0b9cb778ee6ede36ac9e7389767fbe",
+  "gitCommit": "05a1e97a073adcc0b42b96af6b6ec6e4b4a8ff55",
   "counts": {
     "records": 754,
     "representations": 755,
