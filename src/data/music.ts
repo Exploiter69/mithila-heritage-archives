@@ -579,6 +579,60 @@ const expandedMusicCorpus: Song[] = [
   },
 ];
 
+expandedMusicCorpus.push(
+  {
+    slug: "jajamanti-prati",
+    title: "Jajamanti Prāti",
+    titleDeva: "जाजमन्ती प्राती",
+    transliteration: "Jājamantī Prātī",
+    performer: "Traditional devotional singers",
+    occasion: "Morning devotional repertoire",
+    category: "देवगीत",
+    recordingStatus: "no-recording-located",
+    about: "Jājamantī is named by IGNCA as one of the varieties of Prāti morning songs. The archive preserves the classification while leaving specific recordings and textual variants open for accession.",
+    lyrics: [],
+    source: { citation: "Kailash K. Mishra, Classification and Structure of Maithili Folksongs, IGNCA.", url: "https://ignca.gov.in/PDF_data/Classification_Structure_Maithili_FolkSongs.pdf", status: "verified" },
+  },
+  {
+    slug: "vihaga-prati",
+    title: "Vihaga Prāti",
+    titleDeva: "विहागा प्राती",
+    transliteration: "Vihagā Prātī",
+    performer: "Traditional devotional singers",
+    occasion: "Morning devotional repertoire",
+    category: "देवगीत",
+    recordingStatus: "no-recording-located",
+    about: "Vihaga is another Prāti variety identified in IGNCA's classification. This record is intentionally form-level rather than a claim about one canonical melody.",
+    lyrics: [],
+    source: { citation: "Kailash K. Mishra, Classification and Structure of Maithili Folksongs, IGNCA.", url: "https://ignca.gov.in/PDF_data/Classification_Structure_Maithili_FolkSongs.pdf", status: "verified" },
+  },
+  {
+    slug: "mendicant-song-tradition",
+    title: "Mendicant song tradition",
+    titleDeva: "माँगनिक / साधु गीत",
+    transliteration: "Mendicant song tradition",
+    performer: "Traditional mendicant singers",
+    occasion: "Mendicant and devotional performance",
+    category: "लोकगीत",
+    recordingStatus: "no-recording-located",
+    about: "IGNCA separately identifies mendicant's songs within Maithili devotional folklore. The archive retains the category without assigning a modern performer or fixed text.",
+    lyrics: [],
+    source: { citation: "Kailash K. Mishra, Classification and Structure of Maithili Folksongs, IGNCA.", url: "https://ignca.gov.in/PDF_data/Classification_Structure_Maithili_FolkSongs.pdf", status: "verified" },
+  },
+  {
+    slug: "caravan-journey-song",
+    title: "Caravan and journey songs",
+    titleDeva: "कारवाँ / यात्रा गीत",
+    transliteration: "Caravan songs",
+    performer: "Traditional travelling singers",
+    occasion: "Travel, journey and communal movement",
+    category: "लोकगीत",
+    recordingStatus: "no-recording-located",
+    about: "IGNCA includes caravan songs among Maithili love-and-beauty and folk performance traditions. The archive records the form as a research lead pending locality-specific accessions.",
+    lyrics: [],
+    source: { citation: "Kailash K. Mishra, Classification and Structure of Maithili Folksongs, IGNCA.", url: "https://ignca.gov.in/PDF_data/Classification_Structure_Maithili_FolkSongs.pdf", status: "verified" },
+  },
+);
 songs.push(...expandedMusicCorpus);
 
 
