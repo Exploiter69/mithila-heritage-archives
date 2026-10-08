@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { PageHeader, Section, SectionTitle } from "@/components/archive-ui";
 import { getArchiveBibliography } from "@/data/archive-read";
+import { getArchiveStats, getResearchFacets } from "@/data/archive-platform";
 
 const TITLE = "About & Sources — Mithila Digital Archive";
 const DESC =
@@ -40,18 +41,10 @@ const PRINCIPLES = [
   },
 ];
 
-const STATUS: [string, string][] = [
-  ["Literature", "6 works seeded · expanding"],
-  ["Authors", "5 records · expanding"],
-  ["Language", "4 topics · outline stage"],
-  ["Dictionary", "12 headwords · early"],
-  ["Proverbs", "6 entries · early"],
-  ["Art & Heritage", "5 styles + 6 sites · CC-licensed images"],
-  ["Music", "5 songs · streamed from YouTube"],
-];
-
 function AboutPage() {
   const sources = getArchiveBibliography();
+  const stats = getArchiveStats();
+  const facets = getResearchFacets();
 
   return (
     <>
@@ -83,15 +76,24 @@ function AboutPage() {
 
           <aside className="lg:sticky lg:top-24 lg:self-start">
             <div className="rounded-sm border border-border bg-secondary/60 p-6">
-              <p className="label-eyebrow text-terracotta">v0.1 coverage</p>
+              <p className="label-eyebrow text-terracotta">Live archive coverage</p>
               <dl className="mt-4 space-y-3">
-                {STATUS.map(([k, v]) => (
-                  <div key={k} className="border-b border-border pb-3 last:border-0 last:pb-0">
-                    <dt className="font-sans text-sm text-foreground">{k}</dt>
-                    <dd className="mt-0.5 font-sans text-xs text-muted-foreground">{v}</dd>
+                {[
+                  ["Records", stats.records],
+                  ["Sources", stats.sources],
+                  ["Provenance assertions", stats.provenanceAssertions],
+                  ["Relations", stats.relations],
+                  ["Media", stats.media],
+                ].map(([label, value]) => (
+                  <div key={String(label)} className="border-b border-border pb-3 last:border-0 last:pb-0">
+                    <dt className="font-sans text-sm text-foreground">{label}</dt>
+                    <dd className="mt-0.5 font-sans text-xs text-muted-foreground">{value}</dd>
                   </div>
                 ))}
               </dl>
+              <p className="mt-5 text-xs leading-relaxed text-muted-foreground">
+                Counts are generated from the canonical archive and are not claims of completeness.
+              </p>
             </div>
           </aside>
         </div>
@@ -110,6 +112,18 @@ function AboutPage() {
             </li>
           ))}
         </ul>
+
+        <div className="mt-12 rounded-sm border border-border bg-secondary/40 p-6 md:p-8">
+          <h2 className="text-xl tracking-tight text-foreground">Record-type coverage</h2>
+          <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {facets.types.map((facet) => (
+              <div key={facet.value} className="flex items-center justify-between border-b border-border pb-2">
+                <span className="text-sm text-foreground">{facet.label}</span>
+                <span className="font-sans text-xs text-muted-foreground">{facet.count}</span>
+              </div>
+            ))}
+          </div>
+        </div>
 
         <div className="mt-12 rounded-sm border border-gold/50 bg-gold-soft/30 p-6 md:p-8">
           <h2 className="text-xl tracking-tight text-foreground">Corrections</h2>
