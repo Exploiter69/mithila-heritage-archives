@@ -27,7 +27,7 @@ jobs:
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
-          bun-version: latest
+          bun-version: 1.4.2
 
       - name: Install dependencies
         run: bun install --frozen-lockfile
@@ -61,6 +61,9 @@ jobs:
 
       - name: Public export contract
         run: bun run archive:export > /tmp/archive-export.json
+
+      - name: Public export regression contract
+        run: bun run test:export-contract
 
       - name: Contribution proposal audit
         run: bun run archive:contributions
@@ -115,4 +118,11 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
       - name: Source URL health report
-        run: bun run archive:source-health
+        run: bun run archive:source-health > source-health-report.md
+
+      - name: Upload source health report
+        uses: actions/upload-artifact@v4
+        with:
+          name: source-health-report
+          path: source-health-report.md
+          retention-days: 30
