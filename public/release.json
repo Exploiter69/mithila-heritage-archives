@@ -7,13 +7,13 @@
   "apiVersion": "1.0",
   "researchApiVersion": "2.0",
   "sourceOfTruth": "canonical-static-archive",
-  "gitCommit": "be8235fac1af09346d7acb4ea37bd080cff761db",
+  "gitCommit": "4dff9ad8fbf7160b91a059f8a75f57c86af2baa2",
   "counts": {
-    "records": 723,
-    "representations": 724,
-    "sources": 729,
-    "provenanceAssertions": 724,
-    "media": 30,
+    "records": 753,
+    "representations": 754,
+    "sources": 759,
+    "provenanceAssertions": 754,
+    "media": 28,
     "relations": 86,
     "recordTypes": 9
   },
@@ -23,5 +23,6 @@
     "researchJson": "/api/archive?format=research-json",
     "csv": "/api/archive?format=csv",
     "api": "/api/archive"
-  }
+  },
+  "musicRecords": 42
 }
