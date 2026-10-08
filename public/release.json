@@ -1,0 +1,27 @@
+{
+  "release": "2026.10.0",
+  "releaseDate": "2026-10-08",
+  "archive": "Mithila Heritage Archives",
+  "description": "Reproducible metadata for the published Mithila cultural archive snapshot.",
+  "schemaVersion": "archive-static-schema",
+  "apiVersion": "1.0",
+  "researchApiVersion": "2.0",
+  "sourceOfTruth": "canonical-static-archive",
+  "gitCommit": "be8235fac1af09346d7acb4ea37bd080cff761db",
+  "counts": {
+    "records": 723,
+    "representations": 724,
+    "sources": 729,
+    "provenanceAssertions": 724,
+    "media": 30,
+    "relations": 86,
+    "recordTypes": 9
+  },
+  "verificationBoundary": "Release metadata identifies a published software/data snapshot. It does not imply that every cultural claim has been independently verified.",
+  "exports": {
+    "json": "/api/archive?format=json",
+    "researchJson": "/api/archive?format=research-json",
+    "csv": "/api/archive?format=csv",
+    "api": "/api/archive"
+  }
+}
