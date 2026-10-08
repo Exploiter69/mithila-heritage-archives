@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { ExternalLink } from "lucide-react";
+import { Check, Copy, ExternalLink } from "lucide-react";
+import { useState } from "react";
 
 import {
   MetaRow,
@@ -47,6 +48,73 @@ const TYPE_LABELS: Record<ArchiveRecordType, string> = {
   song: "Song",
   "heritage-entry": "Heritage",
 };
+
+function citationTitle(record: ArchiveRecord): string {
+  return archiveRecordTitle(record);
+}
+
+function CitationPanel({ record, canonicalUrl }: { record: ArchiveRecord; canonicalUrl: string }) {
+  const [copied, setCopied] = useState<"plain" | "bibtex" | null>(null);
+  const title = citationTitle(record);
+  const year = new Date().getFullYear();
+  const path = canonicalUrl;
+  const plain = \`\${title}. Mithila Heritage Archives. Record \${record.id}. \${path}. Accessed \${year}.\`;
+  const bibtexKey = \`mithila_\${record.type}_\${record.slug.replace(/[^a-z0-9]+/gi, "_")}\`;
+  const bibtex = \`@misc{\${bibtexKey},
+  title = {\${title.replace(/[{}]/g, "")}},
+  organization = {Mithila Heritage Archives},
+  note = {Archive record \${record.id}},
+  url = {\${path}},
+  year = {\${year}}
+}\`;
+
+  async function copy(value: string, kind: "plain" | "bibtex") {
+    if (!navigator.clipboard) return;
+    await navigator.clipboard.writeText(value);
+    setCopied(kind);
+    window.setTimeout(() => setCopied(null), 1800);
+  }
+
+  return (
+    <section className="mt-12 border-t border-border pt-8" aria-labelledby="citation-heading">
+      <div className="flex flex-wrap items-baseline justify-between gap-3">
+        <div>
+          <p className="label-eyebrow text-terracotta">Stable citation</p>
+          <h2 id="citation-heading" className="mt-1 text-2xl font-normal tracking-tight text-foreground">
+            Cite this record
+          </h2>
+        </div>
+        <span className="font-sans text-xs text-muted-foreground">ID · {record.id}</span>
+      </div>
+      <div className="mt-5 grid gap-4 lg:grid-cols-2">
+        <div className="rounded-sm border border-border bg-secondary/40 p-4">
+          <p className="label-eyebrow text-muted-foreground">Plain text</p>
+          <p className="mt-3 text-sm leading-relaxed text-foreground/90">{plain}</p>
+          <button
+            type="button"
+            onClick={() => void copy(plain, "plain")}
+            className="mt-4 inline-flex items-center gap-2 rounded-sm border border-border px-3 py-2 font-sans text-xs text-foreground hover:border-gold hover:text-terracotta"
+          >
+            {copied === "plain" ? <Check className="size-3.5" /> : <Copy className="size-3.5" />}
+            {copied === "plain" ? "Copied" : "Copy citation"}
+          </button>
+        </div>
+        <div className="rounded-sm border border-border bg-secondary/40 p-4">
+          <p className="label-eyebrow text-muted-foreground">BibTeX</p>
+          <pre className="mt-3 overflow-x-auto whitespace-pre-wrap font-sans text-xs leading-relaxed text-foreground/90">{bibtex}</pre>
+          <button
+            type="button"
+            onClick={() => void copy(bibtex, "bibtex")}
+            className="mt-4 inline-flex items-center gap-2 rounded-sm border border-border px-3 py-2 font-sans text-xs text-foreground hover:border-gold hover:text-terracotta"
+          >
+            {copied === "bibtex" ? <Check className="size-3.5" /> : <Copy className="size-3.5" />}
+            {copied === "bibtex" ? "Copied" : "Copy BibTeX"}
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 function sourceFromRecord(record: ArchiveRecord): Source | undefined {
   const evidence = getArchiveEvidence(record)[0];
@@ -399,9 +467,12 @@ export function ArchiveRecordPage({
           {title.titleDeva && (
             <p className="deva mt-3 text-2xl text-muted-foreground">{title.titleDeva}</p>
           )}
-          <p className="mt-3 font-sans text-xs tracking-wide text-muted-foreground">
-            Record ID · {record.id}
-          </p>
+          <div className="mt-3 flex flex-wrap items-center gap-3 font-sans text-xs text-muted-foreground">
+            <span>Record ID · {record.id}</span>
+            <span className="rounded-full border border-border px-2.5 py-1 capitalize">
+              {record.verificationStatus.replaceAll("-", " ")}
+            </span>
+          </div>
         </header>
 
         <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_20rem]">
@@ -489,6 +560,8 @@ export function ArchiveRecordPage({
             ))}
           </div>
         </section>
+
+        <CitationPanel record={record} canonicalUrl={canonicalUrl} />
 
         {getRelatedRecords(record).length > 0 && (
           <section className="mt-12 border-t border-border pt-8" aria-labelledby="related-heading">
