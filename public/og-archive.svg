@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#f5efe3"/>
+  <path d="M0 510 Q180 430 360 510 T720 510 T1080 510 T1440 510" fill="none" stroke="#b56b4c" stroke-width="3" opacity=".45"/>
+  <path d="M70 120h1060M120 165h960" stroke="#b99a55" stroke-width="2" opacity=".5"/>
+  <text x="600" y="245" text-anchor="middle" font-family="Georgia, serif" font-size="54" fill="#29231f">Mithila Heritage Archives</text>
+  <text x="600" y="315" text-anchor="middle" font-family="serif" font-size="38" fill="#b56b4c">मिथिला डिजिटल आर्काइव</text>
+  <text x="600" y="385" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" fill="#5f5852">An evidence-oriented digital archive of Mithila and the Maithili language</text>
+  <text x="600" y="555" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" letter-spacing="3" fill="#6d655e">LITERATURE · LANGUAGE · ART · MUSIC · HERITAGE · SOURCES</text>
+</svg>
