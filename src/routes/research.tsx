@@ -74,17 +74,18 @@ function ResearchPage() {
             </p>
             <div className="mt-5 flex flex-wrap gap-3">
               <a href="/api/archive?format=csv" className="inline-flex items-center rounded-sm bg-terracotta px-4 py-2.5 font-sans text-sm text-primary-foreground hover:opacity-90">Download CSV</a>
-              <a href="/api/archive" className="inline-flex items-center rounded-sm border border-border px-4 py-2.5 font-sans text-sm text-foreground hover:border-gold">Open JSON</a>
-              <a href="/api/archive?version=2" className="inline-flex items-center rounded-sm border border-border px-4 py-2.5 font-sans text-sm text-foreground hover:border-gold">Open research JSON</a>
+              <a href="/api/archive?format=json" className="inline-flex items-center rounded-sm border border-border px-4 py-2.5 font-sans text-sm text-foreground hover:border-gold">Download JSON</a>
+              <a href="/api/archive?format=research-json" className="inline-flex items-center rounded-sm border border-border px-4 py-2.5 font-sans text-sm text-foreground hover:border-gold">Download research JSON</a>
             </div>
           </EntryCard>
           <div className="rounded-sm border border-border bg-secondary/40 p-6">
             <p className="label-eyebrow text-muted-foreground">Download contract</p>
             <ul className="mt-4 space-y-3 text-sm leading-relaxed text-muted-foreground">
-              <li><strong className="text-foreground">JSON</strong> — complete published records and explicit relations.</li>
-              <li><strong className="text-foreground">Research JSON</strong> — versioned research dataset envelope with current counts.</li>
+              <li><strong className="text-foreground">JSON</strong> — downloadable snapshot of complete published records and explicit relations.</li>
+              <li><strong className="text-foreground">Research JSON</strong> — downloadable versioned research dataset envelope with current counts.</li>
               <li><strong className="text-foreground">CSV</strong> — one row per published record; nested content remains JSON in the final column.</li>
               <li><strong className="text-foreground">Stable IDs</strong> — record identifiers and slugs are preserved across exports.</li>
+              <li><strong className="text-foreground">Release metadata</strong> — <a href="/release.json" className="text-terracotta hover:underline">machine-readable release manifest</a> records the dataset snapshot and schema versions.</li>
             </ul>
           </div>
         </div>
