@@ -20,17 +20,17 @@ The archive is designed around a simple rule:
 
 The canonical dataset currently contains:
 
-- **753 canonical records**
-- **754 representations**
-- **759 source records**
-- **754 provenance assertions**
+- **754 canonical records**
+- **755 representations**
+- **760 source records**
+- **755 provenance assertions**
 - **28 media records**
 - **86 explicit record relationships**
 - **9 record types**
 - **71 award-recipient records**
 - **20 catalogue works**
 - **54 dictionary entries**
-- **42 music song/tradition records**
+- **43 music song/tradition records**
 
 These numbers are release metadata, not a statement about the size of Mithila's heritage.
 
