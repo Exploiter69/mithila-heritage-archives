@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: mithila-heritage-archives
+    runtime: node
+    plan: free
+    branch: main
+    buildCommand: bun install --frozen-lockfile && NITRO_PRESET=node-server bun run build
+    startCommand: bun run start
+    healthCheckPath: /
+    autoDeploy: true
+    envVars:
+      - key: BUN_VERSION
+        value: 1.4.2
+      - key: NITRO_PRESET
+        value: node-server
+      - key: VITE_SITE_URL
+        sync: false
