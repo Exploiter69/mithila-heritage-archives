@@ -2,7 +2,7 @@
 
 Release date: 2026-10-08.
 
-This is the current public software/data snapshot of Mithila Heritage Archives. The published catalogue contains 753 records, including 42 music song/tradition records.
+This is the current public software/data snapshot of Mithila Heritage Archives. The published catalogue contains 754 records, including 43 music song/tradition records.
 
 ## Distribution
 
