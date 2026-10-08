@@ -3,4 +3,5 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-# Add the absolute production sitemap URL here once the deployment hostname is fixed.
+# The sitemap URL is emitted automatically when VITE_SITE_URL is configured.
+# It is intentionally omitted here until the production hostname exists.

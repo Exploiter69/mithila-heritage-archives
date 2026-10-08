@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useLocation,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -115,10 +116,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
+  const location = useLocation();
+  const siteUrl = import.meta.env["VITE_SITE_URL"]?.replace(/\/$/, "") ?? "";
+  const canonicalUrl = siteUrl ? `${siteUrl}${location.pathname}` : "";
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
         <HeadContent />
+        {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+        {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
         <script
           dangerouslySetInnerHTML={{
             __html: `(() => {

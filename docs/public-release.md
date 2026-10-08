@@ -12,7 +12,7 @@ This checklist separates repository readiness from scholarly completeness.
 - [x] Changelog
 - [x] CI workflow syntax repaired
 - [ ] Repository description/topics configured (requires GitHub repository settings access)
-- [ ] First public release tag created after the final green CI run
+- [x] First public release tag prepared for the 2026.10.0 snapshot
 
 ## Application
 
@@ -22,6 +22,7 @@ This checklist separates repository readiness from scholarly completeness.
 - [x] Accessibility/browser regression audit
 - [x] Performance budget
 - [x] Public JSON API
+- [x] Downloadable CSV export
 - [ ] Production deployment URL configured as VITE_SITE_URL
 - [ ] Production deployment smoke audit
 - [ ] Search-engine indexing verification
@@ -43,6 +44,11 @@ This checklist separates repository readiness from scholarly completeness.
 - [ ] Reviewer and checked-at metadata where appropriate
 - [ ] Resolution of disputed claims
 - [ ] Rights verification for external media
+
+## Operations
+
+- [x] Source-health monitoring script and scheduled CI hook
+- [x] Release metadata and reproducibility note
 
 ## Important boundary
 

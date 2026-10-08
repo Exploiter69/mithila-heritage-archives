@@ -37,7 +37,8 @@
     "test:scholarly": "bun scripts/editorial-audit.test.ts",
     "test": "bun run test:archive && bun run test:identity && bun run test:archive-records && bun run test:runtime && bun run test:research && bun run test:content-expansion && bun run test:content-expansion-heritage && bun run test:content-expansion-deep && bun run test:experience && bun run test:deep-audit && bun run test:scholarly",
     "archive:sitemap": "bun scripts/generate-sitemap.ts",
-    "start": "node .output/server/index.mjs"
+    "start": "node .output/server/index.mjs",
+    "archive:source-health": "bun scripts/source-health.ts"
   },
   "overrides": {
     "rolldown": "1.2.1"

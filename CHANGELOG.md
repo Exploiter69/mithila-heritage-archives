@@ -2,6 +2,20 @@
 
 All notable public changes to Mithila Heritage Archives are recorded here.
 
+## 2026.10.0 — 2026-10-08
+
+### Public research release
+
+- Added a stable archive release identifier and release date to public exports.
+- Added a downloadable CSV export alongside the JSON and versioned research JSON endpoints.
+- Expanded the Research & Data surface into a public distribution page with explicit export semantics.
+- Added source-health monitoring infrastructure for scheduled URL reachability checks.
+- Completed the final automated CI validation baseline for the current release.
+
+### Research boundary
+
+This release is a software/data snapshot, not a claim that every cultural statement is permanently verified. Record-level verification status, provenance, attribution and uncertainty remain authoritative.
+
 ## Unreleased
 
 ### Public release preparation
