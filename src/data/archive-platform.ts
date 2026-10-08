@@ -73,6 +73,7 @@ export function getArchiveStats() {
     records: records.length,
     sources: canonicalArchive.sources.length,
     bibliographicSources: canonicalArchive.bibliographicSources.length,
+    provenanceAssertions: canonicalArchive.provenance.length + canonicalArchive.provenanceV2.length,
     media: canonicalArchive.media.length,
     relations: canonicalArchive.relations.length,
     recordsWithMedia: records.filter((record) => record.mediaIds.length > 0).length,
