@@ -4,7 +4,7 @@
 
 Mithila Heritage Archives brings literature, language, art, music, heritage, people, places, sources, media and documented relationships into one research-oriented public archive.
 
-**[Explore the archive]((production deployment pending))** · **[Research portal]((production deployment pending)research)** · **[API]((production deployment pending)api/archive)**
+**[GitHub repository](https://github.com/Exploiter69/mithila-heritage-archives)** · **[Deployment instructions](docs/deployment.md)** · **[Research portal](src/routes/research.tsx)** · **[Public API route](src/routes/api/archive.ts)**
 
 > **Research note:** The archive's software and editorial infrastructure are built for scholarly use, but the collection itself remains actively researched and expanded. Catalogue counts describe what is currently published; they do not claim completeness of Mithila's cultural heritage. Uncertainty is preserved rather than silently converted into fact.
 
