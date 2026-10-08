@@ -88,3 +88,21 @@ The CI quality pipeline has been rerun after the expansion. Typecheck, archive v
 - Recipient records are linked to their awarded work through explicit source-backed relationship generation.
 
 The same editorial rule applies: these entries are bibliographic recognition records until a separate research pass consults the underlying works and authoritative biographical sources.
+
+
+## Music 2.0 corpus and media audit — 2026-10-08
+
+The music collection was expanded from the earlier small streamed set into a research-first catalogue of 40+ song/tradition records. New entries are anchored primarily in IGNCA's classification of Maithili folksongs and its public Mithila audio catalogue.
+
+The expansion deliberately includes genre- and tradition-level records for life-cycle songs, seasonal forms, devotional forms, love-and-separation repertoire, narrative traditions, festival songs and community-rooted performance. These records do not claim a single canonical lyric where the evidence describes a variable oral tradition.
+
+External recording handling was tightened:
+
+- YouTube links are playback leads, not preservation copies.
+- Existing recording leads that could not be confidently re-verified were retired rather than replaced with guessed URLs.
+- The Sāmā-Chakevā representative recording was refreshed to a current official artist-channel lead.
+- Records without a current recording remain published and searchable.
+- Recording state is explicit: attached lead, needs re-check, or no recording located.
+- Rights remain with the original recording provider.
+
+Primary research anchors include Kailash K. Mishra's IGNCA classification of Maithili folksongs, IGNCA's Mithila audio catalogue, IGNCA's Madhushrāvaṇī documentation, and Sahitya Akademi's Maithili publications bibliography.
