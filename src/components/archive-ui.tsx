@@ -15,18 +15,25 @@ export function PageHeader({
   intro: string;
 }) {
   return (
-    <header className="border-b border-border bg-secondary/40">
-      <div className="mx-auto max-w-6xl px-5 py-14 md:px-8 md:py-20">
-        <p className="label-eyebrow text-terracotta">{eyebrow}</p>
-        <h1 className="mt-4 max-w-3xl text-4xl leading-[1.1] font-normal tracking-tight text-foreground md:text-5xl">
-          {title}
-        </h1>
-        {titleMai && (
-          <p className="deva mt-3 text-2xl text-muted-foreground">{titleMai}</p>
-        )}
-        <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-          {intro}
-        </p>
+    <header className="relative overflow-hidden border-b border-border bg-secondary/35">
+      <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-1/3 opacity-35 md:block" aria-hidden="true">
+        <div className="aripan-field h-full w-full" />
+      </div>
+      <div className="relative mx-auto max-w-6xl px-5 py-14 md:px-8 md:py-20">
+        <div className="max-w-3xl">
+          <p className="label-eyebrow text-terracotta">{eyebrow}</p>
+          <div className="mt-4 border-l-2 border-gold pl-5 md:pl-6">
+            <h1 className="text-4xl leading-[1.08] font-normal tracking-tight text-foreground md:text-5xl">
+              {title}
+            </h1>
+            {titleMai && (
+              <p className="deva mt-3 text-2xl text-muted-foreground">{titleMai}</p>
+            )}
+            <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+              {intro}
+            </p>
+          </div>
+        </div>
       </div>
     </header>
   );
@@ -113,7 +120,7 @@ export function EntryCard({
   return (
     <article
       className={cn(
-        "group relative flex flex-col rounded-sm border border-border bg-card p-6 transition-colors duration-300 hover:border-gold",
+        "group relative flex flex-col rounded-sm border border-border bg-card p-6 shadow-[0_1px_0_rgba(0,0,0,0.02)] transition-all duration-300 hover:-translate-y-0.5 hover:border-gold hover:shadow-sm",
         className,
       )}
     >
