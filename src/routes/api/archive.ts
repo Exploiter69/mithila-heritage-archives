@@ -20,6 +20,37 @@ export const Route = createFileRoute("/api/archive")({
           });
         }
 
+
+        if (format === "json" || format === "research-json") {
+          const envelope = getPublicArchiveEnvelope();
+          const payload =
+            format === "research-json"
+              ? {
+                  apiVersion: "2.0",
+                  archiveRelease: envelope.archiveRelease,
+                  releaseDate: envelope.releaseDate,
+                  dataset: getResearchDataset({ limit: 1000 }),
+                  counts: {
+                    records: envelope.recordCount,
+                    sources: envelope.sourceCount,
+                    media: envelope.mediaCount,
+                    relations: envelope.relationCount,
+                  },
+                }
+              : envelope;
+          const filename =
+            format === "research-json"
+              ? "mithila-archive-research.json"
+              : "mithila-archive.json";
+          return new Response(JSON.stringify(payload, null, 2) + "\n", {
+            headers: {
+              "Content-Type": "application/json; charset=utf-8",
+              "Content-Disposition": `attachment; filename="${filename}"`,
+              "Cache-Control": "public, max-age=300, s-maxage=3600",
+            },
+          });
+        }
+
         if (version === "2") {
           return Response.json({
             apiVersion: "2.0",
