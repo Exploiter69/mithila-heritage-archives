@@ -7,7 +7,7 @@ import type { ArchiveRecord } from "@/data/types";
 
 export const Route = createFileRoute("/research")({
   head: () => ({ meta: [
-    { title: "Research Portal — Mithila Digital Archive" },
+    { title: "Research & Data — Mithila Digital Archive" },
     { name: "description", content: "Research-oriented entry point to the Mithila Digital Archive: data, sources, relationships, search and public API." },
   ]}),
   component: ResearchPage,
@@ -44,7 +44,7 @@ function ResearchPage() {
 
   return (
     <>
-      <PageHeader eyebrow="Public research portal" title="Research" titleMai="अनुसंधान" intro="Use the archive as a source-oriented research dataset: browse canonical records, inspect provenance, follow relationships, search across scripts and consume stable JSON endpoints." />
+      <PageHeader eyebrow="Public research & data" title="Research" titleMai="अनुसंधान" intro="Use the archive as a source-oriented research dataset: browse canonical records, inspect provenance, follow relationships, search across scripts and consume stable JSON endpoints." />
       <Section>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {[["Records", stats.records], ["Sources", stats.sources], ["Bibliography", stats.bibliographicSources], ["Media", stats.media], ["Relations", stats.relations]].map(([label, value]) => (
@@ -55,6 +55,27 @@ function ResearchPage() {
           ))}
         </div>
       </Section>
+      <Section className="pt-0">
+        <SectionTitle eyebrow="Public data" title="Machine-readable archive" />
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+          {[
+            ["/api/archive", "Archive JSON", "Published records, sources, media and relationships."],
+            ["/api/archive?version=2", "Research JSON", "Versioned research-oriented dataset envelope."],
+            ["/api/search?q=vidyapati", "Search API", "Read-only cross-collection search endpoint."],
+            ["/stats", "Live status", "Current corpus counts and evidence signals."],
+          ].map(([href, title, description]) => (
+            <a key={href} href={href} className="rounded-sm border border-border bg-secondary/40 p-5 transition-colors hover:border-gold">
+              <h2 className="text-lg text-foreground">{title}</h2>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{description}</p>
+              <span className="mt-4 block font-sans text-xs text-terracotta">Open endpoint →</span>
+            </a>
+          ))}
+        </div>
+        <p className="mt-5 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+          API responses are read-only projections of the canonical Git dataset. Inspect each record's verificationStatus and provenance before using it as evidence.
+        </p>
+      </Section>
+
       <Section className="pt-0">
         <SectionTitle eyebrow="Research surfaces" title="Explore the archive as data" />
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
