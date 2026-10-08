@@ -43,12 +43,6 @@ export const songs: Song[] = [
     category: "लोकगीत",
     about:
       "Vidyāpati's Gaṅgā stuti, the best-known devotional lyric in Maithili: 'great happiness I have found at your bank.' It is sung at the river, at cremation grounds and at any gathering where the poet is invoked, and it remains the piece by which the fourteenth-century poet is known in ordinary speech.",
-    stream: {
-      youtubeId: "gx7Pq1iUCyM",
-      channel: "T-Series Regional",
-      channelKind: "Label channel",
-      note: "The composition is fourteenth-century and has no single rights-holding performer; this is the label's own upload of a commercially released recording.",
-    },
     lyrics: [
       {
         deva: "बड़ सुख सार पाओल तुअ तीरे ।",
@@ -122,11 +116,12 @@ export const songs: Song[] = [
     about:
       "Sung only in this one week of the year, and only by women. The clay birds are set out in the courtyard, the sisters sing to Sāmā and against the slanderer Chugalā, and on Pūrṇimā the figures are broken and the songs stop until the next Kārtik.",
     stream: {
-      youtubeId: "0T2eYoScArI",
-      channel: "Maithili Ganga",
-      channelKind: "Regional music channel",
-      note: "Traditional repertoire; no official artist upload is available, so a credible Maithili regional music channel is used and labelled as such.",
+      youtubeId: "BRNEHoBozWw",
+      channel: "Khushboo Uttam Official",
+      channelKind: "Official artist channel",
+      note: "Current external recording lead located on the artist's official channel; the archive links to the recording but does not claim ownership.",
     },
+    recordingStatus: "verified-live",
     lyrics: [
       {
         deva: "सामा चकेवा खेलब गे बहिना, भैया जीवथि हजार ।",
@@ -158,12 +153,6 @@ export const songs: Song[] = [
     category: "सोहर",
     about:
       "Sohar is the birth song of Mithila and Bhojpur. The newborn is addressed as Kṛṣṇa, and the women of the family sing in the courtyard through the night. Sharda Sinha's recordings carried the form to a national audience without altering its structure.",
-    stream: {
-      youtubeId: "3L2peMLWNwE",
-      channel: "Sharda Sinha Official",
-      channelKind: "Official artist channel",
-      note: "Uploaded on the artist's own channel, from the Saregama release.",
-    },
     lyrics: [
       {
         deva: "ललना रे, जनमल कान्ह कन्हैया हो ।",
@@ -196,12 +185,6 @@ export const songs: Song[] = [
     category: "बटगमनी",
     about:
       "Baṭgamanī means 'going by the road' — songs measured to a walking pace, sung when a party travels, above all when a daughter leaves her father's house. The tempo is slow and the lines are long enough to be sung while carrying a load.",
-    stream: {
-      youtubeId: "uU-7qB7s_Sg",
-      channel: "Geet Bhajan",
-      channelKind: "Regional music channel",
-      note: "Traditional wedding repertoire with no official artist upload; a credible Maithili devotional-music channel is used and labelled as such.",
-    },
     lyrics: [
       {
         deva: "बाबा के अँगना छूटल, सखी सभ छूटलि हो ।",
