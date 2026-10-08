@@ -232,7 +232,7 @@ export function getArchiveSongs(): Song[] {
     .map((record) => record.content as Partial<Song>)
     .filter((content): content is Song =>
       hasStringFields(content, ["slug", "title", "titleDeva", "transliteration", "performer", "occasion", "category", "about"]) &&
-      isSongStream(content.stream) &&
+      (content.stream === undefined || isSongStream(content.stream)) &&
       isSongLyrics(content.lyrics),
     );
 }
