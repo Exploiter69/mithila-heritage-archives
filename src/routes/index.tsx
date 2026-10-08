@@ -70,55 +70,62 @@ function HomePage() {
 
   return (
     <>
-      <section className="aripan-field border-b border-border bg-secondary/40">
-        <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
-          <p className="label-eyebrow text-terracotta">Mithila Heritage Archives · Public research archive</p>
-          <h1 className="deva mt-5 max-w-4xl text-4xl leading-[1.35] text-foreground md:text-6xl md:leading-[1.3]">
-            मिथिलाक माटी, भाषा आ संस्कृति
-          </h1>
-          <p className="mt-7 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
-            A calm, sourced reference for the Mithila region and the Maithili
-            language — its literature and song, its painting and its places.
-            Every entry here names the edition, recording or attestation it
-            rests on, and says plainly where the record is oral.
-          </p>
-
-          <div className="mt-9 flex flex-wrap gap-3">
-            <Link
-              to="/explore"
-              className="inline-flex items-center rounded-sm bg-terracotta px-5 py-3 font-sans text-sm tracking-wide text-primary-foreground uppercase transition-opacity hover:opacity-90"
-            >
-              Explore the Archive
-            </Link>
-            <Link
-              to="/search"
-              search={{ q: "" }}
-              className="inline-flex items-center rounded-sm border border-terracotta px-5 py-3 font-sans text-sm tracking-wide text-terracotta uppercase transition-colors hover:bg-terracotta hover:text-primary-foreground"
-            >
-              Search the Archive
+      <section className="aripan-field border-b border-border bg-secondary/35">
+        <div className="mx-auto grid max-w-6xl gap-10 px-5 py-16 md:grid-cols-[1.35fr_0.65fr] md:px-8 md:py-24">
+          <div>
+            <p className="label-eyebrow text-terracotta">Mithila Heritage Archives · Public research archive</p>
+            <h1 className="deva mt-5 max-w-4xl text-4xl leading-[1.28] text-foreground md:text-6xl md:leading-[1.25]">
+              मिथिलाक माटी, भाषा आ संस्कृति
+            </h1>
+            <p className="mt-7 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
+              A calm, sourced reference for Mithila and the Maithili language — literature, song, painting, places and living traditions. Each record distinguishes evidence, oral attestation and uncertainty.
+            </p>
+            <div className="mt-9 flex flex-wrap gap-3">
+              <Link to="/explore" className="inline-flex items-center rounded-sm bg-terracotta px-5 py-3 font-sans text-sm tracking-wide text-primary-foreground uppercase transition-opacity hover:opacity-90">
+                Explore the archive
+              </Link>
+              <Link to="/search" search={{ q: "" }} className="inline-flex items-center rounded-sm border border-terracotta px-5 py-3 font-sans text-sm tracking-wide text-terracotta uppercase transition-colors hover:bg-terracotta hover:text-primary-foreground">
+                Search records
+              </Link>
+            </div>
+          </div>
+          <div className="self-end rounded-sm border border-border bg-card/90 p-6 shadow-sm backdrop-blur-sm">
+            <p className="label-eyebrow text-terracotta">Archive principle</p>
+            <p className="deva mt-4 text-2xl leading-relaxed text-foreground">स्रोत पहिने, दावा तखन</p>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              Source first, claim second. External media may disappear; the cultural record and its provenance should remain intelligible.
+            </p>
+            <Link to="/research" className="mt-5 inline-block text-xs uppercase tracking-wide text-terracotta hover:underline">
+              Read the research method →
             </Link>
           </div>
         </div>
       </section>
 
       <Section className="py-10 md:py-14">
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-          {([
-            ["Records", stats.records],
-            ["Sources", stats.sources],
-            ["Provenance", stats.provenanceAssertions],
-            ["Relations", stats.relations],
-            ["Media", stats.media],
-          ] as const).map(([label, value]) => (
-            <div key={label} className="rounded-sm border border-border bg-secondary/50 p-5">
-              <p className="label-eyebrow text-muted-foreground">{label}</p>
-              <p className="mt-2 text-3xl text-foreground">{value}</p>
-            </div>
-          ))}
+        <div className="grid gap-4 md:grid-cols-[1fr_2fr]">
+          <div>
+            <p className="label-eyebrow text-terracotta">Archive pulse</p>
+            <h2 className="mt-2 text-2xl font-normal tracking-tight">A living research catalogue</h2>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              Counts describe the current published dataset, not the totality of Mithila.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
+            {([
+              ["Records", stats.records],
+              ["Sources", stats.sources],
+              ["Provenance", stats.provenanceAssertions],
+              ["Relations", stats.relations],
+              ["Media", stats.media],
+            ] as const).map(([label, value]) => (
+              <div key={label} className="rounded-sm border border-border bg-card p-4">
+                <p className="label-eyebrow text-muted-foreground">{label}</p>
+                <p className="mt-2 text-2xl text-foreground">{value}</p>
+              </div>
+            ))}
+          </div>
         </div>
-        <p className="mt-5 max-w-3xl text-xs leading-relaxed text-muted-foreground">
-          Live catalogue counts. They describe the current published dataset, not the totality of Mithila's heritage.
-        </p>
       </Section>
 
       <Section>
