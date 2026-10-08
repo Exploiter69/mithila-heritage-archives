@@ -53,3 +53,8 @@ This checklist separates repository readiness from scholarly completeness.
 ## Important boundary
 
 A green CI build is evidence that the software and archive invariants passed their automated checks. It is not evidence that every cultural claim is historically correct.
+
+
+## Machine-readable release manifest
+
+Each published release exposes `/release.json` with the release identifier, snapshot date, schema/API versions, corpus counts, source-of-truth declaration, and export endpoints. The manifest is metadata for reproducibility; it is not a claim that every cultural assertion is independently verified.
