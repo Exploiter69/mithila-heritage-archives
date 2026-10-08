@@ -9,9 +9,12 @@ export function SiteFooter() {
         <div>
           <p className="deva text-xl text-terracotta">मिथिला डिजिटल आर्काइव</p>
           <p className="mt-3 max-w-sm text-sm leading-relaxed text-muted-foreground">
-            A reference archive of Maithili language, letters and material
-            culture. Every entry carries its source; entries resting on oral
-            attestation say so plainly.
+            An evidence-oriented archive of Maithili language, literature, art,
+            music, heritage, people, places and sources.
+          </p>
+          <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
+            The catalogue is actively researched. Counts describe the current
+            published dataset, not the entirety of Mithila's heritage.
           </p>
         </div>
 
@@ -74,8 +77,8 @@ export function SiteFooter() {
 
       <div className="border-t border-border">
         <p className="mx-auto max-w-6xl px-5 py-5 font-sans text-xs text-muted-foreground md:px-8">
-          v0.1 — an open, non-commercial reference project. Texts quoted for
-          study and attributed to their editions.
+          An open, non-commercial research archive. Texts quoted for study remain
+          attributed to their editions and sources.
         </p>
       </div>
     </footer>
