@@ -57,16 +57,16 @@ function CitationPanel({ record, canonicalUrl }: { record: ArchiveRecord; canoni
   const [copied, setCopied] = useState<"plain" | "bibtex" | null>(null);
   const title = citationTitle(record);
   const year = new Date().getFullYear();
-  const path = canonicalUrl;
-  const plain = \`\${title}. Mithila Heritage Archives. Record \${record.id}. \${path}. Accessed \${year}.\`;
-  const bibtexKey = \`mithila_\${record.type}_\${record.slug.replace(/[^a-z0-9]+/gi, "_")}\`;
-  const bibtex = \`@misc{\${bibtexKey},
-  title = {\${title.replace(/[{}]/g, "")}},
-  organization = {Mithila Heritage Archives},
-  note = {Archive record \${record.id}},
-  url = {\${path}},
-  year = {\${year}}
-}\`;
+  const plain = title + ". Mithila Heritage Archives. Record " + record.id + ". " + canonicalUrl + ". Accessed " + year + ".";
+  const bibtexKey = "mithila_" + record.type + "_" + record.slug.replace(/[^a-z0-9]+/gi, "_");
+  const bibtex =
+    "@misc{" + bibtexKey + ",\n" +
+    "  title = {" + title.replace(/[{}]/g, "") + "},\n" +
+    "  organization = {Mithila Heritage Archives},\n" +
+    "  note = {Archive record " + record.id + "},\n" +
+    "  url = {" + canonicalUrl + "},\n" +
+    "  year = {" + year + "}\n" +
+    "}";
 
   async function copy(value: string, kind: "plain" | "bibtex") {
     if (!navigator.clipboard) return;
