@@ -21,7 +21,6 @@ import {
   type Song,
 } from "@/data/archive-read";
 import type { ArchiveRecord, ArchiveRecordType, CommonsImage, Source } from "@/data/types";
-import type { RecordingStatus } from "@/data/music";
 
 export const ARCHIVE_ROUTE_CONFIG: Record<
   ArchiveRecordType,
