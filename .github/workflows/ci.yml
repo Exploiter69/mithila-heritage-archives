@@ -48,7 +48,7 @@ jobs:
 
       - name: Editorial workflow report
         run: bun run archive:editorial
-
+\n      - name: Scholarly verification readiness report\n        run: bun run archive:scholarly > /tmp/scholarly-audit.md\n
       - name: Public export contract
         run: bun run archive:export > /tmp/archive-export.json
 
