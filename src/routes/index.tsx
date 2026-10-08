@@ -92,6 +92,7 @@ function HomePage() {
             </Link>
             <Link
               to="/search"
+              search={{ q: "" }}
               className="inline-flex items-center rounded-sm border border-terracotta px-5 py-3 font-sans text-sm tracking-wide text-terracotta uppercase transition-colors hover:bg-terracotta hover:text-primary-foreground"
             >
               Search the Archive
