@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { EntryCard, Section, SectionTitle, SourceNote } from "@/components/archive-ui";
 import { getArchiveWordOfTheDay } from "@/data/archive-read";
+import { getArchiveStats } from "@/data/archive-platform";
 import { getArchiveContent, type HeritageEntry, type LiteraryWork } from "@/data/archive-read";
 
 const TITLE = "Mithila Digital Archive — मिथिला डिजिटल आर्काइव";
@@ -56,6 +57,7 @@ const QUICK_CARDS = [
 ];
 
 function HomePage() {
+  const stats = getArchiveStats();
   const word = getArchiveWordOfTheDay();
   const literaryWorks = getArchiveContent<LiteraryWork>("literature-work");
   const heritage = getArchiveContent<HeritageEntry>("heritage-entry");
@@ -68,7 +70,7 @@ function HomePage() {
     <>
       <section className="aripan-field border-b border-border bg-secondary/40">
         <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
-          <p className="label-eyebrow text-terracotta">Mithila Digital Archive · v0.1</p>
+          <p className="label-eyebrow text-terracotta">Mithila Heritage Archives · Public research archive</p>
           <h1 className="deva mt-5 max-w-4xl text-4xl leading-[1.35] text-foreground md:text-6xl md:leading-[1.3]">
             मिथिलाक माटी, भाषा आ संस्कृति
           </h1>
@@ -81,20 +83,40 @@ function HomePage() {
 
           <div className="mt-9 flex flex-wrap gap-3">
             <Link
-              to="/literature"
+              to="/explore"
               className="inline-flex items-center rounded-sm bg-terracotta px-5 py-3 font-sans text-sm tracking-wide text-primary-foreground uppercase transition-opacity hover:opacity-90"
             >
-              Explore Literature
+              Explore the Archive
             </Link>
             <Link
-              to="/music"
+              to="/search"
               className="inline-flex items-center rounded-sm border border-terracotta px-5 py-3 font-sans text-sm tracking-wide text-terracotta uppercase transition-colors hover:bg-terracotta hover:text-primary-foreground"
             >
-              Listen to Music
+              Search the Archive
             </Link>
           </div>
         </div>
       </section>
+
+      <Section className="py-10 md:py-14">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          {([
+            ["Records", stats.records],
+            ["Sources", stats.sources],
+            ["Provenance", stats.provenanceAssertions],
+            ["Relations", stats.relations],
+            ["Media", stats.media],
+          ] as const).map(([label, value]) => (
+            <div key={label} className="rounded-sm border border-border bg-secondary/50 p-5">
+              <p className="label-eyebrow text-muted-foreground">{label}</p>
+              <p className="mt-2 text-3xl text-foreground">{value}</p>
+            </div>
+          ))}
+        </div>
+        <p className="mt-5 max-w-3xl text-xs leading-relaxed text-muted-foreground">
+          Live catalogue counts. They describe the current published dataset, not the totality of Mithila's heritage.
+        </p>
+      </Section>
 
       <Section>
         <div className="grid gap-6 lg:grid-cols-[1fr_1.1fr]">
